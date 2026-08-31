@@ -139,6 +139,49 @@ Three things the audit found and fixed:
    raises them; text links grow upward (`align-items:flex-end`) so the underline stays tight to the text.
    Links inline inside a sentence stay at text size, which is the standard exemption.
 
+## Brief compliance
+Checked against all three documents in `brief/`. What changed after that pass:
+
+From **IMPACT - Ecosysteem & bredere visie-3.pdf**
+- Days: schools can book a one-off day *or a longer traject with several contact moments*; a Day needs
+  no overarching medium — the fundamenten are the starting point.
+- Camps: future editions can run on a different medium (Theater Edition, Multisport Edition …); the site
+  now says explicitly that this is not a sports camp with workshops bolted on.
+- Community: framed as more than a newsletter list — contact with peers, coaches, experts, knowledge and
+  opportunities, and eventually the connective tissue between formats.
+- Hosted Experiences: **not a fifth pillar** but another way of organising Days and Camps. The host owns
+  ticketing, communication, marketing, location and the main programme; IMPACT adds team, experts and
+  tailored content and works on a fixed fee. Added the City Pirates × IMPACT example.
+- IMPACT FOR ALL: the four ways to contribute now match the brief exactly (finance a ticket, sponsor
+  tickets at an activation, contribute to the fund, open up places as a partner) — two of the previous
+  four were invented. Added that part of the fund is deliberately spent outside IMPACT's own
+  activations, and the "one-off participation vs. durable follow-up" framing.
+- Experts: the poule is described as the brief does, and the role slots now name the brief's expertise
+  domains (movement, mentale vaardigheden, communicatie, voeding, ondernemerschap, persoonlijke
+  ontwikkeling) instead of invented job titles.
+- New `#systeem` section on over.html: the brief's own "logica achter het geheel" — brand → six
+  fundamenten → life stages → formats & concrete activations, with the early-phase caveat.
+
+From **IMPACT_FOLDER.pdf** (the brochure)
+- The six fundamenten on over.html now carry the client's real copy, including each one's "Waar we op
+  werken" list and the brochure's English one-liners. The invented Q&A columns are gone.
+- New `#why` section: "Because young people deserve better tools." with the brochure's own text.
+- Samenwerken opens with the brochure's partnership copy ("Let's build something meaningful …").
+- Days described as the brochure does: workshops, schooldagen, talks, community events, hosted.
+- Contact shows the phone number attributed to Mirte Rens, as in the brochure.
+
+From **IMPACT WEBSITE-4.pdf**
+- Homepage now has the testimonial teaser the sitemap asks for ("+ aantal testimonials"), as three
+  clearly-marked pending slots — no invented quotes.
+- The event page has the Partners block its content list requires.
+- Journal's social category is labelled `IMPACT FOR ALL`, the name the brief uses.
+
+### One conflict for the client to settle
+The middle age band differs between sources: `IMPACT WEBSITE-4.pdf` and the approved hi-fi say
+**15–18**, while the ecosystem brief and the brochure both say **14–18**. The site keeps **15–18**
+(website brief + approved design). If the client confirms 14–18, it is a find-and-replace across
+`index.html`, `over.html`, `events.html` and the age-group cards.
+
 ## Notes
 - Copy is taken verbatim from the hi-fi design (Dutch body, English headlines). Placeholders that the
   design deliberately leaves empty stay empty: the IMPACT FOR ALL counters render as grey `000`,
