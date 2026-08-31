@@ -189,6 +189,9 @@ The middle age band differs between sources: `IMPACT WEBSITE-4.pdf` and the appr
 - Type is Figtree via Google Fonts, the agreed stand-in for the brand font. Swapping it is one
   `--font` change.
 - The hero uses a still instead of the aftermovie video, which has not been supplied.
+- Team & experts renders the two founders as wide media cards (`.team-cards` / `.team-card`: portrait
+  left, name + role + one line right), so a two-item row fills the full content width instead of leaving
+  half of it empty. They collapse to one card per row at 1180px and stack image-over-text at 820px.
 - Team & experts lists only the two real founders (with their own portraits, cropped per person as
   `mirte-45.jpg` / `jean-marc-45.jpg`); the expert poule is shown as four bordered role slots tied to a
   fundament, with no invented names, until IMPACT confirms people.

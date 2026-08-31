@@ -582,14 +582,13 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 @media (prefers-reduced-motion:reduce){.counters .n{transition:none}}
 
 /* team: two founders, plus the expert poule that is still being built */
-.experts--2{grid-template-columns:repeat(2,300px)}
+
 .expert-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:0;overflow:hidden}
 .expert-slot{border:1px solid var(--border);padding:26px 24px;margin:-0.5px}
 .expert-slot .n{font-family:var(--mono);font-size:12px;color:var(--red)}
 .expert-slot h4{font-size:18px;font-weight:700;margin:14px 0 8px}
 @media (max-width:1180px){.expert-slots{grid-template-columns:1fr 1fr}}
 @media (max-width:820px){
-  .experts--2{grid-template-columns:1fr;max-width:340px}
   .expert-slots{grid-template-columns:1fr}
 }
 
@@ -647,3 +646,28 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 .testi p{font-size:19px;line-height:1.5;font-weight:500}
 .testi cite{display:block;margin-top:16px;font-size:11px;font-style:normal;letter-spacing:.14em;
   text-transform:uppercase;color:var(--grey-warm)}
+
+/* over.html — the two founders as wide media cards, so a two-item row still
+   fills the grid instead of leaving half the width empty */
+.team-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.team-card{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:center;
+  border:1px solid var(--border);padding:24px;
+  transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.team-card:hover{border-color:var(--black);background:var(--sand-card)}
+.team-card img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.team-body h4{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.05;
+  text-transform:uppercase;margin:10px 0 6px}
+.team-body .r{font-size:12px;color:var(--grey-warm);letter-spacing:.02em}
+.team-body .body{margin:16px 0 18px;font-size:14.5px}
+.team-card .tlink{border-bottom-color:var(--border-sand)}
+.team-card:hover .tlink{color:var(--red);border-bottom-color:var(--red)}
+.team-card:hover .tlink .arrow{transform:translateX(4px)}
+@media (max-width:1180px){
+  .team-cards{grid-template-columns:1fr}
+  .team-card{grid-template-columns:220px 1fr}
+}
+@media (max-width:820px){
+  .team-card{grid-template-columns:1fr;gap:18px;padding:18px}
+  .team-card img{aspect-ratio:16/9}
+  .team-body h4{font-size:22px}
+}
