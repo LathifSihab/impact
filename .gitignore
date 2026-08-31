@@ -5,3 +5,7 @@ brief/
 Thumbs.db
 .DS_Store
 .vscode/
+
+# local screenshots / scratch output
+_*.png
+_*.txt
