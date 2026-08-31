@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet"><style>body{margin:0;background:#e9e7e2;font-family:Figtree,system-ui,sans-serif}a{color:#D91F26;text-decoration:none}a:hover{color:#a8121a}@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}</style></helmet>
+
+<section style="padding:40px 44px 34px" id="t2">
+<div style="display:flex;align-items:baseline;gap:10px;margin:0 0 6px">
+<a href="#t2" style="font:700 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#111;color:#fff;border-radius:4px">2</a>
+<span style="font:700 13px/1.2 Figtree,sans-serif;color:#111">Hi-fi — uitwerking van <a href="#1a" style="font:700 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#111;border-radius:5px">1a</a> Editorial stack</span>
+</div>
+<p style="margin:0 0 26px;max-width:940px;font:400 12.5px/1.7 Figtree,sans-serif;color:rgba(0,0,0,.55)">Rood als accent, wit en zwart dragen de pagina · ronde pills uit de huidige site behouden · één geometrische sans (Figtree als substituut, zie <a href="#2a">2a</a>) · beeld warm en licht ontzadigd · beweging beperkt tot de headline-reveal. Beeldvlakken zijn gemarkeerde placeholders: elk vlak vermeldt wat er komt en in welke crop.</p>
+<div style="display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start">
+
+<div id="2a" style="flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px">
+<div style="display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 Figtree,sans-serif;color:rgba(0,0,0,.55)"><a href="#2a" style="font:700 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#111;border-radius:5px">2a</a>Design system sheet</div>
+<div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.1);box-shadow:0 1px 3px rgba(0,0,0,.06);padding:64px 72px 72px;box-sizing:border-box">
+<div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #111;padding-bottom:22px;margin-bottom:44px">
+<div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 34px/1 Figtree,sans-serif;color:#D91F26">[ ]</span><span style="font:800 30px/1 Figtree,sans-serif;letter-spacing:-.02em;color:#111">DESIGN SYSTEM</span></div>
+<span style="font:600 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#8d877d">WEB · V1 · AUG 2026</span>
+</div>
+
+<div style="display:grid;grid-template-columns:180px 1fr;gap:40px;margin-bottom:56px">
+<div style="font:700 11px/1.4 Figtree,sans-serif;letter-spacing:.16em;color:#111">KLEUR</div>
+<div>
+<div style="display:flex;gap:14px;margin-bottom:20px">
+<sc-for list="{{ palette }}" as="c" hint-placeholder-count="6">
+<div style="flex:1">
+<div style="height:110px;background:{{ c.hex }};border:1px solid rgba(0,0,0,.1)"></div>
+<div style="font:700 12px/1.3 Figtree,sans-serif;color:#111;margin-top:10px">{{ c.name }}</div>
+<div style="font:500 11px/1.5 ui-monospace,Menlo,monospace;color:#8d877d">{{ c.hex }}</div>
+<div style="font:400 11px/1.5 Figtree,sans-serif;color:#8d877d;margin-top:4px">{{ c.use }}</div>
+</div>
+</sc-for>
+</div>
+<div style="font:400 12px/1.6 Figtree,sans-serif;color:#6b665e;max-width:760px">Rood is functioneel: CTA's, categorielabels, actieve staat en hover. Nooit als achtergrond van een hele sectie behalve één keer per pagina. Zwart en wit dragen de compositie; het zandvlak scheidt secties zonder een lijn nodig te hebben.</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:180px 1fr;gap:40px;margin-bottom:56px">
+<div style="font:700 11px/1.4 Figtree,sans-serif;letter-spacing:.16em;color:#111">TYPOGRAFIE</div>
+<div>
+<div style="background:#faf8f5;border:1px solid #e6e1d8;padding:18px 22px;font:400 12px/1.6 Figtree,sans-serif;color:#8a2b30;margin-bottom:26px"><strong style="color:#D91F26">Substitutie:</strong> er zijn geen merkfonts aangeleverd. Alles hieronder staat in Figtree — een geometrische sans die de huidige site benadert. Zodra het echte merkfont er is, wordt dit één-op-één vervangen; de schaal blijft.</div>
+<sc-for list="{{ typescale }}" as="t" hint-placeholder-count="6">
+<div style="display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:baseline;border-top:1px solid #eae6df;padding:18px 0">
+<div><div style="font:700 11px/1.3 Figtree,sans-serif;letter-spacing:.12em;color:#111">{{ t.name }}</div><div style="font:500 10.5px/1.6 ui-monospace,Menlo,monospace;color:#8d877d">{{ t.spec }}</div></div>
+<div style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:Figtree,sans-serif;font-weight:{{ t.w }};font-size:{{ t.px }};line-height:{{ t.lh }};letter-spacing:{{ t.ls }};text-transform:{{ t.tt }};color:#111">{{ t.sample }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:180px 1fr;gap:40px;margin-bottom:56px">
+<div style="font:700 11px/1.4 Figtree,sans-serif;letter-spacing:.16em;color:#111">BUTTONS & LINKS</div>
+<div style="display:flex;gap:44px;flex-wrap:wrap">
+<div><div style="font:600 10px/1 Figtree,sans-serif;letter-spacing:.14em;color:#8d877d;margin-bottom:14px">PRIMARY</div>
+<div style="display:flex;gap:12px;align-items:center"><div style="padding:16px 30px;border-radius:999px;background:#D91F26;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.04em">Schrijf je in</div><div style="padding:16px 30px;border-radius:999px;background:#a8121a;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.04em">Schrijf je in</div></div>
+<div style="font:400 11px/1.6 Figtree,sans-serif;color:#8d877d;margin-top:10px">default · hover (donkerder, 1px omhoog)</div></div>
+<div><div style="font:600 10px/1 Figtree,sans-serif;letter-spacing:.14em;color:#8d877d;margin-bottom:14px">SECONDARY</div>
+<div style="display:flex;gap:12px;align-items:center"><div style="padding:15px 29px;border-radius:999px;border:1.5px solid #111;color:#111;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.04em">Bekijk events</div><div style="padding:15px 29px;border-radius:999px;border:1.5px solid #111;background:#111;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.04em">Bekijk events</div></div>
+<div style="font:400 11px/1.6 Figtree,sans-serif;color:#8d877d;margin-top:10px">default · hover (vult zich)</div></div>
+<div><div style="font:600 10px/1 Figtree,sans-serif;letter-spacing:.14em;color:#8d877d;margin-bottom:14px">TEXT LINK</div>
+<div style="display:flex;gap:24px;align-items:center"><span style="font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#111;border-bottom:1.5px solid #111;padding-bottom:6px">ALLE EVENTS →</span><span style="font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#D91F26;border-bottom:1.5px solid #D91F26;padding-bottom:6px">ALLE EVENTS →</span></div>
+<div style="font:400 11px/1.6 Figtree,sans-serif;color:#8d877d;margin-top:10px">pijl schuift 4px naar rechts bij hover</div></div>
+<div><div style="font:600 10px/1 Figtree,sans-serif;letter-spacing:.14em;color:#8d877d;margin-bottom:14px">LABEL / CATEGORIE</div>
+<div style="display:flex;gap:10px;align-items:center"><span style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.18em;color:#D91F26">[ 02 — FUNDAMENTEN ]</span><span style="padding:7px 13px;border-radius:999px;background:#111;color:#fff;font:700 9.5px/1 Figtree,sans-serif;letter-spacing:.14em">CAMP</span><span style="padding:7px 13px;border-radius:999px;border:1px solid #d6d0c6;color:#6b665e;font:700 9.5px/1 Figtree,sans-serif;letter-spacing:.14em">8–14 JAAR</span></div>
+<div style="font:400 11px/1.6 Figtree,sans-serif;color:#8d877d;margin-top:10px">bracket-label komt uit de brochure en markeert elke sectie</div></div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:180px 1fr;gap:40px;margin-bottom:56px">
+<div style="font:700 11px/1.4 Figtree,sans-serif;letter-spacing:.16em;color:#111">GRID & RITME</div>
+<div>
+<div style="display:flex;gap:12px;height:120px;margin-bottom:14px">
+<sc-for list="{{ cols }}" as="c" hint-placeholder-count="12">
+<div style="flex:1;background:rgba(217,31,38,.08);border-left:1px solid rgba(217,31,38,.3)"></div>
+</sc-for>
+</div>
+<div style="font:400 12px/1.7 Figtree,sans-serif;color:#6b665e;max-width:760px">12 kolommen · marge 72px · gutter 24px · maximale contentbreedte 1296px. Verticaal ritme in stappen van 8: sectiepadding 120px desktop, 72px tablet, 48px mobiel. Volle bleed alleen voor beeld, nooit voor tekst. Secties wisselen af tussen wit en zand zodat er geen scheidingslijnen nodig zijn.</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:180px 1fr;gap:40px">
+<div style="font:700 11px/1.4 Figtree,sans-serif;letter-spacing:.16em;color:#111">BEELD & BEWEGING</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+<div>
+<div style="height:200px;background:linear-gradient(150deg,#e6ded2,#d6cdc0);border:1px solid #d6d0c6;display:flex;align-items:flex-end;padding:16px"><span style="font:600 10px/1.5 Figtree,sans-serif;letter-spacing:.14em;color:#7e776c">FOTO — WARME GRADE, LICHT ONTZADIGD</span></div>
+<div style="font:400 12px/1.7 Figtree,sans-serif;color:#6b665e;margin-top:14px">Warme grade, verzadiging iets terug, zwarten open. Geen filters, geen duotone. Crops: 16:9 voor hero en aftermovie, 4:5 voor portret, 3:2 voor journal. Mensen altijd in actie of in gesprek — geen geposeerde groepsfoto's.</div>
+</div>
+<div>
+<div style="height:200px;background:#111;display:flex;align-items:center;justify-content:center"><span style="font:800 34px/1 Figtree,sans-serif;color:#fff;animation:rise .8s ease-out both">BUILDING…</span></div>
+<div style="font:400 12px/1.7 Figtree,sans-serif;color:#6b665e;margin-top:14px">Eén beweging op de pagina: de hero-headline komt per regel omhoog (28px, 800ms, 90ms stagger). Alles anders is statisch behalve hover-states en de partner-marquee. Respecteert prefers-reduced-motion.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="2b" style="flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px">
+<div style="display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 Figtree,sans-serif;color:rgba(0,0,0,.55)"><a href="#2b" style="font:700 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#111;border-radius:5px">2b</a>Homepage — desktop 1440</div>
+<div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.1);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden">
+
+<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 72px;background:#111;color:rgba(255,255,255,.7)">
+<div style="display:flex;gap:26px;font:600 10px/1 Figtree,sans-serif;letter-spacing:.16em"><span>BROCHURE</span><span>MEDIA</span><span>JOURNAL</span><span>CONTACT</span></div>
+<div style="display:flex;gap:18px;align-items:center;font:600 10px/1 Figtree,sans-serif;letter-spacing:.16em"><span>IG</span><span>LI</span><span>TT</span><span style="width:1px;height:11px;background:rgba(255,255,255,.3)"></span><span style="color:#fff">NL</span><span>EN</span></div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:22px 72px;background:#fff">
+<span style="font:800 30px/1 Figtree,sans-serif;color:#D91F26">[ ]</span>
+<div style="display:flex;gap:36px;font:700 12px/1 Figtree,sans-serif;letter-spacing:.12em;color:#111"><span>OVER</span><span>EVENTS</span><span>SAMENWERKEN</span><span>SOCIAL IMPACT</span></div>
+<div style="padding:14px 26px;border-radius:999px;background:#D91F26;color:#fff;font:700 11.5px/1 Figtree,sans-serif;letter-spacing:.1em">UPCOMING EVENTS</div>
+</div>
+
+<div style="position:relative;height:760px;background:linear-gradient(160deg,#d9cfc2,#b9ada0);display:flex;flex-direction:column;justify-content:flex-end;padding:0 72px 72px;overflow:hidden">
+<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.25) 48%,rgba(0,0,0,.1) 100%)"></div>
+<span style="position:absolute;top:26px;left:72px;font:600 10px/1 Figtree,sans-serif;letter-spacing:.16em;color:rgba(255,255,255,.75)">VIDEO 16:9 — AFTERMOVIE BASKETBALL EDITION, MUTED LOOP</span>
+<div style="position:relative">
+<div style="font:800 88px/.92 Figtree,sans-serif;letter-spacing:-.03em;color:#fff;max-width:1000px">
+<div style="animation:rise .8s ease-out both">BUILDING</div>
+<div style="animation:rise .8s .09s ease-out both">FOUNDATIONS</div>
+<div style="animation:rise .8s .18s ease-out both">FOR THE NEW</div>
+<div style="animation:rise .8s .27s ease-out both">GENERATION</div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:36px;gap:60px">
+<div style="font:400 17px/1.6 Figtree,sans-serif;color:rgba(255,255,255,.9);max-width:520px;animation:rise .8s .36s ease-out both">Youth development through experiences, connection and growth. IMPACT begeleidt jongeren tussen 8 en 25 jaar in het bouwen aan sterke fundamenten voor het leven.</div>
+<div style="display:flex;gap:12px;animation:rise .8s .45s ease-out both">
+<div style="padding:17px 32px;border-radius:999px;background:#D91F26;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Ontdek IMPACT</div>
+<div style="padding:16px 31px;border-radius:999px;border:1.5px solid #fff;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Bekijk events</div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="padding:120px 72px 0;background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px">
+<div>
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ 02 — ONZE FUNDAMENTEN ]</div>
+<div style="font:800 56px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#111">SIX FOUNDATIONS.<br>ONE STRONGER GENERATION.</div>
+</div>
+<div style="max-width:380px;font:400 15px/1.7 Figtree,sans-serif;color:#6b665e">Elk Camp, elke Day en elke Retreat wordt vanuit deze zes fundamenten opgebouwd. Het medium verandert. De fundamenten blijven.</div>
+</div>
+</div>
+<div style="display:flex;gap:24px;padding:0 72px 28px;overflow-x:auto;background:#fff">
+<sc-for list="{{ fundamentals }}" as="f" hint-placeholder-count="6">
+<div style="flex:none;width:432px">
+<div style="height:520px;background:linear-gradient(150deg,#e6ded2,#cfc5b7);display:flex;flex-direction:column;justify-content:space-between;padding:22px">
+<span style="font:800 46px/1 Figtree,sans-serif;color:rgba(255,255,255,.85)">{{ f.num }}</span>
+<span style="font:600 10px/1.5 Figtree,sans-serif;letter-spacing:.14em;color:#7e776c">FOTO 4:5 — {{ f.shotU }}</span>
+</div>
+<div style="font:800 26px/1.08 Figtree,sans-serif;letter-spacing:-.015em;color:#111;margin:22px 0 10px">{{ f.name }}</div>
+<div style="font:400 14.5px/1.65 Figtree,sans-serif;color:#6b665e">{{ f.nl }}</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:22px 72px 120px;background:#fff">
+<div style="display:flex;align-items:center;gap:14px"><div style="width:200px;height:3px;background:#D91F26"></div><div style="width:560px;height:3px;background:#eae6df"></div><span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#a09a90">01 / 06</span></div>
+<span style="font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#111;border-bottom:1.5px solid #111;padding-bottom:7px">MEER OVER ONZE FUNDAMENTEN →</span>
+</div>
+
+<div style="background:#f5f1ea;padding:120px 72px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px">
+<div><div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ 03 — VOOR WIE ]</div>
+<div style="font:800 52px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#111">BUILT FOR EVERY<br>STAGE OF GROWTH</div></div>
+<div style="max-width:360px;font:400 15px/1.7 Figtree,sans-serif;color:#6b665e">Elke levensfase brengt andere noden mee. Onze activaties worden telkens afgestemd op de leeftijdsgroep waarvoor ze gebouwd worden.</div>
+</div>
+<div style="display:flex;gap:24px">
+<sc-for list="{{ ages }}" as="a" hint-placeholder-count="3">
+<div style="flex:1;background:#fff">
+<div style="height:440px;background:linear-gradient(150deg,#e6ded2,#cfc5b7);display:flex;align-items:flex-end;padding:20px"><span style="font:600 10px/1.5 Figtree,sans-serif;letter-spacing:.14em;color:#7e776c">PORTRET 4:5 — {{ a.shotU }}</span></div>
+<div style="padding:26px 26px 32px">
+<div style="font:800 44px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#111">{{ a.range }}</div>
+<div style="font:600 12.5px/1.5 Figtree,sans-serif;letter-spacing:.06em;color:#D91F26;margin:12px 0 16px">{{ a.tagline }}</div>
+<div style="font:400 14.5px/1.65 Figtree,sans-serif;color:#6b665e;margin-bottom:20px">{{ a.focus }}</div>
+<div style="display:flex;gap:8px"><span style="padding:8px 14px;border-radius:999px;border:1px solid #ddd7cd;font:700 9.5px/1 Figtree,sans-serif;letter-spacing:.14em;color:#6b665e">{{ a.tag1 }}</span><span style="padding:8px 14px;border-radius:999px;border:1px solid #ddd7cd;font:700 9.5px/1 Figtree,sans-serif;letter-spacing:.14em;color:#6b665e">{{ a.tag2 }}</span></div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="padding:120px 72px;background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px">
+<div><div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ 04 — UPCOMING IMPACT EVENTS ]</div>
+<div style="font:800 52px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#111">WAT KAN JE BINNENKORT<br>MEEMAKEN?</div></div>
+<span style="font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#111;border-bottom:1.5px solid #111;padding-bottom:7px">ALLE EVENTS →</span>
+</div>
+<sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:200px 1fr 220px 150px 230px;gap:24px;align-items:center;padding:30px 0;border-top:1px solid #eae6df">
+<div style="height:110px;background:linear-gradient(150deg,#e6ded2,#cfc5b7);display:flex;align-items:flex-end;padding:10px"><span style="font:600 9px/1.4 Figtree,sans-serif;letter-spacing:.12em;color:#7e776c">FOTO 16:9</span></div>
+<div>
+<div style="font:700 9.5px/1 Figtree,sans-serif;letter-spacing:.18em;color:#D91F26;margin-bottom:12px">{{ e.format }}</div>
+<div style="font:800 30px/1.05 Figtree,sans-serif;letter-spacing:-.02em;color:#111">{{ e.title }}</div>
+</div>
+<div><div style="font:600 13px/1.5 Figtree,sans-serif;color:#111">{{ e.date }}</div><div style="font:400 13px/1.5 Figtree,sans-serif;color:#8d877d">{{ e.place }}</div></div>
+<span style="font:600 13px/1.5 Figtree,sans-serif;color:#6b665e">{{ e.age }}</span>
+<div style="justify-self:end;display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+<div style="padding:15px 28px;border-radius:999px;border:1.5px solid #111;font:700 12px/1 Figtree,sans-serif;letter-spacing:.06em;color:#111">Zet me op de wachtlijst</div>
+<span style="font:500 10.5px/1 Figtree,sans-serif;letter-spacing:.06em;color:#a09a90">{{ e.status }}</span>
+</div>
+</div>
+</sc-for>
+<div style="border-top:1px solid #eae6df;padding-top:26px;font:400 13px/1.6 Figtree,sans-serif;color:#8d877d">Data en locaties worden bevestigd zodra de wachtlijst voldoende groot is. Inschrijven op de wachtlijst is gratis en verplicht je tot niets.</div>
+</div>
+
+<div style="background:#111;padding:120px 72px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px">
+<div><div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ 05 — ONZE FORMATS ]</div>
+<div style="font:800 52px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#fff">THE MEDIUM CHANGES.<br>THE FOUNDATIONS STAY.</div></div>
+<span style="font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#fff;border-bottom:1.5px solid #D91F26;padding-bottom:7px">ONTDEK ONZE FORMATS →</span>
+</div>
+<sc-for list="{{ formats }}" as="f" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:70px 340px 1fr 150px 40px;gap:28px;align-items:center;padding:32px 0;border-top:1px solid rgba(255,255,255,.14)">
+<span style="font:500 12px/1 ui-monospace,Menlo,monospace;color:#6f6862">{{ f.num }}</span>
+<div style="font:800 34px/1 Figtree,sans-serif;letter-spacing:-.02em;color:#fff">IMPACT <span style="color:#D91F26">[{{ f.short }}]</span></div>
+<div style="font:400 14.5px/1.65 Figtree,sans-serif;color:rgba(255,255,255,.62);max-width:640px">{{ f.desc }}</div>
+<span style="font:600 11px/1.5 Figtree,sans-serif;letter-spacing:.1em;color:rgba(255,255,255,.5)">{{ f.meta }}</span>
+<span style="justify-self:end;font:400 22px/1 Figtree,sans-serif;color:#fff">→</span>
+</div>
+</sc-for>
+</div>
+
+<div style="background:#fff;padding:120px 72px">
+<div style="display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:start">
+<div>
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ 06 — SOCIAL IMPACT ]</div>
+<div style="font:800 34px/1 Figtree,sans-serif;letter-spacing:.01em;color:#111;margin-bottom:20px">IMPACT <span style="color:#D91F26">FOR ALL</span></div>
+<div style="font:800 60px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#111;max-width:600px">Talent is everywhere.<br>Opportunity isn't.</div>
+<div style="font:400 16px/1.7 Figtree,sans-serif;color:#6b665e;max-width:520px;margin:28px 0 34px">We willen vermijden dat kwalitatieve experiences en ontwikkelingskansen alleen toegankelijk zijn voor jongeren van wie de ouders ze kunnen betalen. Via partnerships, sponsoring en bijdragen bouwen we middelen op waarmee we jongeren ondersteunen — tijdens én na een IMPACT-activatie.</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid #eae6df;padding-top:26px;margin-bottom:34px">
+<sc-for list="{{ tally }}" as="t" hint-placeholder-count="4">
+<div><div style="font:800 46px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#e2ddd4">{{ t.n }}</div><div style="font:600 10px/1.5 Figtree,sans-serif;letter-spacing:.12em;color:#8d877d;margin-top:10px">{{ t.label }}</div></div>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px">
+<div style="padding:17px 32px;border-radius:999px;background:#D91F26;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Ontdek IMPACT FOR ALL</div>
+<div style="padding:16px 31px;border-radius:999px;border:1.5px solid #111;color:#111;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Draag bij</div>
+</div>
+<div style="font:400 12px/1.6 Figtree,sans-serif;color:#a09a90;margin-top:16px">Cijfers worden pas gepubliceerd wanneer ze door IMPACT bevestigd zijn.</div>
+</div>
+<div>
+<div style="height:600px;background:linear-gradient(150deg,#e6ded2,#c9bfb1);display:flex;align-items:flex-end;padding:22px"><span style="font:600 10px/1.5 Figtree,sans-serif;letter-spacing:.14em;color:#7e776c">PORTRET 4:5 — ÉÉN JONGERE, ÉÉN VERHAAL</span></div>
+<div style="border-left:3px solid #D91F26;padding:6px 0 6px 20px;margin-top:24px">
+<div style="font:600 19px/1.5 Figtree,sans-serif;color:#111">"Quote van een jongere die via IMPACT FOR ALL kon deelnemen."</div>
+<div style="font:500 12px/1 Figtree,sans-serif;letter-spacing:.1em;color:#8d877d;margin-top:14px">NAAM · LEEFTIJD · VIA IMPACT FOR ALL</div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="background:#f5f1ea;padding:120px 72px">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px">
+<div><div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ 07 — JOURNAL ]</div>
+<div style="font:800 52px/1 Figtree,sans-serif;letter-spacing:-.03em;color:#111">WAT WE MEEMAAKTEN,<br>LEERDEN EN BOUWDEN</div></div>
+<span style="font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#111;border-bottom:1.5px solid #111;padding-bottom:7px">ONTDEK JOURNAL →</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+<sc-for list="{{ journal }}" as="j" hint-placeholder-count="4">
+<div>
+<div style="height:260px;background:linear-gradient(150deg,#e6ded2,#cfc5b7);display:flex;align-items:flex-end;padding:16px"><span style="font:600 9px/1.4 Figtree,sans-serif;letter-spacing:.12em;color:#7e776c">FOTO 3:2</span></div>
+<div style="font:700 9.5px/1 Figtree,sans-serif;letter-spacing:.18em;color:#D91F26;margin:18px 0 12px">{{ j.cat }}</div>
+<div style="font:700 20px/1.2 Figtree,sans-serif;letter-spacing:-.01em;color:#111;margin-bottom:12px">{{ j.title }}</div>
+<div style="font:400 13.5px/1.6 Figtree,sans-serif;color:#8d877d">{{ j.meta }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#fff;padding:120px 72px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+<div>
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ 08 — NIEUWSBRIEF ]</div>
+<div style="font:800 60px/.98 Figtree,sans-serif;letter-spacing:-.03em;color:#111">JOIN THE<br>IMPACT COMMUNITY</div>
+<div style="font:400 16px/1.7 Figtree,sans-serif;color:#6b665e;max-width:460px;margin-top:24px">Blijf op de hoogte van nieuwe events, verhalen, partnerships en alles wat er binnen IMPACT ontstaat.</div>
+</div>
+<div>
+<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #111;padding:0 0 18px"><span style="font:400 17px/1 Figtree,sans-serif;color:#a09a90">jouw e-mailadres</span><span style="padding:15px 28px;border-radius:999px;background:#D91F26;color:#fff;font:700 12px/1 Figtree,sans-serif;letter-spacing:.06em">Inschrijven</span></div>
+<div style="font:400 12px/1.6 Figtree,sans-serif;color:#a09a90;margin-top:16px">Eén mail per maand, geen spam. Uitschrijven kan altijd.</div>
+</div>
+</div>
+
+<div style="background:#fff;border-top:1px solid #eae6df;padding:34px 0;overflow:hidden">
+<div style="padding:0 72px 22px;font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#a09a90">[ PARTNERS & HOSTS ]</div>
+<div style="display:flex;width:200%;animation:marq 30s linear infinite">
+<sc-for list="{{ marquee }}" as="m" hint-placeholder-count="16">
+<div style="flex:none;width:6.25%;display:flex;align-items:center;justify-content:center"><div style="width:80%;height:46px;border:1px solid #eae6df;display:flex;align-items:center;justify-content:center;font:600 9px/1 Figtree,sans-serif;letter-spacing:.14em;color:#b8b2a8">LOGO</div></div>
+</sc-for>
+</div>
+</div>
+
+<div style="background:#111;color:#fff;padding:96px 72px 36px">
+<div style="display:grid;grid-template-columns:1.5fr repeat(5,1fr);gap:32px">
+<div>
+<div style="font:800 34px/1 Figtree,sans-serif;color:#D91F26">[ ]</div>
+<div style="font:400 14px/1.6 Figtree,sans-serif;color:rgba(255,255,255,.6);margin-top:18px;max-width:240px">Youth development through experiences, connection and growth.</div>
+<div style="display:flex;gap:16px;margin-top:26px;font:700 10.5px/1 Figtree,sans-serif;letter-spacing:.16em"><span>INSTAGRAM</span><span>LINKEDIN</span><span>TIKTOK</span></div>
+</div>
+<sc-for list="{{ footer }}" as="c" hint-placeholder-count="5">
+<div><div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.18em;margin-bottom:18px">{{ c.head }}</div>
+<div style="font:400 13.5px/2.1 Figtree,sans-serif;color:rgba(255,255,255,.6);white-space:pre-line">{{ c.items }}</div></div>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.14);margin-top:60px;padding-top:24px;font:400 12px/1 Figtree,sans-serif;color:rgba(255,255,255,.45)">
+<span>hello@wemakeimpact.be · +32 495 37 00 44 · @impact___collective</span><span>Privacy · Algemene voorwaarden</span>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="2c" style="flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px">
+<div style="display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 Figtree,sans-serif;color:rgba(0,0,0,.55)"><a href="#2c" style="font:700 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#111;border-radius:5px">2c</a>Eventpagina — Basketball Edition 2027, wachtlijstflow</div>
+<div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.1);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden">
+
+<div style="display:flex;justify-content:space-between;align-items:center;padding:22px 72px;background:#fff;border-bottom:1px solid #eae6df">
+<span style="font:800 30px/1 Figtree,sans-serif;color:#D91F26">[ ]</span>
+<div style="display:flex;gap:36px;font:700 12px/1 Figtree,sans-serif;letter-spacing:.12em;color:#111"><span>OVER</span><span style="color:#D91F26">EVENTS</span><span>SAMENWERKEN</span><span>SOCIAL IMPACT</span></div>
+<div style="padding:14px 26px;border-radius:999px;background:#D91F26;color:#fff;font:700 11.5px/1 Figtree,sans-serif;letter-spacing:.1em">UPCOMING EVENTS</div>
+</div>
+
+<div style="position:relative;height:620px;background:linear-gradient(160deg,#d9cfc2,#b0a498);display:flex;flex-direction:column;justify-content:flex-end;padding:0 72px 60px">
+<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.15))"></div>
+<span style="position:absolute;top:26px;left:72px;font:600 10px/1 Figtree,sans-serif;letter-spacing:.16em;color:rgba(255,255,255,.75)">FOTO 16:9 — CAMP ACTIE, BASKETBALL EDITION 2026</span>
+<div style="position:relative">
+<div style="display:flex;gap:10px;margin-bottom:22px"><span style="padding:8px 15px;border-radius:999px;background:#D91F26;color:#fff;font:700 10px/1 Figtree,sans-serif;letter-spacing:.16em">CAMP</span><span style="padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;font:700 10px/1 Figtree,sans-serif;letter-spacing:.16em">8–14 JAAR</span><span style="padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);color:#fff;font:700 10px/1 Figtree,sans-serif;letter-spacing:.16em">WACHTLIJST OPEN</span></div>
+<div style="font:800 34px/1 Figtree,sans-serif;letter-spacing:.02em;color:rgba(255,255,255,.8)">IMPACT [CAMP]</div>
+<div style="font:800 82px/.94 Figtree,sans-serif;letter-spacing:-.03em;color:#fff;margin-top:10px">BASKETBALL<br>EDITION 2027</div>
+<div style="font:400 18px/1.6 Figtree,sans-serif;color:rgba(255,255,255,.85);max-width:620px;margin-top:24px">Basketbal is het medium. Ontwikkeling is de missie. Een vijfdaagse experience waarin we de IMPACT-fundamenten tot leven brengen via basketbal.</div>
+</div>
+</div>
+
+<div style="display:flex;justify-content:space-between;align-items:center;background:#111;color:#fff;padding:26px 72px">
+<div style="display:flex;gap:64px">
+<sc-for list="{{ eventMeta }}" as="m" hint-placeholder-count="5">
+<div><div style="font:600 9.5px/1 Figtree,sans-serif;letter-spacing:.18em;color:rgba(255,255,255,.5);margin-bottom:9px">{{ m.k }}</div><div style="font:700 17px/1 Figtree,sans-serif;color:#fff">{{ m.v }}</div></div>
+</sc-for>
+</div>
+<div style="padding:17px 32px;border-radius:999px;background:#D91F26;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Zet me op de wachtlijst</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 400px;gap:72px;padding:110px 72px;background:#fff;align-items:start">
+<div>
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ WAT IS HET ]</div>
+<div style="font:800 46px/1.02 Figtree,sans-serif;letter-spacing:-.03em;color:#111;max-width:640px">VIJF DAGEN WAARIN BASKETBAL DE OMGEVING IS EN ONTWIKKELING HET DOEL</div>
+<div style="font:400 16px/1.75 Figtree,sans-serif;color:#6b665e;max-width:640px;margin-top:26px">Het medium creëert een context waarin jongeren samenkomen, plezier maken en zichzelf kunnen ontwikkelen. Tegelijk gebruiken we die omgeving om onze bredere IMPACT-fundamenten tot leven te brengen. Naast basketbal integreren we bewust sessies rond movement, mentale skills, relaxatie, communicatie, verbinding en gezonde gewoontes.</div>
+
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin:70px 0 22px">[ PROGRAMMA ]</div>
+<sc-for list="{{ programme }}" as="p" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:110px 1fr;gap:28px;padding:24px 0;border-top:1px solid #eae6df">
+<div style="font:800 22px/1 Figtree,sans-serif;color:#111">{{ p.day }}</div>
+<div><div style="font:700 19px/1.3 Figtree,sans-serif;color:#111;margin-bottom:8px">{{ p.title }}</div>
+<div style="font:400 14.5px/1.65 Figtree,sans-serif;color:#8d877d">{{ p.body }}</div></div>
+</div>
+</sc-for>
+<div style="border-top:1px solid #eae6df;padding-top:20px;font:400 12.5px/1.6 Figtree,sans-serif;color:#a09a90">Volledig dagschema wordt aangeleverd door IMPACT.</div>
+
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin:70px 0 22px">[ WELKE FUNDAMENTEN ]</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+<sc-for list="{{ fundamentals }}" as="f" hint-placeholder-count="6">
+<div style="display:flex;gap:14px;align-items:baseline;border:1px solid #eae6df;padding:18px 20px">
+<span style="font:800 14px/1 Figtree,sans-serif;color:#D91F26">{{ f.num }}</span>
+<div><div style="font:700 15px/1.2 Figtree,sans-serif;color:#111">{{ f.name }}</div>
+<div style="font:400 12.5px/1.5 Figtree,sans-serif;color:#8d877d;margin-top:6px">{{ f.en }}</div></div>
+</div>
+</sc-for>
+</div>
+
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin:70px 0 22px">[ EXPERTS & COACHES ]</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+<sc-for list="{{ experts }}" as="x" hint-placeholder-count="4">
+<div>
+<div style="height:190px;background:linear-gradient(150deg,#e6ded2,#cfc5b7);display:flex;align-items:flex-end;padding:12px"><span style="font:600 9px/1.4 Figtree,sans-serif;letter-spacing:.12em;color:#7e776c">PORTRET 4:5</span></div>
+<div style="font:700 15px/1.2 Figtree,sans-serif;color:#111;margin:14px 0 6px">{{ x.name }}</div>
+<div style="font:400 12.5px/1.5 Figtree,sans-serif;color:#8d877d">{{ x.role }}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin:70px 0 22px">[ VEELGESTELDE VRAGEN ]</div>
+<sc-for list="{{ faq }}" as="q" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #eae6df;padding:22px 0">
+<span style="font:600 17px/1.3 Figtree,sans-serif;color:#111">{{ q.q }}</span>
+<span style="font:400 20px/1 Figtree,sans-serif;color:#D91F26">+</span>
+</div>
+</sc-for>
+<div style="border-top:1px solid #eae6df"></div>
+</div>
+
+<div style="position:sticky;top:24px">
+<div style="border:1px solid #eae6df;background:#faf8f5;padding:34px 32px">
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:20px">[ WACHTLIJST ]</div>
+<div style="font:800 28px/1.1 Figtree,sans-serif;letter-spacing:-.02em;color:#111">Deze editie is nog niet bevestigd</div>
+<div style="font:400 14.5px/1.65 Figtree,sans-serif;color:#6b665e;margin:16px 0 26px">Laat je gegevens achter en je hoort als eerste wanneer de inschrijvingen openen. Gratis en zonder verplichting.</div>
+<sc-for list="{{ formFields }}" as="f" hint-placeholder-count="4">
+<div style="border-bottom:1px solid #ddd7cd;padding:0 0 12px;margin-bottom:22px"><div style="font:600 9.5px/1 Figtree,sans-serif;letter-spacing:.16em;color:#a09a90;margin-bottom:10px">{{ f.label }}</div><div style="font:400 15px/1 Figtree,sans-serif;color:#c4beb4">{{ f.ph }}</div></div>
+</sc-for>
+<div style="padding:18px 0;border-radius:999px;background:#D91F26;color:#fff;font:700 13px/1 Figtree,sans-serif;letter-spacing:.06em;text-align:center;margin-bottom:16px">Zet me op de wachtlijst</div>
+<div style="font:400 12px/1.6 Figtree,sans-serif;color:#a09a90">Prijs volgt bij bevestiging. Heb je financiële ondersteuning nodig? Ontdek <span style="color:#D91F26;border-bottom:1px solid #D91F26">IMPACT FOR ALL</span>.</div>
+</div>
+<div style="border:1px solid #eae6df;padding:26px 32px;margin-top:20px">
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#a09a90;margin-bottom:16px">[ PRAKTISCH ]</div>
+<sc-for list="{{ practical }}" as="p" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f2efe9;font:400 13.5px/1.4 Figtree,sans-serif;color:#6b665e"><span>{{ p.k }}</span><span style="font-weight:600;color:#111">{{ p.v }}</span></div>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="background:#f5f1ea;padding:100px 72px">
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ EDITIE 2026 ]</div>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px">
+<div style="font:800 44px/1.02 Figtree,sans-serif;letter-spacing:-.03em;color:#111">THIS WAS BASKETBALL<br>EDITION 2026</div>
+<span style="font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#111;border-bottom:1.5px solid #111;padding-bottom:7px">BEKIJK DE RECAP IN JOURNAL →</span>
+</div>
+<div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px">
+<div style="height:300px;background:linear-gradient(150deg,#e6ded2,#c9bfb1);display:flex;align-items:flex-end;padding:16px"><span style="font:600 9.5px/1.4 Figtree,sans-serif;letter-spacing:.12em;color:#7e776c">AFTERMOVIE STILL 16:9</span></div>
+<div style="height:300px;background:linear-gradient(150deg,#e6ded2,#cfc5b7)"></div>
+<div style="height:300px;background:linear-gradient(150deg,#e0d7cb,#cfc5b7)"></div>
+</div>
+</div>
+
+<div style="background:#111;color:#fff;padding:90px 72px;display:flex;justify-content:space-between;align-items:center;gap:60px">
+<div><div style="font:800 44px/1.05 Figtree,sans-serif;letter-spacing:-.03em">Nog vragen over deze editie?</div>
+<div style="font:400 15px/1.7 Figtree,sans-serif;color:rgba(255,255,255,.6);max-width:520px;margin-top:16px">Ouders, scholen en clubs kunnen ons altijd rechtstreeks contacteren.</div></div>
+<div style="display:flex;gap:12px"><div style="padding:17px 32px;border-radius:999px;background:#fff;color:#111;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Contacteer ons</div><div style="padding:16px 31px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Download brochure</div></div>
+</div>
+
+</div>
+</div>
+
+<div id="2d" style="flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px">
+<div style="display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 Figtree,sans-serif;color:rgba(0,0,0,.55)"><a href="#2d" style="font:700 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#111;border-radius:5px">2d</a>Social Impact — IMPACT FOR ALL</div>
+<div style="width:1440px;background:#fff;border:1px solid rgba(0,0,0,.1);box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden">
+
+<div style="display:flex;justify-content:space-between;align-items:center;padding:22px 72px;background:#fff;border-bottom:1px solid #eae6df">
+<span style="font:800 30px/1 Figtree,sans-serif;color:#D91F26">[ ]</span>
+<div style="display:flex;gap:36px;font:700 12px/1 Figtree,sans-serif;letter-spacing:.12em;color:#111"><span>OVER</span><span>EVENTS</span><span>SAMENWERKEN</span><span style="color:#D91F26">SOCIAL IMPACT</span></div>
+<div style="padding:14px 26px;border-radius:999px;background:#D91F26;color:#fff;font:700 11.5px/1 Figtree,sans-serif;letter-spacing:.1em">UPCOMING EVENTS</div>
+</div>
+
+<div style="padding:110px 72px 100px;background:#fff">
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:26px">[ ONS SOCIAAL PROGRAMMA ]</div>
+<div style="display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:end">
+<div>
+<div style="font:800 40px/1 Figtree,sans-serif;letter-spacing:.01em;color:#111;margin-bottom:24px">IMPACT <span style="color:#D91F26">FOR ALL</span></div>
+<div style="font:800 76px/.96 Figtree,sans-serif;letter-spacing:-.035em;color:#111">Talent is<br>everywhere.<br>Opportunity<br>isn't.</div>
+</div>
+<div>
+<div style="height:520px;background:linear-gradient(150deg,#e6ded2,#c4bab0);display:flex;align-items:flex-end;padding:20px"><span style="font:600 10px/1.5 Figtree,sans-serif;letter-spacing:.14em;color:#7e776c">FOTO 4:5 — JONGERE IN ACTIE, GEEN GEPOSEERD PORTRET</span></div>
+</div>
+</div>
+<div style="font:400 19px/1.7 Figtree,sans-serif;color:#3d3a35;max-width:820px;margin-top:56px">We willen niet alleen experiences organiseren voor jongeren die zelf een ticket kunnen betalen. Via partnerships, sponsoring en andere inkomsten bouwen we middelen op waarmee we jongeren ondersteunen voor wie die kansen financieel of sociaal minder vanzelfsprekend zijn.</div>
+</div>
+
+<div style="background:#f5f1ea;padding:110px 72px">
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ HOE HET WERKT ]</div>
+<div style="font:800 48px/1.02 Figtree,sans-serif;letter-spacing:-.03em;color:#111;max-width:820px;margin-bottom:50px">Niet één keer meedoen, maar een vervolg dat blijft</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+<sc-for list="{{ how }}" as="h" hint-placeholder-count="3">
+<div style="background:#fff;padding:34px 32px 38px">
+<div style="font:800 40px/1 Figtree,sans-serif;color:#D91F26;letter-spacing:-.02em">{{ h.n }}</div>
+<div style="font:700 22px/1.25 Figtree,sans-serif;color:#111;margin:20px 0 14px">{{ h.title }}</div>
+<div style="font:400 14.5px/1.7 Figtree,sans-serif;color:#6b665e">{{ h.body }}</div>
+</div>
+</sc-for>
+</div>
+<div style="background:#fff;border-left:3px solid #D91F26;padding:30px 34px;margin-top:28px;max-width:900px">
+<div style="font:600 20px/1.55 Figtree,sans-serif;color:#111">Een jongere die tijdens een IMPACT-activatie ontdekt dat een sport écht bij hem past, maar thuis niet de middelen heeft om zich bij een club in te schrijven — daar wil IMPACT FOR ALL een antwoord op zijn.</div>
+</div>
+</div>
+
+<div style="background:#fff;padding:110px 72px">
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:22px">[ ONZE IMPACT TOT NU TOE ]</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;border-top:2px solid #111;padding-top:34px">
+<sc-for list="{{ tally }}" as="t" hint-placeholder-count="4">
+<div><div style="font:800 76px/1 Figtree,sans-serif;letter-spacing:-.04em;color:#e2ddd4">{{ t.n }}</div><div style="font:600 11px/1.5 Figtree,sans-serif;letter-spacing:.14em;color:#8d877d;margin-top:14px">{{ t.label }}</div></div>
+</sc-for>
+</div>
+<div style="font:400 13px/1.6 Figtree,sans-serif;color:#a09a90;margin-top:26px">Cijfers worden door IMPACT aangeleverd en pas gepubliceerd wanneer ze bevestigd zijn. Tot dan blijft deze sectie leeg in plaats van geschat.</div>
+</div>
+
+<div style="background:#D91F26;color:#fff;padding:110px 72px">
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:rgba(255,255,255,.75);margin-bottom:22px">[ DRAAG BIJ ]</div>
+<div style="font:800 52px/1.02 Figtree,sans-serif;letter-spacing:-.03em;max-width:860px;margin-bottom:50px">Vier manieren om een jongere een plaats te geven</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+<sc-for list="{{ ways }}" as="w" hint-placeholder-count="4">
+<div style="border-top:2px solid rgba(255,255,255,.55);padding-top:22px">
+<div style="font:700 22px/1.2 Figtree,sans-serif;margin-bottom:14px">{{ w.title }}</div>
+<div style="font:400 14.5px/1.7 Figtree,sans-serif;color:rgba(255,255,255,.85)">{{ w.body }}</div>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px;margin-top:54px">
+<div style="padding:18px 34px;border-radius:999px;background:#fff;color:#D91F26;font:700 13px/1 Figtree,sans-serif;letter-spacing:.06em">Financier een plaats</div>
+<div style="padding:17px 33px;border-radius:999px;border:1.5px solid #fff;color:#fff;font:700 13px/1 Figtree,sans-serif;letter-spacing:.06em">Word partner</div>
+</div>
+</div>
+
+<div style="background:#fff;padding:110px 72px">
+<div style="display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center">
+<div style="height:520px;background:linear-gradient(150deg,#e6ded2,#c4bab0);display:flex;align-items:flex-end;padding:20px"><span style="font:600 10px/1.5 Figtree,sans-serif;letter-spacing:.14em;color:#7e776c">PORTRET 4:5 — ÉÉN VERHAAL, MET TOESTEMMING</span></div>
+<div>
+<div style="font:700 10px/1 Figtree,sans-serif;letter-spacing:.2em;color:#D91F26;margin-bottom:26px">[ EEN VERHAAL ]</div>
+<div style="font:800 40px/1.15 Figtree,sans-serif;letter-spacing:-.025em;color:#111">"Quote van een jongere die via IMPACT FOR ALL kon deelnemen."</div>
+<div style="font:500 12px/1 Figtree,sans-serif;letter-spacing:.14em;color:#8d877d;margin-top:26px">NAAM · LEEFTIJD · VIA IMPACT FOR ALL</div>
+<div style="font:400 15px/1.75 Figtree,sans-serif;color:#6b665e;margin-top:26px">Lopende tekst van het verhaal — door IMPACT aan te leveren. Eén verhaal per keer, met naam en toestemming; geen anonieme cases.</div>
+<span style="display:inline-block;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.1em;color:#111;border-bottom:1.5px solid #111;padding-bottom:7px;margin-top:30px">MEER VERHALEN IN JOURNAL →</span>
+</div>
+</div>
+</div>
+
+<div style="background:#111;color:#fff;padding:90px 72px;display:flex;justify-content:space-between;align-items:center;gap:60px">
+<div><div style="font:800 44px/1.05 Figtree,sans-serif;letter-spacing:-.03em">Samen bouwen aan<br>sterkere fundamenten</div>
+<div style="font:400 15px/1.7 Figtree,sans-serif;color:rgba(255,255,255,.6);max-width:520px;margin-top:16px">Bedrijven, clubs en organisaties die willen bijdragen aan IMPACT FOR ALL kunnen ons rechtstreeks contacteren.</div></div>
+<div style="display:flex;gap:12px"><div style="padding:17px 32px;border-radius:999px;background:#D91F26;color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Neem contact op</div><div style="padding:16px 31px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);color:#fff;font:700 12.5px/1 Figtree,sans-serif;letter-spacing:.06em">Voor bedrijven</div></div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<div style="margin:30px 0 0;max-width:1040px;font:400 12.5px/1.75 Figtree,sans-serif;color:rgba(0,0,0,.55)">
+<div style="font:700 11px/1 Figtree,sans-serif;letter-spacing:.16em;color:rgba(0,0,0,.65);margin-bottom:10px">NOG AAN TE LEVEREN DOOR CLIENT</div>
+Merkfont (nu Figtree als substituut) · logo en beeldmerk in vector · fotografie en aftermovie Basketball Edition 2026 · de 3 à 5 wachtlijst-events met datum, locatie en leeftijd · dagschema Basketball Edition 2027 · namen en portretten van experts · FAQ-antwoorden · cijfers en één verhaal voor IMPACT FOR ALL · partnerlogo's in vector · brochure-PDF.
+</div>
+<p style="margin:22px 0 0;font:12px/1.6 Figtree,sans-serif;color:rgba(0,0,0,.5)">Volgende stap: "maak de mobiele versie van <a href="#2b">2b</a>" · "werk de Over-pagina uit" · "maak <a href="#2b">2b</a> klikbaar als prototype"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:3100,&quot;height&quot;:1700}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      palette: [
+        { name: 'Wit', hex: '#FFFFFF', use: 'basis, content' },
+        { name: 'Zand', hex: '#F5F1EA', use: 'sectiescheiding' },
+        { name: 'Zwart', hex: '#111111', use: 'type, donkere secties' },
+        { name: 'IMPACT rood', hex: '#D91F26', use: 'CTA, label, hover' },
+        { name: 'Rood donker', hex: '#A8121A', use: 'hover primary' },
+        { name: 'Warm grijs', hex: '#8D877D', use: 'meta, secundair' }
+      ],
+      typescale: [
+        { name: 'DISPLAY XL', spec: '88 / 0.92 / -3% / 800', w: 800, px: '44px', lh: '1', ls: '-.03em', tt: 'uppercase', sample: 'Building foundations' },
+        { name: 'DISPLAY L', spec: '56 / 1.0 / -3% / 800', w: 800, px: '32px', lh: '1', ls: '-.03em', tt: 'uppercase', sample: 'Six foundations' },
+        { name: 'HEADING', spec: '26 / 1.08 / -1.5% / 800', w: 800, px: '24px', lh: '1.1', ls: '-.015em', tt: 'none', sample: 'Self-knowledge' },
+        { name: 'INTRO', spec: '19 / 1.7 / 400', w: 400, px: '19px', lh: '1.6', ls: '0', tt: 'none', sample: 'Youth development through experiences, connection and growth.' },
+        { name: 'BODY', spec: '15 / 1.7 / 400', w: 400, px: '15px', lh: '1.7', ls: '0', tt: 'none', sample: 'Elk Camp, elke Day en elke Retreat wordt vanuit deze zes fundamenten opgebouwd.' },
+        { name: 'LABEL', spec: '10 / 1.0 / +20% / 700', w: 700, px: '10px', lh: '1', ls: '.2em', tt: 'uppercase', sample: '[ 02 — onze fundamenten ]' }
+      ],
+      cols: Array.from({ length: 12 }, (_, i) => ({ i })),
+      fundamentals: [
+        { num: '01', name: 'SELF-KNOWLEDGE', en: 'Understanding who you are and what you need.', nl: 'Hoe beter jongeren zichzelf begrijpen, hoe sterker ze leren omgaan met keuzes, emoties, energie en druk.', shotU: 'JONGERE IN GESPREK' },
+        { num: '02', name: 'HEALTHY HABITS & LIFESTYLE', en: 'Sleep, movement, nutrition, recovery and energy.', nl: 'Slapen, eten, bewegen en herstellen bepalen hoe jongeren zich voelen, functioneren en presteren.', shotU: 'BEWEGING / WARMING-UP' },
+        { num: '03', name: 'RESILIENCE', en: 'Handling pressure, setbacks and uncertainty.', nl: 'Opgroeien brengt druk en onzekerheid mee. We leren jongeren hoe ze zichzelf kunnen dragen in moeilijke momenten.', shotU: 'MOMENT VAN INSPANNING' },
+        { num: '04', name: 'OWNERSHIP', en: 'Taking responsibility for your growth and choices.', nl: 'Verantwoordelijkheid nemen voor jezelf, je keuzes en je groei — vanuit bewustzijn en zelfstandigheid.', shotU: 'JONGERE NEEMT INITIATIEF' },
+        { num: '05', name: 'HUMAN CONNECTION', en: 'Communicating, trusting and growing with others.', nl: 'In een wereld die steeds digitaler wordt, geloven wij sterk in de kracht van echte menselijke verbinding.', shotU: 'GROEP, ECHTE INTERACTIE' },
+        { num: '06', name: 'TALENT & PASSION', en: 'Discovering what energizes you.', nl: 'Ruimte om talenten en passies te ontdekken, zonder de druk om al te weten wie je bent.', shotU: 'TALENT IN ACTIE' }
+      ],
+      ages: [
+        { range: '8–14', tagline: 'DE FUNDERING', focus: 'Zelfvertrouwen, beweging, sociale verbinding, plezier en bewustwording — via sport, ervaring en begeleiding in een veilige omgeving.', shotU: 'KIND, SPEL', tag1: 'CAMPS', tag2: 'DAYS' },
+        { range: '15–18', tagline: 'MINDSET & IDENTITEIT', focus: 'Mindset, identiteit, weerbaarheid, ambitie, gezonde gewoontes en persoonlijke verantwoordelijkheid.', shotU: 'TIENER, PORTRET', tag1: 'DAYS', tag2: 'SCHOLEN' },
+        { range: '18–25', tagline: 'OWNERSHIP & RICHTING', focus: 'Ownership, ondernemerschap, leiderschap en het omzetten van talenten en passies in iets tastbaars.', shotU: 'JONGVOLWASSENE, WERK', tag1: 'RETREATS', tag2: 'COMMUNITY' }
+      ],
+      events: [
+        { format: 'CAMP · 5 DAGEN', title: 'IMPACT Camp — Basketball Edition 2027', date: 'Juli 2027', place: 'Antwerpen', age: '8–14 jaar', status: 'wachtlijst open' },
+        { format: 'DAY · 1 DAG', title: 'IMPACT Day — Brussels', date: 'Augustus 2027', place: 'Brussel', age: '15–18 jaar', status: 'wachtlijst open' },
+        { format: 'RETREAT', title: 'IMPACT Retreat — Student Entrepreneurs', date: 'Datum volgt', place: 'Locatie volgt', age: '18–25 jaar', status: 'in ontwikkeling' }
+      ],
+      formats: [
+        { num: '01', short: 'Camps', desc: 'Meerdaagse experiences waarin jongeren via één centraal medium intensiever werken rond teamwork, discipline, mindset en beweging.', meta: 'MEERDAAGS' },
+        { num: '02', short: 'Days', desc: 'Korte, krachtige experiences waarin de fundamenten zelf het vertrekpunt zijn. Onder andere voor scholen.', meta: 'ÉÉN DAG' },
+        { num: '03', short: 'Retreats', desc: 'Begeleide trajecten voor student-zelfstandigen rond ondernemerschap, persoonlijk leiderschap en purpose.', meta: 'TRAJECT' },
+        { num: '04', short: 'Community', desc: 'Een online en offline community waarin jongeren verbonden worden met coaches, experts en elkaar.', meta: 'DOORLOPEND' },
+        { num: '05', short: 'Hosted', desc: 'Days en Camps die we samen met een externe club, organisatie of host bouwen. Zij hosten, IMPACT bouwt de ervaring.', meta: 'MAATWERK' }
+      ],
+      tally: [
+        { n: '000', label: 'JONGEREN ONDERSTEUND' },
+        { n: '000', label: 'TICKETS GEFINANCIERD' },
+        { n: '00', label: 'PARTNERS' },
+        { n: '€000', label: 'GEÏNVESTEERD IN KANSEN' }
+      ],
+      journal: [
+        { cat: 'PAST EVENT', title: 'This was IMPACT Camp: Basketball Edition 2026', meta: 'Recap · aftermovie' },
+        { cat: 'STORY', title: 'Het verhaal van een deelnemer', meta: 'Interview' },
+        { cat: 'INSIGHT', title: 'Waarom resilience één van onze fundamenten is', meta: 'Expert content' },
+        { cat: 'PARTNER', title: 'City Pirates × IMPACT', meta: 'Hosted Experience' }
+      ],
+      footer: [
+        { head: 'IMPACT', items: 'Over\nFundamenten\nTeam & experts' },
+        { head: 'EVENTS', items: 'Upcoming\nCamps\nDays\nRetreats\nHosted Experiences' },
+        { head: 'SAMENWERKEN', items: 'Partner worden\nHosted Experiences\nVoor bedrijven\nExperts & coaches' },
+        { head: 'SOCIAL IMPACT', items: 'IMPACT FOR ALL' },
+        { head: 'INFO', items: 'Journal\nMedia\nBrochure\nContact' }
+      ],
+      marquee: Array.from({ length: 16 }, (_, i) => ({ i })),
+      eventMeta: [
+        { k: 'FORMAT', v: 'Camp · 5 dagen' },
+        { k: 'DATUM', v: 'Juli 2027' },
+        { k: 'LOCATIE', v: 'Antwerpen' },
+        { k: 'LEEFTIJD', v: '8–14 jaar' },
+        { k: 'PRIJS', v: 'Volgt' }
+      ],
+      programme: [
+        { day: 'DAG 1', title: 'Aankomst & connectie', body: 'Kennismaking, teamvorming en een eerste sessie rond human connection.' },
+        { day: 'DAG 2', title: 'Movement & healthy habits', body: 'Basketbaltraining gecombineerd met sessies rond beweging, voeding en herstel.' },
+        { day: 'DAG 3', title: 'Mentale skills', body: 'Werken rond druk, focus en zelfkennis met een expert uit de IMPACT-poule.' },
+        { day: 'DAG 4', title: 'Ownership', body: 'Jongeren nemen zelf verantwoordelijkheid binnen het programma.' },
+        { day: 'DAG 5', title: 'Showcase & afsluiting', body: 'Tornooi, reflectie en afsluiting met ouders.' }
+      ],
+      experts: [
+        { name: 'Naam expert', role: 'Movement coach' },
+        { name: 'Naam expert', role: 'Mentale skills' },
+        { name: 'Naam expert', role: 'Voeding & herstel' },
+        { name: 'Naam expert', role: 'Basketbal head coach' }
+      ],
+      faq: [
+        { q: 'Moet mijn kind al basketbal spelen?' },
+        { q: 'Wat is er inbegrepen in de prijs?' },
+        { q: 'Waar en hoe verloopt het vervoer?' },
+        { q: 'Wat als de editie niet doorgaat?' },
+        { q: 'Kan mijn kind deelnemen via IMPACT FOR ALL?' }
+      ],
+      formFields: [
+        { label: 'VOORNAAM DEELNEMER', ph: 'Voornaam' },
+        { label: 'LEEFTIJD', ph: '8 – 14' },
+        { label: 'E-MAILADRES OUDER', ph: 'naam@voorbeeld.be' },
+        { label: 'GEMEENTE', ph: 'Optioneel' }
+      ],
+      practical: [
+        { k: 'Duur', v: '5 dagen' },
+        { k: 'Groepsgrootte', v: 'Volgt' },
+        { k: 'Taal', v: 'Nederlands' },
+        { k: 'Inbegrepen', v: 'Volgt' }
+      ],
+      how: [
+        { n: '01', title: 'Partners bouwen de pot', body: 'Bedrijven, ondernemers en partners financieren tickets of stellen plaatsen ter beschikking bij een IMPACT-activatie.' },
+        { n: '02', title: 'Jongeren nemen deel', body: 'We geven jongeren voor wie deelname financieel of sociaal minder vanzelfsprekend is toegang tot een Camp, Day of Retreat.' },
+        { n: '03', title: 'Het krijgt een vervolg', body: 'Een deel van de middelen zetten we in buiten onze eigen activaties: een clubinschrijving, materiaal of een andere kans die bijdraagt aan hun ontwikkeling.' }
+      ],
+      ways: [
+        { title: 'Financier een ticket', body: 'Eén jongere, één plaats op een IMPACT-activatie.' },
+        { title: 'Sponsor plaatsen', body: 'Als bedrijf een aantal plaatsen beschikbaar maken bij een editie.' },
+        { title: 'Doe een bijdrage', body: 'Een vrije financiële bijdrage aan IMPACT FOR ALL.' },
+        { title: 'Word structureel partner', body: 'Samen een langere termijn opzetten rond toegankelijkheid.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
