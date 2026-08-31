@@ -1,0 +1,21 @@
+# Netlify config for the IMPACT demo.
+# The site is plain static HTML in site/ — there is nothing to build.
+# tools/ and the design reference files live outside the publish dir and are
+# therefore never deployed.
+
+[build]
+  publish = "site"
+  command = ""
+
+# Long cache for fingerprint-free but rarely changing assets; HTML stays fresh.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
