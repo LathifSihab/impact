@@ -8,6 +8,31 @@
   var hero = document.querySelector('[data-reveal-root]');
   if (hero) requestAnimationFrame(function () { hero.classList.add('is-revealed'); });
 
+  /* ---- hero video: progressive, poster-first ----
+     The poster <img> carries data-video-* paths. We probe the webm; if it exists we
+     insert a muted, looping, playsinline <video> over the poster. Nothing is
+     downloaded when prefers-reduced-motion is set or when the file is absent. */
+  var poster = document.querySelector('[data-hero-poster]');
+  if (poster && !reduced) {
+    var webm = poster.dataset.videoWebm, mp4 = poster.dataset.videoMp4;
+    fetch(webm, { method: 'HEAD' }).then(function (r) {
+      if (!r.ok) return;
+      var v = document.createElement('video');
+      v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+      v.preload = 'auto'; v.poster = poster.getAttribute('src');
+      v.setAttribute('aria-hidden', 'true');
+      [webm, mp4].forEach(function (src, i) {
+        if (!src) return;
+        var s = document.createElement('source');
+        s.src = src; s.type = i === 0 ? 'video/webm' : 'video/mp4';
+        v.appendChild(s);
+      });
+      poster.parentNode.insertBefore(v, poster.nextSibling);
+      v.play().catch(function () { v.remove(); });   // autoplay blocked → keep the still
+    }).catch(function () { /* no video shipped yet */ });
+  }
+
   /* ---- nav dropdowns: hover with delay on desktop, click/focus for keyboard ---- */
   var items = document.querySelectorAll('.nav-main > li');
   var openTimer = null;
@@ -187,6 +212,21 @@
       card.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
     });
   }
+
+  /* every newsletter form on the page: footer band, section 08, journal … */
+  document.querySelectorAll('[data-newsletter]').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = form.querySelector('.form-msg');
+      var v = form.elements.email.value.trim();
+      if (!mail.test(v)) { msg.className = 'form-msg error'; msg.textContent = 'Vul een geldig e-mailadres in.'; return; }
+      msg.className = 'form-msg ok';
+      msg.textContent = 'Bedankt — je staat op de lijst. (Demo: er wordt niets verzonden.)';
+      form.elements.email.value = '';
+      // where the real build reports the source of each signup
+      if (window.plausible) window.plausible('newsletter_signup', { props: { source: document.title } });
+    });
+  });
 
   var news = document.getElementById('newsletter-form');
   if (news) {

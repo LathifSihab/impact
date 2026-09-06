@@ -3,8 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--SEO-->
 <title>IMPACT — Building foundations for the new generation</title>
-<meta name="description" content="IMPACT begeleidt jongeren tussen 8 en 25 jaar in het bouwen aan sterke fundamenten voor het leven. Camps, Days, Retreats, Community en Hosted Experiences.">
+<meta name="description" content="Youth development voor jongeren van 8 tot 25 jaar. Camps, Days, Retreats, Community en Hosted Experiences, opgebouwd rond zes fundamenten. Bekijk de upcoming events.">
+<link rel="canonical" href="https://www.wemakeimpact.be/">
+<link rel="alternate" hreflang="nl-BE" href="https://www.wemakeimpact.be/">
+<link rel="alternate" hreflang="en" href="https://www.wemakeimpact.be/en/">
+<link rel="alternate" hreflang="x-default" href="https://www.wemakeimpact.be/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IMPACT">
+<meta property="og:locale" content="nl_BE">
+<meta property="og:title" content="IMPACT — Building foundations for the new generation">
+<meta property="og:description" content="Youth development voor jongeren van 8 tot 25 jaar. Camps, Days, Retreats, Community en Hosted Experiences, opgebouwd rond zes fundamenten. Bekijk de upcoming events.">
+<meta property="og:url" content="https://www.wemakeimpact.be/">
+<meta property="og:image" content="https://www.wemakeimpact.be/assets/img/court-169.jpg">
+<meta property="og:image:alt" content="Jongeren in actie tijdens een IMPACT-activatie">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IMPACT — Building foundations for the new generation">
+<meta name="twitter:description" content="Youth development voor jongeren van 8 tot 25 jaar. Camps, Days, Retreats, Community en Hosted Experiences, opgebouwd rond zes fundamenten. Bekijk de upcoming events.">
+<meta name="twitter:image" content="https://www.wemakeimpact.be/assets/img/court-169.jpg">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"IMPACT","alternateName":"IMPACT Collective Antwerp","url":"https://www.wemakeimpact.be/","logo":"https://www.wemakeimpact.be/assets/brand/impact-logo.png","description":"Youth development brand voor jongeren van 8 tot 25 jaar. Camps, Days, Retreats, Community en Hosted Experiences rond zes fundamenten.","email":"hello@wemakeimpact.be","telephone":"+32495370044","areaServed":"BE","address":{"@type":"PostalAddress","addressCountry":"BE","addressLocality":"Antwerpen"},"sameAs":["https://www.instagram.com/impact___collective/"],"founder":[{"@type":"Person","name":"Mirte Rens"},{"@type":"Person","name":"Jean-Marc Mwema"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"IMPACT","url":"https://www.wemakeimpact.be/","inLanguage":["nl-BE","en"]}</script>
+<!--/SEO-->
 <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
@@ -13,7 +34,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body data-nav="">
+<body data-nav="home">
 
 <!-- utility bar -->
 <!--NAV-->
@@ -124,7 +145,11 @@
 
 <!-- 01 hero -->
 <header class="hero" data-reveal-root>
-  <img src="assets/img/court-169.jpg" alt="Jongeren in actie op het basketbalveld tijdens een IMPACT Camp">
+  <!-- Drop the aftermovie in as assets/video/hero.webm + hero.mp4 (16:9, muted, ~10-20s
+       loop, <8MB). Until then the poster still carries the hero; JS only attaches the
+       video when the files exist and prefers-reduced-motion is not set. -->
+  <img src="assets/img/court-169.jpg" alt="Jongeren in actie op het basketbalveld tijdens een IMPACT Camp"
+       data-hero-poster data-video-webm="assets/video/hero.webm" data-video-mp4="assets/video/hero.mp4">
   <div class="hero-content wrap">
     <h1 class="d-xl">
       <span class="reveal" style="display:block">Building</span>
@@ -141,6 +166,57 @@
     </div>
   </div>
 </header>
+
+<!-- audience router -->
+<section class="section section--sand" id="voor-jou">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="label">[ Waarvoor kom je? ]</span>
+        <h2 class="d-l d-l--48">Vind meteen<br>jouw volgende stap</h2>
+      </div>
+      <p class="body">Zes wegen door IMPACT. Kies degene die bij jou past — de rest kan je daarna ontdekken.</p>
+    </div>
+    <div class="routes">
+      <a class="route" href="events.html#upcoming">
+        <span class="n">01</span>
+        <h3>Jongere of ouder</h3>
+        <p class="body">Bekijk welke events eraan komen en zet je op de wachtlijst.</p>
+        <span class="tlink">Bekijk events <span class="arrow">&rarr;</span></span>
+      </a>
+      <a class="route" href="samenwerken.html#bedrijven">
+        <span class="n">02</span>
+        <h3>Bedrijf of sponsor</h3>
+        <p class="body">Partnerships, sponsoring en activations voor jouw merk of team.</p>
+        <span class="tlink">Voor bedrijven <span class="arrow">&rarr;</span></span>
+      </a>
+      <a class="route" href="hosted-experiences.html">
+        <span class="n">03</span>
+        <h3>Club of organisatie</h3>
+        <p class="body">Bouw samen met ons een experience voor jouw community.</p>
+        <span class="tlink">Hosted Experiences <span class="arrow">&rarr;</span></span>
+      </a>
+      <a class="route" href="samenwerken.html#experts">
+        <span class="n">04</span>
+        <h3>Coach of expert</h3>
+        <p class="body">Breng je expertise binnen in onze programma's en activaties.</p>
+        <span class="tlink">Word expert <span class="arrow">&rarr;</span></span>
+      </a>
+      <a class="route" href="social-impact.html#draag-bij">
+        <span class="n">05</span>
+        <h3>Steun onze missie</h3>
+        <p class="body">Geef via IMPACT FOR ALL een jongere een plaats die er anders geen krijgt.</p>
+        <span class="tlink">Draag bij <span class="arrow">&rarr;</span></span>
+      </a>
+      <a class="route" href="over.html">
+        <span class="n">06</span>
+        <h3>Nieuw hier</h3>
+        <p class="body">Ontdek wie IMPACT is, waar we in geloven en hoe we werken.</p>
+        <span class="tlink">Ontdek IMPACT <span class="arrow">&rarr;</span></span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- 02 fundamenten -->
 <section class="section" id="fundamenten">
@@ -426,7 +502,7 @@
       <h2 class="d-l d-l--60" style="margin:22px 0 22px">Join the<br>IMPACT community</h2>
       <p class="body" style="max-width:460px">Blijf op de hoogte van nieuwe events, verhalen, partnerships en alles wat er binnen IMPACT ontstaat.</p>
     </div>
-    <form id="newsletter-form" novalidate>
+    <form id="newsletter-form" data-newsletter novalidate>
       <div class="field-row">
         <input type="email" name="email" placeholder="jouw e-mailadres" aria-label="Jouw e-mailadres">
         <button type="submit" class="pill pill--primary">Inschrijven</button>
@@ -510,8 +586,10 @@
       </ul></div>
     </div>
     <div class="bottom">
-      <span>hello@wemakeimpact.be · +32 495 37 00 44 · @impact___collective</span>
-      <span><a href="#">Privacy</a> · <a href="#">Algemene voorwaarden</a></span>
+      <span>hello@wemakeimpact.be · <a href="tel:+32495370044">+32 495 37 00 44</a> ·
+        <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">@impact___collective</a></span>
+      <span><a href="#">Privacy</a> · <a href="#">Algemene voorwaarden</a> ·
+        <span class="built">Built by <a href="https://drpbuildlab.com" target="_blank" rel="noopener">DRP BuildLab</a></span></span>
     </div>
   </div>
 </footer>

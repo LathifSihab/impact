@@ -116,6 +116,24 @@ NAV = """
 """
 
 FOOTER = """
+<section class="news-band">
+  <div class="wrap">
+    <div>
+      <span class="label">[ Nieuwsbrief ]</span>
+      <h2 class="d-l d-l--40" style="margin:16px 0 12px">Join the<br>IMPACT community</h2>
+      <p class="body">Nieuwe events, verhalen en partnerships — één mail per maand.</p>
+    </div>
+    <form class="news-form" data-newsletter novalidate>
+      <div class="field-row">
+        <input type="email" name="email" placeholder="jouw e-mailadres" aria-label="Jouw e-mailadres" required>
+        <button type="submit" class="pill pill--primary">Inschrijven</button>
+      </div>
+      <p class="form-msg" role="status"></p>
+      <p class="meta">Geen spam. Uitschrijven kan altijd.</p>
+    </form>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="wrap">
     <div class="grid">
@@ -155,8 +173,10 @@ FOOTER = """
       </ul></div>
     </div>
     <div class="bottom">
-      <span>hello@wemakeimpact.be · +32 495 37 00 44 · @impact___collective</span>
-      <span><a href="#">Privacy</a> · <a href="#">Algemene voorwaarden</a></span>
+      <span>hello@wemakeimpact.be · <a href="tel:+32495370044">+32 495 37 00 44</a> ·
+        <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">@impact___collective</a></span>
+      <span><a href="#">Privacy</a> · <a href="#">Algemene voorwaarden</a> ·
+        <span class="built">Built by <a href="https://drpbuildlab.com" target="_blank" rel="noopener">DRP BuildLab</a></span></span>
     </div>
   </div>
 </footer>
@@ -178,12 +198,25 @@ def nav_for(page):
     return NAV.format(**fields)
 
 
+NEWS_BAND_START = "<section class=\"news-band\">"
+
+
+def footer_for(page):
+    """The homepage carries the newsletter as its own section 08, so the global
+    band is dropped there to avoid two signup forms on one page."""
+    if page == "home":
+        i = FOOTER.index(NEWS_BAND_START)
+        j = FOOTER.index("<footer class=")
+        return FOOTER[:i] + FOOTER[j:]
+    return FOOTER
+
+
 def inject(path):
     html = path.read_text(encoding="utf8")
     page = re.search(r'<body[^>]*data-nav="([^"]*)"', html)
     page = page.group(1) if page else ""
     out, n = html, 0
-    for marker, block in (("NAV", nav_for(page)), ("FOOTER", FOOTER)):
+    for marker, block in (("NAV", nav_for(page)), ("FOOTER", footer_for(page))):
         pattern = re.compile(r"<!--%s-->.*?<!--/%s-->" % (marker, marker), re.S)
         if pattern.search(out):
             out = pattern.sub("<!--%s-->%s<!--/%s-->" % (marker, block, marker), out)
