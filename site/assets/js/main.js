@@ -531,6 +531,26 @@
     }
   }
 
+  /* ---- scroll reveal ----
+     A single observer for every [data-reveal] element. It unobserves on entry,
+     so nothing re-animates on the way back up, and with reduced motion or no
+     IntersectionObserver the elements are simply marked visible at once. */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+  if (reveals.length) {
+    if (reduced || !('IntersectionObserver' in window)) {
+      reveals.forEach(function (el) { el.classList.add('is-in'); });
+    } else {
+      var revealer = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('is-in');
+          obs.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+      reveals.forEach(function (el) { revealer.observe(el); });
+    }
+  }
+
   /* ---- mobile bottom action bar on the event page ---- */
   if (document.querySelector('.mobile-cta')) document.body.classList.add('has-mobile-cta');
 })();

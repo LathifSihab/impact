@@ -32,6 +32,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<!-- reveal-boot: marks the document as scripted before first paint, so the
+     scroll-reveal start state never applies to a page that cannot animate. -->
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body data-nav="events">
 
@@ -163,7 +166,7 @@
 <!-- upcoming -->
 <section class="section" id="upcoming">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Upcoming IMPACT events</span>
         <h2 class="d-l">Wat kan je binnenkort meemaken?</h2>
@@ -239,7 +242,7 @@
 <!-- formats -->
 <section class="section section--black" id="formats">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Onze formats</span>
         <h2 class="d-l align-right">Het medium verandert. De fundamenten blijven.</h2>
@@ -354,7 +357,7 @@
 <!-- alle events -->
 <section class="section" id="alle">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Alle events</span>
         <h2 class="d-l">Volledig overzicht</h2>

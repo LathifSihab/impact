@@ -32,6 +32,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
+<!-- reveal-boot: marks the document as scripted before first paint, so the
+     scroll-reveal start state never applies to a page that cannot animate. -->
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body data-nav="media">
 
@@ -163,7 +166,7 @@
 
 <section class="section" id="aftermovies" style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div><span class="running">Aftermovies</span><h2 class="d-l">Moving image</h2></div>
       <p class="body">Footage from Basketball Edition 2026. Every past edition also gets an aftermovie, linked to its recap in the Journal.</p>
     </div>
@@ -225,7 +228,7 @@
 
 <section class="section section--sand" id="fotografie">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div><span class="running">Photography</span><h2 class="d-l align-right">Image archive</h2></div>
       <p class="body">Warm grade, lightly desaturated, open blacks. People in action or in conversation — no posed group shots. Portraits of minors only with consent.</p>
     </div>

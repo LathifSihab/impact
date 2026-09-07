@@ -32,6 +32,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<!-- reveal-boot: marks the document as scripted before first paint, so the
+     scroll-reveal start state never applies to a page that cannot animate. -->
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body data-nav="events">
 
@@ -190,7 +193,7 @@
 
 <section class="section section--sand">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Hoe het werkt</span>
         <h2 class="d-l align-right">Van eerste gesprek tot recap</h2>

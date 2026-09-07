@@ -33,6 +33,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
+<!-- reveal-boot: marks the document as scripted before first paint, so the
+     scroll-reveal start state never applies to a page that cannot animate. -->
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body data-nav="home">
 
@@ -174,7 +177,7 @@
 <!-- audience router -->
 <section class="section section--sand" id="voor-jou">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">What brings you here?</span>
         <h2 class="d-l d-l--48">Find your next step</h2>
@@ -225,7 +228,7 @@
 <!-- 02 fundamenten -->
 <section class="section section--red" id="fundamenten">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <span class="running">The foundations</span>
       <div>
         <h2 class="d-l">Six foundations. One stronger generation.</h2>
@@ -300,7 +303,7 @@
 <!-- 03 voor wie -->
 <section class="section section--sand">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Who it's for</span>
         <h2 class="d-l">Built for every stage of growth</h2>
@@ -342,7 +345,7 @@
 <!-- 04 upcoming events -->
 <section class="section" id="events">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Upcoming IMPACT events</span>
         <h2 class="d-l">What can you experience next?</h2>
@@ -405,7 +408,7 @@
 <!-- 05 formats -->
 <section class="section section--black">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Our formats</span>
         <h2 class="d-l align-right">The medium changes. The foundations stay.</h2>
@@ -465,18 +468,19 @@
   </div>
 </section>
 
-<!-- the feedback -->
-<section class="section section--burgundy" id="feedback">
+<!-- the feedback: full-bleed reel -->
+<section class="reel" id="feedback">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="reel-head" data-reveal>
+      <p class="reel-word" aria-hidden="true">REAL</p>
       <span class="running">The feedback</span>
-      <div><h2 class="d-l">Don't take our word for it.</h2></div>
+      <h2 class="d-l">Their words. Our foundation.</h2>
       <p class="body">
-        Filmed at the camp during Basketball Edition 2026. No script, no direction,
-        no second take.
+        Recorded at the camp during Basketball Edition 2026. No script, no direction,
+        no second take &mdash; and you can hear it.
       </p>
     </div>
-    <div class="vcards">
+    <div class="reel-strip" data-reveal>
       <figure class="vcard">
         <div class="vwrap">
           <video controls preload="none" playsinline
@@ -487,7 +491,7 @@
           </video>
           <button class="vhint" type="button">Tap for sound</button>
         </div>
-        <figcaption>Participant · Basketball Edition 2026</figcaption>
+        <figcaption><b>He came for the basketball.</b>Participant · Basketball Edition 2026</figcaption>
       </figure>
       <figure class="vcard">
         <div class="vwrap">
@@ -499,7 +503,7 @@
           </video>
           <button class="vhint" type="button">Tap for sound</button>
         </div>
-        <figcaption>Participant · Basketball Edition 2026</figcaption>
+        <figcaption><b>What he learned the most from.</b>Participant · Basketball Edition 2026</figcaption>
       </figure>
       <figure class="vcard">
         <div class="vwrap">
@@ -511,11 +515,12 @@
           </video>
           <button class="vhint" type="button">Tap for sound</button>
         </div>
-        <figcaption>At the camp · Basketball Edition 2026</figcaption>
+        <figcaption><b>Day three, no direction.</b>At the camp · Basketball Edition 2026</figcaption>
       </figure>
     </div>
-    <p class="stat-note">
-      Press play for sound. The thumbnails deliberately show no participants' faces.
+    <p class="reel-note">
+      The clips start silent as soon as they come into view. Tap for sound.
+      The thumbnails deliberately show no faces of participants.
     </p>
   </div>
 </section>
@@ -523,7 +528,7 @@
 <!-- 07 journal -->
 <section class="section section--sand" id="journal-teaser">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Journal</span>
         <h2 class="d-l">What we lived, learned and built</h2>
@@ -559,7 +564,7 @@
 </section>
 
 <!-- partner & host marquee -->
-<div class="marquee">
+<div class="marquee marquee--sand">
   <div class="mq-head">
     <span class="running">Partners &amp; hosts</span>
     <span class="mq-note">Every logo links to the partner.</span>

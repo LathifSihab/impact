@@ -32,6 +32,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<!-- reveal-boot: marks the document as scripted before first paint, so the
+     scroll-reveal start state never applies to a page that cannot animate. -->
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body data-nav="samenwerken">
 
@@ -165,7 +168,7 @@
 <!-- overview rows -->
 <section class="section section--black">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Vijf manieren</span>
         <h2 class="d-l">Kies waar je past</h2>
@@ -220,7 +223,7 @@
 
 <section class="section" id="tiers">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Partnership opportunities</span>
         <h2 class="d-l">More than a logo.</h2>
@@ -254,7 +257,7 @@
 
 <section class="section section--burgundy" id="bereik">
   <div class="wrap">
-    <div class="sec-head sec-head--stack">
+    <div class="sec-head sec-head--stack" data-reveal>
       <div>
         <span class="running">Ons bereik</span>
         <h2 class="d-l">Partners worden deel van het verhaal.</h2>
@@ -281,7 +284,7 @@
 <!-- experts -->
 <section class="section section--sand" id="experts">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Experts &amp; coaches</span>
         <h2 class="d-l">Bouw mee aan één van onze fundamenten</h2>
@@ -300,7 +303,7 @@
 <!-- voor bedrijven -->
 <section class="section" id="bedrijven">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Voor bedrijven</span>
         <h2 class="d-l">Concrete mogelijkheden</h2>
@@ -322,46 +325,13 @@
 <!-- onze partners -->
 <section class="section section--sand" id="partners">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <div>
         <span class="running">Onze partners</span>
         <h2 class="d-l">Met wie we samenwerken</h2>
       </div>
       <p class="body">De partners en hosts van IMPACT vandaag. Elk logo linkt naar de partner. Vectorversies worden nog aangeleverd.</p>
     </div>
-  </div>
-  <div class="marquee marquee--sand">
-  <div class="mq-head">
-    <span class="running">Partners &amp; hosts</span>
-    <span class="mq-note">Doorlopende marquee, behouden uit de huidige site — elk logo linkt naar de partner.</span>
-  </div>
-  <div class="mq-track">
-    <div class="mq-set">
-      <div class="cell"><a class="slot" href="https://talenco.be/" target="_blank" rel="noopener" title="Talenco Group"><img src="assets/brand/partners/talenco.png" alt="Talenco Group" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://saynomore.events/" target="_blank" rel="noopener" title="SNM Event Agency"><img src="assets/brand/partners/snm.png" alt="SNM Event Agency" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://www.odth.be/en/homepage/" target="_blank" rel="noopener" title="ODTH First Class Logistics"><img src="assets/brand/partners/odth.png" alt="ODTH First Class Logistics" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://lesplumes.be/" target="_blank" rel="noopener" title="Les Plumes"><img src="assets/brand/partners/les-plumes.png" alt="Les Plumes" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://www.foodmaker.be/" target="_blank" rel="noopener" title="Foodmaker"><img src="assets/brand/partners/foodmaker.png" alt="Foodmaker" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://www.boshi.be/" target="_blank" rel="noopener" title="Boshi"><img src="assets/brand/partners/boshi.png" alt="Boshi" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://www.decathlon.be/nl" target="_blank" rel="noopener" title="Decathlon"><img src="assets/brand/partners/decathlon.png" alt="Decathlon" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://www.eenpotnat.be/" target="_blank" rel="noopener" title="Één Pot Nat"><img src="assets/brand/partners/eenpotnat.png" alt="Één Pot Nat" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://flourishbymagnolia.com/" target="_blank" rel="noopener" title="Flourish by Magnolia"><img src="assets/brand/partners/flourish.png" alt="Flourish by Magnolia" loading="lazy"></a></div>
-    </div>
-    <div class="mq-set" aria-hidden="true">
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/talenco.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/snm.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/odth.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/les-plumes.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/foodmaker.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/boshi.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/decathlon.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/eenpotnat.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="assets/brand/partners/flourish.png" alt="" loading="lazy"></span></div>
-    </div>
-  </div>
-</div>
-  <div class="wrap" style="padding-top:56px">
-    <h3 class="h" style="margin-bottom:24px">Volledig overzicht</h3>
     <div class="logo-grid">
       <a class="slot" href="https://talenco.be/" target="_blank" rel="noopener" title="Talenco Group"><img src="assets/brand/partners/talenco.png" alt="Talenco Group" loading="lazy"></a>
       <a class="slot" href="https://saynomore.events/" target="_blank" rel="noopener" title="SNM Event Agency"><img src="assets/brand/partners/snm.png" alt="SNM Event Agency" loading="lazy"></a>
