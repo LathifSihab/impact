@@ -774,9 +774,11 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 .stat .n,.counters .n,.testi p,.pull-quote,.dl-row .t{
   font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;
   text-wrap:balance;text-transform:uppercase;
-  /* Dutch compounds are long: hyphenate rather than let a single word run out
-     of its column. `lang="nl"` on <html> gives the browser the right rules. */
-  overflow-wrap:break-word;hyphens:auto}
+  /* Break only as a last resort, and never with a hyphen: automatic hyphenation
+     turned "OM TE VERMENIGVULDIGEN" into "OM TE VERMENIG-VULDIGEN", which reads
+     as a defect at display size. The size cap inside .two-col is what actually
+     keeps long Dutch compounds inside their column. */
+  overflow-wrap:break-word;hyphens:manual}
 
 .d-xl,.hero h1{font-size:var(--t-hero);line-height:.86;max-width:15ch;overflow-wrap:normal}
 .hero--page h1{font-size:var(--t-display);line-height:.88;max-width:16ch}
