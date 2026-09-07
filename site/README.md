@@ -1,6 +1,10 @@
-# IMPACT — demo site
+# IMPACT — static site
 
-Static HTML/CSS/JS, no build step. Open `index.html`, or serve the folder.
+Static HTML/CSS/JS, no build step. Serve the folder (`python -m http.server 8080`)
+rather than opening the files directly — the hero video and the webfonts behave
+differently over `file://`.
+
+**How to test it: [../TESTING.md](../TESTING.md).**
 
 The craft pass of 7 September 2026 executed `brief/docs/` (01 art direction, 02 content,
 03 components) against this site. What changed, and why, is below. Unconfirmed content that is
