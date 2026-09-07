@@ -468,58 +468,106 @@
   </div>
 </section>
 
-<!-- the feedback: full-bleed reel -->
-<section class="reel" id="feedback">
-  <div class="wrap">
-    <div class="reel-head" data-reveal>
-      <p class="reel-word" aria-hidden="true">REAL</p>
-      <span class="running">The feedback</span>
-      <h2 class="d-l">Their words. Our foundation.</h2>
-      <p class="body">
-        Recorded at the camp during Basketball Edition 2026. No script, no direction,
-        no second take &mdash; and you can hear it.
-      </p>
+<!-- the feedback: headline band + scroll-driven cinema (cinema.js) -->
+<section class="reel-sec" id="feedback">
+  <div class="reel">
+    <div class="wrap">
+      <div class="reel-head" data-reveal>
+        <p class="reel-word" aria-hidden="true">REAL</p>
+        <span class="running">The feedback</span>
+        <h2 class="d-l">Their words. Our foundation.</h2>
+        <p class="body">
+          Four clips, recorded at the camp during Basketball Edition 2026. No script,
+          no direction, no second take &mdash; and you can hear it. Scroll through the reel.
+        </p>
+      </div>
     </div>
-    <div class="reel-strip" data-reveal>
-      <figure class="vcard">
-        <div class="vwrap">
-          <video controls preload="none" playsinline
-                 poster="/assets/video/testimonials/deelnemer-01.jpg" aria-label="A participant on IMPACT Camp: Basketball Edition 2026">
-            <source src="/assets/video/testimonials/deelnemer-01.webm" type="video/webm">
-            <source src="/assets/video/testimonials/deelnemer-01.mp4" type="video/mp4">
-            Your browser cannot play this video.
-          </video>
-          <button class="vhint" type="button">Tap for sound</button>
-        </div>
-        <figcaption><b>He came for the basketball.</b>Participant · Basketball Edition 2026</figcaption>
+  </div>
+
+  <div class="cinema" data-cinema>
+    <div class="cinema-viewport">
+      <div class="cinema-track" data-cinema-track>
+      <figure class="shot" data-shot>
+        <video controls preload="none" playsinline muted loop
+               poster="/assets/video/testimonials/deelnemer-01.jpg" aria-label="A participant on IMPACT Camp: Basketball Edition 2026">
+          <source src="/assets/video/testimonials/deelnemer-01.webm" type="video/webm">
+          <source src="/assets/video/testimonials/deelnemer-01.mp4" type="video/mp4">
+          Your browser cannot play this video.
+        </video>
+        <span class="shot-dim" aria-hidden="true"></span>
+        <button class="shot-sound" type="button" data-sound aria-pressed="false">
+          <span class="on">Sound on</span><span class="off">Sound off</span>
+        </button>
+        <figcaption class="glass">
+          <span class="glass-n">01 / 04</span>
+          <b>He came for the basketball.</b>
+          <span class="glass-m">Participant &middot; Basketball Edition 2026</span>
+        </figcaption>
       </figure>
-      <figure class="vcard">
-        <div class="vwrap">
-          <video controls preload="none" playsinline
-                 poster="/assets/video/testimonials/deelnemer-02.jpg" aria-label="A participant on IMPACT Camp: Basketball Edition 2026">
-            <source src="/assets/video/testimonials/deelnemer-02.webm" type="video/webm">
-            <source src="/assets/video/testimonials/deelnemer-02.mp4" type="video/mp4">
-            Your browser cannot play this video.
-          </video>
-          <button class="vhint" type="button">Tap for sound</button>
-        </div>
-        <figcaption><b>What he learned the most from.</b>Participant · Basketball Edition 2026</figcaption>
+      <figure class="shot" data-shot>
+        <video controls preload="none" playsinline muted loop
+               poster="/assets/video/testimonials/deelnemer-02.jpg" aria-label="A participant on IMPACT Camp: Basketball Edition 2026">
+          <source src="/assets/video/testimonials/deelnemer-02.webm" type="video/webm">
+          <source src="/assets/video/testimonials/deelnemer-02.mp4" type="video/mp4">
+          Your browser cannot play this video.
+        </video>
+        <span class="shot-dim" aria-hidden="true"></span>
+        <button class="shot-sound" type="button" data-sound aria-pressed="false">
+          <span class="on">Sound on</span><span class="off">Sound off</span>
+        </button>
+        <figcaption class="glass">
+          <span class="glass-n">02 / 04</span>
+          <b>What he learned the most from.</b>
+          <span class="glass-m">Participant &middot; Basketball Edition 2026</span>
+        </figcaption>
       </figure>
-      <figure class="vcard">
-        <div class="vwrap">
-          <video controls preload="none" playsinline
-                 poster="/assets/video/testimonials/deelnemer-04.jpg" aria-label="Footage from IMPACT Camp: Basketball Edition 2026">
-            <source src="/assets/video/testimonials/deelnemer-04.webm" type="video/webm">
-            <source src="/assets/video/testimonials/deelnemer-04.mp4" type="video/mp4">
-            Your browser cannot play this video.
-          </video>
-          <button class="vhint" type="button">Tap for sound</button>
-        </div>
-        <figcaption><b>Day three, no direction.</b>At the camp · Basketball Edition 2026</figcaption>
+      <figure class="shot" data-shot>
+        <video controls preload="none" playsinline muted loop
+               poster="/assets/video/testimonials/deelnemer-03.jpg" aria-label="Participants talk about IMPACT Camp: Basketball Edition 2026">
+          <source src="/assets/video/testimonials/deelnemer-03.webm" type="video/webm">
+          <source src="/assets/video/testimonials/deelnemer-03.mp4" type="video/mp4">
+          Your browser cannot play this video.
+        </video>
+        <span class="shot-dim" aria-hidden="true"></span>
+        <button class="shot-sound" type="button" data-sound aria-pressed="false">
+          <span class="on">Sound on</span><span class="off">Sound off</span>
+        </button>
+        <figcaption class="glass">
+          <span class="glass-n">03 / 04</span>
+          <b>What they take home.</b>
+          <span class="glass-m">Participants &middot; Basketball Edition 2026</span>
+        </figcaption>
       </figure>
+      <figure class="shot" data-shot>
+        <video controls preload="none" playsinline muted loop
+               poster="/assets/video/testimonials/deelnemer-04.jpg" aria-label="Footage from IMPACT Camp: Basketball Edition 2026">
+          <source src="/assets/video/testimonials/deelnemer-04.webm" type="video/webm">
+          <source src="/assets/video/testimonials/deelnemer-04.mp4" type="video/mp4">
+          Your browser cannot play this video.
+        </video>
+        <span class="shot-dim" aria-hidden="true"></span>
+        <button class="shot-sound" type="button" data-sound aria-pressed="false">
+          <span class="on">Sound on</span><span class="off">Sound off</span>
+        </button>
+        <figcaption class="glass">
+          <span class="glass-n">04 / 04</span>
+          <b>Day three, no direction.</b>
+          <span class="glass-m">At the camp &middot; Basketball Edition 2026</span>
+        </figcaption>
+      </figure>
+      </div>
     </div>
+    <div class="cinema-hud">
+      <button type="button" data-cinema-prev aria-label="Previous clip">&lsaquo;</button>
+      <span class="cinema-progress" aria-hidden="true"><i data-cinema-bar></i></span>
+      <span class="cinema-count" aria-hidden="true"><b data-cinema-n>01</b> / 04</span>
+      <button type="button" data-cinema-next aria-label="Next clip">&rsaquo;</button>
+    </div>
+  </div>
+
+  <div class="reel-tail">
     <p class="reel-note">
-      The clips start silent as soon as they come into view. Tap for sound.
+      The clip on screen starts silent. Turn the sound on with the button on the clip.
       The thumbnails deliberately show no faces of participants.
     </p>
   </div>
@@ -580,7 +628,7 @@
       <div class="cell"><a class="slot" href="https://www.decathlon.be/nl" target="_blank" rel="noopener" title="Decathlon"><img src="/assets/brand/partners/decathlon.png" alt="Decathlon" loading="lazy"></a></div>
       <div class="cell"><a class="slot" href="https://www.eenpotnat.be/" target="_blank" rel="noopener" title="Één Pot Nat"><img src="/assets/brand/partners/eenpotnat.png" alt="Één Pot Nat" loading="lazy"></a></div>
       <div class="cell"><a class="slot" href="https://flourishbymagnolia.com/" target="_blank" rel="noopener" title="Flourish by Magnolia"><img src="/assets/brand/partners/flourish.png" alt="Flourish by Magnolia" loading="lazy"></a></div>
-      <div class="cell"><a class="slot" href="https://drpbuildlab.com" target="_blank" rel="noopener" title="DRP BuildLab — website &amp; tech partner"><img src="/assets/brand/partners/drp-buildlab.png" alt="DRP BuildLab" width="512" height="512" loading="lazy"></a></div>
+      <div class="cell"><a class="slot" href="https://drpbuildlab.com" target="_blank" rel="noopener" title="DRP BuildLab — website &amp; tech partner"><img src="/assets/brand/partners/drp-buildlab-wordmark.png" alt="DRP BuildLab" width="360" height="254" loading="lazy"></a></div>
     </div>
     <div class="mq-set" aria-hidden="true">
       <div class="cell"><span class="slot"><img src="/assets/brand/partners/talenco.png" alt="" loading="lazy"></span></div>
@@ -592,7 +640,7 @@
       <div class="cell"><span class="slot"><img src="/assets/brand/partners/decathlon.png" alt="" loading="lazy"></span></div>
       <div class="cell"><span class="slot"><img src="/assets/brand/partners/eenpotnat.png" alt="" loading="lazy"></span></div>
       <div class="cell"><span class="slot"><img src="/assets/brand/partners/flourish.png" alt="" loading="lazy"></span></div>
-      <div class="cell"><span class="slot"><img src="/assets/brand/partners/drp-buildlab.png" alt="" width="512" height="512" loading="lazy"></span></div>
+      <div class="cell"><span class="slot"><img src="/assets/brand/partners/drp-buildlab-wordmark.png" alt="" width="360" height="254" loading="lazy"></span></div>
     </div>
   </div>
 </div>
@@ -669,5 +717,11 @@
 </div>
 
 <script src="/assets/js/main.js"></script>
+<!-- The cinema reel is the only place GSAP is used, so it loads here and not in
+     the shared chrome. Pinned versions; ScrollTrigger must follow gsap, and
+     cinema.js no-ops into the plain swipe rail if either fails to arrive. -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script defer src="/assets/js/cinema.js"></script>
 </body>
 </html>

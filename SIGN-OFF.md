@@ -55,9 +55,16 @@ the brochure all say. Only the website brief said 15–18.
 ## Participant videos — needs an explicit yes before launch
 
 Four clips arrived from IMPACT: portrait phone recordings from Basketball Edition 2026,
-mostly **participants (minors) speaking on camera**. They are now on staging: three as the
-homepage feedback section, four on the media page, one in the event gallery. Staging carries
-`noindex`, so nothing is indexable yet.
+mostly **participants (minors) speaking on camera**. All four are now on the homepage as a
+scroll-driven reel, and all four are on the media page. Staging carries `noindex`, so nothing
+is indexable yet.
+
+One clip needs calling out. **deelnemer-03 is a montage of participants speaking straight to
+camera and contains no faceless frame at all** — a frame sweep of the whole clip found none.
+Its poster is therefore a crop of the opening frame: a hand, a pen, the worksheet and the
+IMPACT booklet, no face. That keeps the still safe, but it does not make the clip safe: the
+moment it plays, several identifiable minors appear. It is on the homepage at her team's
+request.
 
 Before the site goes to the live domain we need, in writing:
 

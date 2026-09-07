@@ -28,17 +28,24 @@ OUT = VIDEO / "testimonials"
 MASTERS = ROOT / "brief/video-masters"
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 
-# source -> (slug, poster timestamp in seconds)
+# source -> (slug, poster timestamp in seconds, optional crop)
 #
-# The poster is picked by hand from a frame sweep, not taken from an arbitrary
-# offset: the first pass landed mid-sentence on three of the four, so the child
-# was caught with an open mouth and half-closed eyes. These four are the frames
-# where the participant is looking at the camera with a settled expression.
+# Poster policy — child safety, and it overrides picture quality: the still that
+# a visitor, a search engine and a social preview see before playback must not
+# show an identifiable child. So these are not "the best frame", they are the
+# earliest settled frame in which no face is readable — a coach with the group
+# seen from behind, a wide shot of the field, a participant turned away.
+#
+# deelnemer-03 is the exception: it is a montage of participants speaking
+# straight to camera and contains no faceless frame at all. Its poster is
+# therefore a crop of the opening frame — hand, pen, worksheet and the IMPACT
+# booklet — scaled back to the clip's own 480x848. Crop is (w, h, x, y) in
+# source pixels.
 CLIPS = [
-    ("WhatsApp Video 2026-08-31 at 15.44.41 2.mp4", "deelnemer-01", 14),
-    ("WhatsApp Video 2026-08-31 at 15.44.43 2.mp4", "deelnemer-02", 38),
-    ("WhatsApp Video 2026-08-31 at 15.44.46 2.mp4", "deelnemer-03", 5),
-    ("WhatsApp Video 2026-08-31 at 15.44.47 2.mp4", "deelnemer-04", 8),
+    ("WhatsApp Video 2026-08-31 at 15.44.41 2.mp4", "deelnemer-01", 3, None),
+    ("WhatsApp Video 2026-08-31 at 15.44.43 2.mp4", "deelnemer-02", 2, None),
+    ("WhatsApp Video 2026-08-31 at 15.44.46 2.mp4", "deelnemer-03", 0.2, (235, 418, 30, 430)),
+    ("WhatsApp Video 2026-08-31 at 15.44.47 2.mp4", "deelnemer-04", 1.0, None),
 ]
 
 POSTERS_ONLY = "--posters" in sys.argv   # re-pick a still without re-encoding
@@ -53,7 +60,7 @@ def main():
     MASTERS.mkdir(parents=True, exist_ok=True)
 
     total_in = total_out = 0
-    for source, slug, poster_at in CLIPS:
+    for source, slug, poster_at, crop in CLIPS:
         src = VIDEO / source
         if not src.exists():
             src = MASTERS / source
@@ -74,10 +81,16 @@ def main():
         if not POSTERS_ONLY:
             run(["-i", str(src), "-c:v", "libvpx-vp9", "-crf", "36", "-b:v", "0",
                  "-row-mt", "1", "-c:a", "libopus", "-b:a", "48k", "-ac", "1", str(webm)])
-        run(["-ss", str(poster_at), "-i", str(src), "-frames:v", "1", "-q:v", "3", str(jpg)])
+        poster_args = ["-ss", str(poster_at), "-i", str(src), "-frames:v", "1", "-q:v", "3"]
+        if crop:
+            w, h, x, y = crop
+            poster_args += ["-vf", f"crop={w}:{h}:{x}:{y},"
+                                  "scale=480:848:flags=lanczos,unsharp=5:5:0.7"]
+        run(poster_args + [str(jpg)])
 
         if POSTERS_ONLY:
-            print(f"  {slug}: poster re-picked at {poster_at}s")
+            print(f"  {slug}: poster re-picked at {poster_at}s"
+                  + (" (cropped)" if crop else ""))
             continue
         out_bytes = mp4.stat().st_size + webm.stat().st_size + jpg.stat().st_size
         total_out += out_bytes
