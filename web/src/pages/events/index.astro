@@ -1,0 +1,165 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import EventRow from '../../components/EventRow.astro';
+
+const all = await getCollection('events');
+const formats = (await getCollection('formats')).sort((a, b) => a.data.order - b.data.order);
+const formatName = (id: string) => formats.find((f) => f.id === id)?.data.name ?? '';
+
+const upcoming = all
+  .filter((e) => e.data.status !== 'past')
+  .sort((a, b) => a.data.editionYear - b.data.editionYear);
+const past = all.filter((e) => e.data.status === 'past');
+
+const peers = formats.filter((f) => !f.data.isHosted);
+const hosted = formats.find((f) => f.data.isHosted);
+
+const statusLabel: Record<string, string> = {
+  waitlist: 'Wachtlijst open', open: 'Inschrijvingen open', full: 'Volzet', past: 'Afgelopen · in Journal',
+};
+---
+
+<Base
+  title="Events — upcoming IMPACT events, Camps, Days & Retreats"
+  description="Alle upcoming IMPACT events en de formats waarin we werken: Camps, Days, Retreats, Community en Hosted Experiences. Schrijf je in op de wachtlijst."
+  nav="events"
+  hasOwnSignup={true}
+>
+  <Hero
+    variant="page"
+    image="assets/img/camp/court-169.jpg"
+    alt="Jongeren in actie tijdens een IMPACT Camp"
+    video="events"
+    label="[ Events ]"
+    title="What can you experience?"
+    standfirst="Formats zijn de soorten experiences die IMPACT bouwt. Events zijn de concrete edities waarvoor je je kan inschrijven. Hieronder eerst wat eraan komt, daarna waarin we werken."
+  >
+    <nav class="anchor-nav reveal" aria-label="Secties op deze pagina">
+      <a href="#upcoming">Upcoming events</a>
+      <a href="#formats">Onze formats</a>
+      <a href="#alle">Alle events</a>
+    </nav>
+  </Hero>
+
+  <section class="section" id="upcoming">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="running">Upcoming IMPACT events</span>
+        <div><h2 class="d-l">Wat kan je binnenkort meemaken?</h2></div>
+        <p class="body">
+          Data en locaties worden bevestigd zodra de wachtlijst voldoende groot is. Inschrijven op de
+          wachtlijst is gratis en verplicht je tot niets.
+        </p>
+      </div>
+      {upcoming.map((event) => (
+        <EventRow event={event} formatName={formatName(event.data.format.id)} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--black" id="formats">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="running">Onze formats</span>
+        <div><h2 class="d-l align-right">Het medium verandert. De fundamenten blijven.</h2></div>
+      </div>
+      {peers.map((f) => (
+        <a class="format-row" href={`#${f.id}`}>
+          <span class="n">{String(f.data.order).padStart(2, '0')}</span>
+          <span class="name">IMPACT <span class="red">{f.data.bracketName}</span></span>
+          <p class="body desc">{f.data.description}</p>
+          <span class="m">{f.data.meta}</span>
+        </a>
+      ))}
+      {hosted && (
+        <a class="format-row format-row--hosted" href="/hosted-experiences">
+          <span class="n">—</span>
+          <span class="name">IMPACT <span class="red">{hosted.data.bracketName}</span></span>
+          <p class="body desc">{hosted.data.description}</p>
+          <span class="m">{hosted.data.meta}</span>
+        </a>
+      )}
+      <p class="body" style="margin-top:34px;max-width:760px">
+        Days, Camps, Retreats en Community zijn onze vier pijlers. Hosted Experiences is geen vijfde
+        pijler, maar een andere manier waarop die formats georganiseerd en aangeboden kunnen worden —
+        met een host die het gezicht van de experience is.
+      </p>
+    </div>
+  </section>
+
+  {peers.map((f, i) => (
+    <section class:list={['section', i % 2 === 1 && 'section--sand']} id={f.id}>
+      <div class="wrap two-col">
+        {i % 2 === 1 && <img src={'/' + f.data.image} alt={f.data.name} loading="lazy"
+                             style="width:100%;aspect-ratio:16/9;object-fit:cover" />}
+        <div>
+          <span class="running">Format {String(f.data.order).padStart(2, '0')}</span>
+          <h2 class="d-l" style="margin:22px 0 24px">IMPACT <span class="red">{f.data.bracketName}</span></h2>
+          <p class="intro">{f.data.body}</p>
+          {f.data.ticks.length > 0 && (
+            <ul class="ticks">{f.data.ticks.map((t) => <li>{t}</li>)}</ul>
+          )}
+        </div>
+        {i % 2 === 0 && <img src={'/' + f.data.image} alt={f.data.name} loading="lazy"
+                             style="width:100%;aspect-ratio:16/9;object-fit:cover" />}
+      </div>
+    </section>
+  ))}
+
+  <section class="section" id="alle">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="running">Alle events</span>
+        <div><h2 class="d-l">Volledig overzicht</h2></div>
+        <p class="body">
+          Afgelopen edities blijven niet tussen de actieve events staan: ze verhuizen naar Journal als
+          recap, met foto's, aftermovie en verhalen.
+        </p>
+      </div>
+      <div class="table">
+        <div class="table-head">
+          <span>Event</span><span>Format</span><span>Datum</span><span>Leeftijd</span><span>Status</span>
+        </div>
+        {[...upcoming, ...past].map((e) => (
+          <a class="table-row" href={`/events/${e.id}`}>
+            <span>{e.data.title}</span>
+            <span>{formatName(e.data.format.id)}</span>
+            <span>{e.data.dateText}</span>
+            <span>{e.data.ageMin}–{e.data.ageMax}</span>
+            <span class:list={['st', e.data.status === 'waitlist' && 'st--open',
+                               e.data.status === 'past' && 'st--past']}>
+              {statusLabel[e.data.status]}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-cards">
+    <div class="cta-card cta-card--ink">
+      <h3>Zet je op de wachtlijst</h3>
+      <p>Gratis, zonder verplichting. Je hoort als eerste wanneer een editie opengaat.</p>
+      <a class="pill pill--ghost" href="#upcoming">Bekijk events</a>
+    </div>
+    <div class="cta-card cta-card--red">
+      <h3>Blijf op de hoogte</h3>
+      <p>Nieuwe events zodra ze bevestigd zijn.</p>
+      <form class="news-form" data-newsletter method="post" action="/api/newsletter" novalidate>
+        <div class="field-row">
+          <label class="sr-only" for="cta-news">E-mailadres</label>
+          <input id="cta-news" name="email" type="email" placeholder="jouw e-mailadres" required />
+          <button type="submit" class="pill pill--primary pill--sm">Inschrijven</button>
+        </div>
+        <p class="form-msg" role="status"></p>
+      </form>
+    </div>
+    <div class="cta-card cta-card--burgundy">
+      <h3>Iets samen bouwen</h3>
+      <p>Clubs, scholen en organisaties bouwen met ons een experience op maat.</p>
+      <a class="pill pill--ghost" href="/hosted-experiences">Hosted Experiences</a>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { event: CollectionEntry<'events'>; formatName: string }
+const { event, formatName } = Astro.props;
+const e = event.data;
+
+const statusLabel = {
+  waitlist: 'Wachtlijst open',
+  open: 'Inschrijvingen open',
+  full: 'Volzet',
+  past: 'Afgelopen',
+}[e.status];
+
+const ctaLabel = { waitlist: 'Zet me op de wachtlijst', open: 'Schrijf je in', full: 'Volzet', past: 'Lees de recap' }[e.status];
+const href = `/events/${event.id}`;
+// doc 03: the row and its CTA are two separate targets, not a nested anchor
+const ctaHref = e.status === 'past' ? '/journal' : `${href}#wachtlijst`;
+const img = (e.heroImage.startsWith('/') ? e.heroImage : '/' + e.heroImage);
+---
+
+<div class="event-row">
+  <a class="event-row-main" href={href}>
+    <img src={img} alt={e.title} loading="lazy" />
+    <div>
+      <span class="tag">{formatName}</span>
+      <h3>{e.title}</h3>
+    </div>
+    <div class="when meta">
+      <strong>{e.dateText}</strong>
+      {e.location}
+    </div>
+    <div class="age meta">{e.ageMin}–{e.ageMax} jaar</div>
+  </a>
+  <div class="cta">
+    <a class="pill pill--secondary pill--sm" href={ctaHref}>{ctaLabel}</a>
+    <span class="status">{statusLabel}</span>
+  </div>
+</div>

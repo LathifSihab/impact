@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import NewsletterDome from '../components/NewsletterDome.astro';
+import { SITE_URL, SITE_NAME, LOCALE, OG_IMAGE, breadcrumb } from '../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  /** which main nav item is current */
+  nav?: 'over' | 'events' | 'samenwerken' | 'social' | 'journal' | 'media' | 'contact' | 'home';
+  /** extra JSON-LD blocks; a BreadcrumbList is emitted when none are given */
+  jsonLd?: unknown[];
+  /** pages that already carry a signup form suppress the footer band */
+  hasOwnSignup?: boolean;
+  /** the dome never appears where a waitlist form is the primary action */
+  suppressDome?: boolean;
+  ogImage?: string;
+}
+
+const {
+  title, description, nav = 'home', jsonLd, hasOwnSignup = false,
+  suppressDome = false, ogImage = OG_IMAGE,
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const canonical = new URL(path, SITE_URL).href.replace(/\/$/, path === '/' ? '/' : '');
+const ld = jsonLd?.length ? jsonLd : [breadcrumb(title.split(' — ')[0], path)];
+---
+
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="nl-BE" href={canonical} />
+  <link rel="alternate" hreflang="en" href={new URL('/en' + path, SITE_URL).href} />
+  <link rel="alternate" hreflang="x-default" href={canonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:locale" content={LOCALE} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(ogImage, SITE_URL).href} />
+  <meta property="og:image:alt" content="Jongeren in actie tijdens een IMPACT-activatie" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, SITE_URL).href} />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <link rel="icon" href="/assets/brand/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/brand/favicon-180.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  {ld.map((block) => (
+    <script type="application/ld+json" set:html={JSON.stringify(block)} />
+  ))}
+</head>
+
+<body data-nav={nav}>
+  <a class="skip-link" href="#main">Naar de inhoud</a>
+  <Nav current={nav} />
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <Footer hasOwnSignup={hasOwnSignup} />
+  {!suppressDome && <NewsletterDome />}
+
+  <script src="/assets/js/main.js" is:inline></script>
+</body>
+</html>
