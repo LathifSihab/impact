@@ -4,7 +4,35 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---- hero reveal, on load only ---- */
+  /* ---- hero reveal, on load only ----
+     The headline is one text block (no <br>): we measure where the browser broke
+     the lines and wrap each in a span, so the reveal is line-by-line while the
+     line count stays a property of the type block, not of the markup. */
+  function splitLines(el) {
+    var text = el.textContent.trim();
+    el.textContent = '';
+    text.split(/\s+/).forEach(function (word, i) {
+      var w = document.createElement('span');
+      w.className = 'w';
+      w.textContent = (i ? ' ' : '') + word;
+      el.appendChild(w);
+    });
+    var lines = [], current = null, top = null;
+    Array.prototype.forEach.call(el.querySelectorAll('.w'), function (w) {
+      var t = Math.round(w.offsetTop);
+      if (top === null || t !== top) { current = []; lines.push(current); top = t; }
+      current.push(w.textContent);
+    });
+    el.innerHTML = lines.map(function (l) {
+      return '<span class="line"><span class="line-in">' + l.join('').trim() + '</span></span>';
+    }).join(' ');
+  }
+
+  var split = document.querySelector('[data-split]');
+  if (split && !reduced) {
+    try { splitLines(split); } catch (e) { /* leave the headline as authored */ }
+  }
+
   var hero = document.querySelector('[data-reveal-root]');
   if (hero) requestAnimationFrame(function () { hero.classList.add('is-revealed'); });
 
@@ -69,16 +97,25 @@
 
   /* ---- mobile menu ---- */
   var menu = document.getElementById('mobile-menu');
+  var burgerEl = document.querySelector('.burger');
   function closeMobile() {
     if (!menu) return;
     menu.classList.remove('is-open');
+    if (burgerEl) { burgerEl.setAttribute('aria-expanded', 'false'); burgerEl.focus(); }
     document.body.style.overflow = '';
+    Array.prototype.forEach.call(document.body.children, function (el) {
+      if (el !== document.getElementById('dome')) el.removeAttribute('inert');
+    });
   }
   var burger = document.querySelector('.burger');
   if (burger && menu) {
     burger.addEventListener('click', function () {
       menu.classList.add('is-open');
+      burger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      Array.prototype.forEach.call(document.body.children, function (el) {
+        if (el !== menu && el.tagName !== 'SCRIPT') el.setAttribute('inert', '');
+      });
       var c = menu.querySelector('.close'); if (c) c.focus();
     });
     menu.querySelector('.close').addEventListener('click', closeMobile);
@@ -106,70 +143,21 @@
     track.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
     track.setAttribute('tabindex', '0');
-    var step = function () { return track.children[0].offsetWidth + 24; };
+    var step = function () { return track.children[0].offsetWidth + 20; };
     track.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { track.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' }); e.preventDefault(); }
       if (e.key === 'ArrowLeft') { track.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' }); e.preventDefault(); }
     });
     update();
 
-    /* Auto-advance: one card every 3s while the row is on screen. When the last
-       card has been shown it holds that full 3s, sweeps back to the first card and
-       carries on, so the row loops indefinitely. Timing is a setTimeout chain
-       rather than an interval, so the rewind can finish before the next step and
-       every card gets its own 3s. It hands control to the visitor for good on the
-       first real interaction, pauses on hover/focus, and never runs under
-       prefers-reduced-motion — the row stays a native scroller either way. */
-    var AUTO_DELAY = 3000;
-    var REWIND_SETTLE = 700;
-    var timer = null, paused = false, surrendered = reduced, onScreen = false;
-
-    function schedule(delay) {
-      if (surrendered) return;
-      stop();
-      timer = setTimeout(function () {
-        timer = null;
-        schedule(tick());
-      }, delay);
-    }
-    // returns the delay to use before the next step
-    function tick() {
-      if (paused || surrendered || !onScreen) return AUTO_DELAY;
-      var max = track.scrollWidth - track.clientWidth;
-      if (max <= 0) return AUTO_DELAY;
-      if (track.scrollLeft >= max - 4) {          // all cards shown → start over
-        track.scrollTo({ left: 0, behavior: 'smooth' });
-        return AUTO_DELAY + REWIND_SETTLE;
-      }
-      // if the next card would land within a sliver of the end, go straight to the
-      // end instead — otherwise the last stop is a 48px nudge that holds for 3s twice
-      var next = track.scrollLeft + step();
-      track.scrollTo({ left: next >= max - 80 ? max : next, behavior: 'smooth' });
-      return AUTO_DELAY;
-    }
-    function start() { if (!timer && !surrendered) schedule(AUTO_DELAY); }
-    function stop() { if (timer) { clearTimeout(timer); timer = null; } }
-    function surrender() { surrendered = true; stop(); }
-
-    ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) {
-      track.addEventListener(ev, surrender, { passive: true });
+    var prev = document.querySelector('[data-strip-prev]');
+    var next = document.querySelector('[data-strip-next]');
+    if (prev) prev.addEventListener('click', function () {
+      track.scrollBy({ left: -step(), behavior: reduced ? 'auto' : 'smooth' });
     });
-    track.addEventListener('mouseenter', function () { paused = true; });
-    track.addEventListener('mouseleave', function () { paused = false; });
-    track.addEventListener('focusin', function () { paused = true; });
-    track.addEventListener('focusout', function () { paused = false; });
-    document.addEventListener('visibilitychange', function () { paused = document.hidden; });
-
-    if (!surrendered) {
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-          onScreen = entries[0].isIntersecting;
-          if (onScreen) start(); else stop();
-        }, { threshold: 0.25 }).observe(track);
-      } else {
-        onScreen = true; start();
-      }
-    }
+    if (next) next.addEventListener('click', function () {
+      track.scrollBy({ left: step(), behavior: reduced ? 'auto' : 'smooth' });
+    });
   }
 
   /* ---- FAQ: one open at a time ---- */
@@ -208,7 +196,7 @@
       card.innerHTML = '<h2>Je staat op de wachtlijst</h2><p class="body">We sturen een bevestiging naar ' +
         email.value.trim().replace(/[<>&]/g, '') +
         '. Zodra de datum van deze editie bevestigd is, krijg je als eerste bericht — nog zonder verplichting.</p>' +
-        '<p class="meta" style="margin-top:18px">Demo: er wordt niets verzonden of opgeslagen.</p>';
+        '<p class="meta" style="margin-top:18px">We nemen contact op binnen twee werkdagen.</p>';
       card.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
     });
   }
@@ -221,25 +209,12 @@
       var v = form.elements.email.value.trim();
       if (!mail.test(v)) { msg.className = 'form-msg error'; msg.textContent = 'Vul een geldig e-mailadres in.'; return; }
       msg.className = 'form-msg ok';
-      msg.textContent = 'Bedankt — je staat op de lijst. (Demo: er wordt niets verzonden.)';
+      msg.textContent = 'Bedankt — je staat op de lijst.';
       form.elements.email.value = '';
       // where the real build reports the source of each signup
       if (window.plausible) window.plausible('newsletter_signup', { props: { source: document.title } });
     });
   });
-
-  var news = document.getElementById('newsletter-form');
-  if (news) {
-    news.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var msg = news.querySelector('.form-msg');
-      var v = news.elements.email.value.trim();
-      if (!mail.test(v)) { msg.className = 'form-msg error'; msg.textContent = 'Vul een geldig e-mailadres in.'; return; }
-      msg.className = 'form-msg ok';
-      msg.textContent = 'Bedankt — je staat op de lijst. (Demo: er wordt niets verzonden.)';
-      news.elements.email.value = '';
-    });
-  }
 
   /* ---- counters: count up once, when the row scrolls into view ---- */
   var fmt = new Intl.NumberFormat('nl-BE');
@@ -305,9 +280,79 @@
       }
       var msg = form.querySelector('.form-msg');
       if (!ok) { if (msg) { msg.className = 'form-msg error'; msg.textContent = 'Vul de ontbrekende velden aan.'; } return; }
-      if (msg) { msg.className = 'form-msg ok'; msg.textContent = 'Bedankt — je bericht is klaar om verzonden te worden. (Demo: er wordt niets verstuurd.)'; }
+      if (msg) { msg.className = 'form-msg ok'; msg.textContent = 'Bedankt — je bericht is klaar om verzonden te worden. ()'; }
     });
   });
+
+  /* ---- newsletter dome (Capital Belgium pattern) ----
+     Exit-intent on desktop, 60% scroll on mobile, once per visitor, suppressed
+     90 days after a dismiss or a signup. localStorage, so no consent banner. */
+  var dome = document.getElementById('dome');
+  if (dome) {
+    var KEY = 'impact.dome.until';
+    var panel = dome.querySelector('.dome-panel');
+    var closeBtn = dome.querySelector('.dome-close');
+    var lastFocus = null;
+    var suppressed = function () {
+      try { return Number(localStorage.getItem(KEY) || 0) > Date.now(); } catch (e) { return false; }
+    };
+    var suppress = function (days) {
+      try { localStorage.setItem(KEY, String(Date.now() + days * 864e5)); } catch (e) {}
+    };
+    var focusables = function () {
+      return dome.querySelectorAll('button, input, a[href]');
+    };
+    function openDome() {
+      if (suppressed() || !dome.hidden) return;
+      lastFocus = document.activeElement;
+      dome.hidden = false;
+      document.body.style.overflow = 'hidden';
+      Array.prototype.forEach.call(document.body.children, function (el) {
+        if (el !== dome && el.tagName !== 'SCRIPT') el.setAttribute('inert', '');
+      });
+      var first = dome.querySelector('input');
+      if (first) first.focus();
+      if (window.plausible) window.plausible('dome_shown');
+    }
+    function closeDome(reason) {
+      if (dome.hidden) return;
+      dome.hidden = true;
+      document.body.style.overflow = '';
+      Array.prototype.forEach.call(document.body.children, function (el) { el.removeAttribute('inert'); });
+      suppress(90);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+      if (window.plausible && reason) window.plausible(reason);
+    }
+    closeBtn.addEventListener('click', function () { closeDome('dome_dismissed'); });
+    dome.addEventListener('click', function (e) { if (e.target === dome) closeDome('dome_dismissed'); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeDome('dome_dismissed');
+      if (e.key === 'Tab' && !dome.hidden) {
+        var f = focusables(), first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { last.focus(); e.preventDefault(); }
+        else if (!e.shiftKey && document.activeElement === last) { first.focus(); e.preventDefault(); }
+      }
+    });
+    var domeForm = dome.querySelector('[data-dome-form]');
+    if (domeForm) domeForm.addEventListener('submit', function () {
+      suppress(365);
+      if (window.plausible) window.plausible('dome_signup');
+      setTimeout(function () { closeDome(); }, 1800);
+    });
+
+    if (!suppressed()) {
+      if (window.matchMedia('(min-width: 821px)').matches) {
+        document.addEventListener('mouseout', function (e) {
+          if (!e.relatedTarget && e.clientY <= 0) openDome();
+        });
+      } else {
+        window.addEventListener('scroll', function onScroll() {
+          var p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+          if (p >= 0.6) { openDome(); window.removeEventListener('scroll', onScroll); }
+        }, { passive: true });
+      }
+    }
+  }
 
   /* ---- mobile bottom action bar on the event page ---- */
   if (document.querySelector('.mobile-cta')) document.body.classList.add('has-mobile-cta');

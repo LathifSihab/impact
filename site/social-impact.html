@@ -30,11 +30,12 @@
 <link rel="apple-touch-icon" href="assets/brand/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-nav="social">
 
+<a class="skip-link" href="#main">Naar de inhoud</a>
 <!--NAV-->
 <!-- utility bar -->
 <div class="util">
@@ -46,9 +47,9 @@
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="right">
-      <a href="#">IG</a><a href="#">LI</a><a href="#">TT</a>
+      <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
       <span class="divider"></span>
-      <a href="#" class="is-active">NL</a><a href="#">EN</a>
+      <span class="lang">NL</span>
     </div>
   </div>
 </div>
@@ -136,18 +137,19 @@
   <div class="mm-foot">
     <a href="assets/impact-brochure.pdf" target="_blank" rel="noopener">Brochure</a>
     <a href="media.html">Media</a><a href="journal.html">Journal</a><a href="contact.html">Contact</a>
-    <a href="#">IG</a><a href="#">LI</a><a href="#">TT</a>
+    <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
   </div>
 </div>
 <!--/NAV-->
 
+<main id="main">
 <header class="hero hero--page" data-reveal-root>
-  <img src="assets/img/pair-169.jpg" alt="Twee jongeren tijdens een IMPACT-activatie">
+  <picture><source type="image/avif" srcset="assets/img/pair-169-640.avif 640w, assets/img/pair-169-1280.avif 1280w, assets/img/pair-169-2880.avif 2880w" sizes="(max-width: 820px) 100vw, (max-width: 1180px) 92vw, 1296px"><source type="image/webp" srcset="assets/img/pair-169-640.webp 640w, assets/img/pair-169-1280.webp 1280w, assets/img/pair-169-2880.webp 2880w" sizes="(max-width: 820px) 100vw, (max-width: 1180px) 92vw, 1296px"><img src="assets/img/pair-169.jpg" alt="Twee jongeren tijdens een IMPACT-activatie" data-hero-poster data-video-webm="assets/video/impact-for-all.webm" data-video-mp4="assets/video/impact-for-all.mp4"></picture>
   <div class="hero-content wrap">
     <div>
       <span class="label reveal">[ Ons sociaal programma ]</span>
       <div class="d-m reveal" style="margin:20px 0 18px">IMPACT <span class="red">for all</span></div>
-      <h1 class="d-xl reveal">Talent is everywhere.<br>Opportunity isn't.</h1>
+      <h1 class="d-xl reveal">Talent is everywhere. Opportunity isn't.</h1>
       <p class="intro reveal">We willen niet alleen experiences organiseren voor jongeren die zelf een ticket kunnen betalen. Via partnerships, sponsoring en andere inkomsten bouwen we middelen op waarmee we jongeren ondersteunen voor wie die kansen financieel of sociaal minder vanzelfsprekend zijn.</p>
     </div>
   </div>
@@ -157,8 +159,8 @@
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <span class="label">[ Hoe het werkt ]</span>
-        <h2 class="d-l">Niet één keer meedoen,<br>maar een vervolg dat blijft</h2>
+        <span class="running">Hoe het werkt</span>
+        <h2 class="d-l align-right">Niet één keer meedoen, maar een vervolg dat blijft</h2>
       </div>
     </div>
     <div class="cards-3">
@@ -173,16 +175,33 @@
   </div>
 </section>
 
-<section class="section" id="impact">
-  <div class="wrap rule-top">
-    <span class="label">[ Onze impact tot nu toe ]</span>
-    <div class="counters counters--big" data-counters>
-      <div><div class="n" data-count="24">0</div><div class="k">Jongeren ondersteund</div></div>
-      <div><div class="n" data-count="16">0</div><div class="k">Tickets gefinancierd</div></div>
-      <div><div class="n" data-count="8">0</div><div class="k">Partners</div></div>
-      <div><div class="n" data-count="12500" data-prefix="&euro;">0</div><div class="k">Geïnvesteerd in kansen</div></div>
+<section class="section section--burgundy" id="impact">
+  <div class="wrap">
+    <div class="sec-head sec-head--stack">
+      <div>
+        <span class="running">Onze impact tot nu toe</span>
+        <h2 class="d-l">Access is where impact starts.</h2>
+      </div>
+      <p class="stat-period">na IMPACT Camp: Basketball Edition 2026</p>
     </div>
-    <p class="meta">Demo-cijfers, zodat de sectie leesbaar is. De echte cijfers worden door IMPACT aangeleverd en pas gepubliceerd wanneer ze bevestigd zijn.</p>
+    <div class="stats" data-counters>
+      <div class="stat">
+        <div class="n" data-count="30">0</div>
+        <div class="k">Participants</div>
+        <p class="e">jongeren namen deel aan onze eerste IMPACT Camp</p>
+      </div>
+      <div class="stat">
+        <div class="n" data-count="11">0</div>
+        <div class="k">IMPACT FOR ALL</div>
+        <p class="e">jongeren namen deel via onze jeugdwerking, dankzij gesponsorde tickets</p>
+      </div>
+      <div class="stat">
+        <div class="n" data-count="4">0</div>
+        <div class="k">Sponsors</div>
+        <p class="e">bedrijven en ondernemers maakten die deelname mee mogelijk</p>
+      </div>
+    </div>
+    <p class="stat-note">Cijfers uit de eerste editie. Nieuwe cijfers volgen na elke activatie.</p>
   </div>
 </section>
 
@@ -191,7 +210,7 @@
     <div class="sec-head" style="margin-bottom:44px">
       <div>
         <span class="label" style="color:rgba(255,255,255,.7)">[ Draag bij ]</span>
-        <h2 class="d-l" style="margin-top:22px">Vier manieren om een<br>jongere een plaats te geven</h2>
+        <h2 class="d-l" style="margin-top:22px">Vier manieren om een jongere een plaats te geven</h2>
       </div>
     </div>
     <div class="contrib-row"><span class="n">01</span><h3>Financier een ticket</h3><p>Eén jongere een plaats geven op een IMPACT-activatie, particulier of via je bedrijf.</p></div>
@@ -207,15 +226,15 @@
 
 <section class="section">
   <div class="wrap two-col">
-    <img src="assets/img/hands-45.jpg" alt="Eén verhaal, met toestemming">
+    <picture><source type="image/avif" srcset="assets/img/hands-45-420.avif 420w, assets/img/hands-45-720.avif 720w, assets/img/hands-45-1080.avif 1080w" sizes="(max-width: 820px) 78vw, 420px"><source type="image/webp" srcset="assets/img/hands-45-420.webp 420w, assets/img/hands-45-720.webp 720w, assets/img/hands-45-1080.webp 1080w" sizes="(max-width: 820px) 78vw, 420px"><img src="assets/img/hands-45.jpg" alt="Eén verhaal, met toestemming"></picture>
     <div>
-      <span class="label">[ Een verhaal ]</span>
+      <span class="running">Een verhaal</span>
       <blockquote class="pull-quote" style="margin:26px 0 20px">
         “Quote van een jongere die via IMPACT FOR ALL kon deelnemen.”
       </blockquote>
       <p class="meta" style="letter-spacing:.08em;text-transform:uppercase">Naam · Leeftijd · via IMPACT FOR ALL</p>
-      <p class="body" style="margin:26px 0 32px">Lopende tekst van het verhaal — door IMPACT aan te leveren. Eén verhaal per keer, met naam en toestemming; geen anonieme cases.</p>
-      <a href="journal.html" class="tlink">Meer verhalen in journal <span class="arrow">&rarr;</span></a>
+      <p class="body" style="margin:26px 0 32px">Eén verhaal per keer, met naam en toestemming; geen anonieme cases.</p>
+      <a href="journal.html" class="tlink">Meer verhalen in journal</a>
     </div>
   </div>
 </section>
@@ -223,7 +242,7 @@
 <section class="band" id="contact">
   <div class="wrap">
     <div>
-      <h2 class="d-l d-l--44">Samen bouwen aan<br>sterkere fundamenten</h2>
+      <h2 class="d-l d-l--44">Samen bouwen aan sterkere fundamenten</h2>
       <p class="body" style="margin-top:14px">Bedrijven, clubs en organisaties die willen bijdragen aan IMPACT FOR ALL kunnen ons rechtstreeks contacteren.</p>
     </div>
     <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -233,25 +252,27 @@
   </div>
 </section>
 
-<!--FOOTER-->
-<section class="news-band">
-  <div class="wrap">
-    <div>
-      <span class="label">[ Nieuwsbrief ]</span>
-      <h2 class="d-l d-l--40" style="margin:16px 0 12px">Join the<br>IMPACT community</h2>
-      <p class="body">Nieuwe events, verhalen en partnerships — één mail per maand.</p>
+<section class="cta-cards">
+    <div class="cta-card cta-card--red">
+      <h3>Financier een ticket</h3>
+      <p>Geef één jongere een plaats op een IMPACT-activatie.</p>
+      <a class="pill pill--ghost" href="contact.html">Draag bij</a>
     </div>
-    <form class="news-form" data-newsletter novalidate>
-      <div class="field-row">
-        <input type="email" name="email" placeholder="jouw e-mailadres" aria-label="Jouw e-mailadres" required>
-        <button type="submit" class="pill pill--primary">Inschrijven</button>
-      </div>
-      <p class="form-msg" role="status"></p>
-      <p class="meta">Geen spam. Uitschrijven kan altijd.</p>
-    </form>
-  </div>
+    <div class="cta-card cta-card--ink">
+      <h3>Blijf op de hoogte</h3>
+      <p>Verhalen uit IMPACT FOR ALL, één mail per maand.</p>
+      <form class="news-form" data-newsletter novalidate><div class="field-row"><label class="sr-only" for="cta-news">E-mailadres</label><input id="cta-news" name="email" type="email" placeholder="jouw e-mailadres" required><button type="submit" class="pill pill--primary pill--sm">Inschrijven</button></div><p class="form-msg" role="status"></p></form>
+    </div>
+    <div class="cta-card cta-card--burgundy">
+      <h3>Word partner</h3>
+      <p>Maak als bedrijf structureel plaatsen beschikbaar.</p>
+      <a class="pill pill--ghost" href="samenwerken.html#bedrijven">Voor bedrijven</a>
+    </div>
 </section>
 
+</main>
+
+<!--FOOTER-->
 <footer class="footer">
   <div class="wrap">
     <div class="grid">
@@ -260,7 +281,7 @@
           <img src="assets/brand/impact-logo.png" alt="IMPACT" width="647" height="145">
         </a>
         <p class="body">Youth development through experiences, connection and growth.</p>
-        <div class="socials"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">TikTok</a></div>
+        <div class="socials"><a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a></div>
       </div>
       <div><h4>IMPACT</h4><ul>
         <li><a href="over.html">Over</a></li>
@@ -293,12 +314,29 @@
     <div class="bottom">
       <span>hello@wemakeimpact.be · <a href="tel:+32495370044">+32 495 37 00 44</a> ·
         <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">@impact___collective</a></span>
-      <span><a href="#">Privacy</a> · <a href="#">Algemene voorwaarden</a> ·
-        <span class="built">Built by <a href="https://drpbuildlab.com" target="_blank" rel="noopener">DRP BuildLab</a></span></span>
+      <span><span class="built">Built by <a href="https://drpbuildlab.com" target="_blank" rel="noopener">DRP BuildLab</a></span></span>
     </div>
   </div>
 </footer>
 <!--/FOOTER-->
+
+
+<div class="dome" id="dome" hidden>
+  <div class="dome-panel" role="dialog" aria-modal="true" aria-labelledby="dome-title">
+    <button class="dome-close" type="button" aria-label="Sluiten">×</button>
+    <div class="dome-in">
+      <span class="dome-mark">[ ]</span>
+      <h2 id="dome-title">Blijf op de hoogte</h2>
+      <p class="body">Nieuwe events, verhalen en partnerships. Eén mail per maand.</p>
+      <form class="dome-form" data-newsletter data-dome-form novalidate>
+        <label class="sr-only" for="dome-email">E-mailadres</label>
+        <input id="dome-email" name="email" type="email" placeholder="jouw e-mailadres" required>
+        <button type="submit" class="pill pill--dark">Inschrijven</button>
+        <p class="form-msg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script src="assets/js/main.js"></script>
 </body>

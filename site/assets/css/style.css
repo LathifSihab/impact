@@ -2,12 +2,33 @@
    Tokens follow the hi-fi handoff. Pills are round; everything else is square. */
 
 :root{
-  --white:#FFFFFF; --sand:#F5F1EA; --sand-card:#FAF8F5; --black:#111111;
-  --red:#D91F26; --red-dark:#A8121A;
+  /* Colour — sampled from the branddeck, not reconstructed from the brochure */
+  --white:#FFFFFF;
+  --bone:#F4F2EB;          /* alternating light ground */
+  --bone-card:#FAF9F4;     /* callouts, waitlist card */
+  --ink:#0F1015;           /* type, dark ground, footer */
+  --red:#CA0013;           /* CTAs, conviction ground, display type on light */
+  --red-dark:#9E000F;      /* primary hover */
+  --burgundy:#560216;      /* retrospective / proof ground */
+  --burgundy-card:#631628; /* stat cards, one step lighter than the ground */
+  /* aliases kept so existing rules resolve */
+  --black:var(--ink); --sand:var(--bone); --sand-card:var(--bone-card);
   --grey-warm:#8D877D; --grey-body:#6B665E; --grey-muted:#A09A90;
-  --border:#EAE6DF; --border-sand:#DDD7CD; --placeholder:#E2DDD4;
-  --font:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --border:#E7E4DB; --border-sand:#DAD5CA; --placeholder:#E2DDD4;
+
+  /* Type — display and text split so the brand-font swap is two lines */
+  --font-display:'Archivo Black','Arial Black',system-ui,sans-serif;
+  --font-text:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font:var(--font-text);
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  --t-hero:clamp(44px,8.2vw,124px);
+  --t-display:clamp(30px,7vw,96px);
+  --t-head:clamp(20px,2.4vw,30px);
+  --t-body:16px;
+  --t-meta:12px;
+  --t-rule:10px;
+
   --margin:72px; --pad:120px; --maxw:1296px;
   --dur-fast:150ms; --dur-reveal:800ms; --ease:ease-out;
 }
@@ -463,7 +484,6 @@ ul{margin:0;padding:0;list-style:none}
 .opt h3{margin-bottom:12px}
 
 /* logo grid */
-.logo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .logo-grid{grid-template-columns:repeat(3,1fr)}
 .logo-grid .slot{height:120px;border:1px solid var(--border-sand);background:#fff;display:flex;
   align-items:center;justify-content:center;padding:24px 30px;
@@ -650,12 +670,12 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 /* over.html — the two founders as wide media cards, so a two-item row still
    fills the grid instead of leaving half the width empty */
 .team-cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.team-card{display:grid;grid-template-columns:240px 1fr;gap:28px;align-items:center;
+.team-card{display:grid;grid-template-columns:190px 1fr;gap:24px;align-items:center;
   border:1px solid var(--border);padding:24px;
   transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
 .team-card:hover{border-color:var(--black);background:var(--sand-card)}
 .team-card img{width:100%;aspect-ratio:4/5;object-fit:cover}
-.team-body h4{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.05;
+.team-body h4{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.05;
   text-transform:uppercase;margin:10px 0 6px}
 .team-body .r{font-size:12px;color:var(--grey-warm);letter-spacing:.02em}
 .team-body .body{margin:16px 0 18px;font-size:14.5px}
@@ -706,3 +726,244 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
   .routes{grid-template-columns:1fr}
   .news-band{padding:48px 0}
 }
+
+/* ================= craft pass: display type =================
+   Archivo Black is a single-weight face — declare 400 everywhere it is used so
+   the browser never synthesises a bolder weight on top of it. */
+.d-xl,.d-l,.d-m,.h,
+.hero h1,.hero--page h1,.hero--event h1,
+.who-card .age,.event-row h3,.format-row .name,.layer h3,.route h3,
+.team-body h4,.step-card h3,.contrib-row h3,.founder-names,
+.stat .n,.counters .n,.testi p,.pull-quote,.dl-row .t{
+  font-family:var(--font-display);font-weight:400;letter-spacing:-.02em;
+  text-wrap:balance;text-transform:uppercase}
+
+.d-xl,.hero h1{font-size:var(--t-hero);line-height:.86;max-width:15ch;overflow-wrap:normal}
+.hero--page h1{font-size:var(--t-display);line-height:.88;max-width:16ch}
+.hero--event h1{font-size:var(--t-display);line-height:.88;max-width:14ch}
+.d-l{font-size:var(--t-display);line-height:.9;max-width:20ch}
+.d-m{font-size:clamp(28px,3.4vw,44px);line-height:.94}
+.h{font-size:var(--t-head);line-height:1.05}
+.d-l--60,.d-l--52,.d-l--48,.d-l--44,.d-l--40{font-size:var(--t-display)}
+.pull-quote{font-size:clamp(26px,3.6vw,48px);line-height:1.02;text-transform:none}
+.testi p{text-transform:none;letter-spacing:-.01em}
+
+/* body copy stays in the text face */
+.body,.intro,.meta,p,li,label,input,select,button,.tag,.label{font-family:var(--font-text)}
+.label,.mq-note,.counter,.layer .n,.route .n,.format-row .n,.contrib-row .n,.expert-slot .n,.dl-row .n{
+  font-family:var(--mono)}
+.label{font-size:var(--t-rule);letter-spacing:.18em}
+
+/* hero: locked block, line-by-line reveal, trust row */
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line-in{display:block;will-change:transform}
+.is-revealed h1 .line-in{animation:lineUp var(--dur-reveal) var(--ease) both}
+.hero h1 .line:nth-child(1) .line-in{animation-delay:60ms}
+.hero h1 .line:nth-child(2) .line-in{animation-delay:150ms}
+.hero h1 .line:nth-child(3) .line-in{animation-delay:240ms}
+.hero h1 .line:nth-child(4) .line-in{animation-delay:330ms}
+@keyframes lineUp{from{transform:translateY(105%)}to{transform:none}}
+
+.trust{display:flex;flex-wrap:wrap;gap:10px 26px;margin:26px 0 34px}
+.trust li{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;
+  color:rgba(255,255,255,.92)}
+.trust li::before{content:"✓";flex:none;width:18px;height:18px;border-radius:50%;
+  background:var(--red);color:#fff;font-size:10px;line-height:18px;text-align:center;font-weight:700}
+@media (prefers-reduced-motion:reduce){
+  .is-revealed h1 .line-in{animation:none}
+}
+@media (max-width:820px){.trust{gap:6px 18px;margin-top:20px}.trust li{font-size:12px}}
+
+/* ================= craft pass: new components ================= */
+
+/* burgundy — the retrospective / proof ground */
+.section--burgundy{background:var(--burgundy);color:#fff;padding:var(--pad) 0}
+.section--burgundy .body,.section--burgundy .intro{color:rgba(255,255,255,.72)}
+.section--burgundy .running,.section--burgundy .stat-period{color:rgba(255,255,255,.55)}
+.section--burgundy h2{color:var(--red)}          /* red on burgundy, deck slide 10 */
+.section--burgundy a{color:#fff}
+
+/* running header: the bracket label, once per section, top right */
+.running{position:absolute;top:0;right:0;font-family:var(--mono);font-size:var(--t-rule);
+  letter-spacing:.18em;text-transform:uppercase;color:var(--grey-warm)}
+.sec-head{position:relative;padding-top:26px}
+.sec-head--stack{display:block}
+.sec-head--stack .stat-period{margin-top:18px;font-size:12px;color:var(--grey-warm)}
+
+/* stat cards */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.stats--3{grid-template-columns:repeat(3,1fr)}
+.stat{background:var(--burgundy-card);border-radius:8px;padding:28px 26px}
+.stat .n{font-size:clamp(38px,4.6vw,64px);line-height:1;color:#fff;font-variant-numeric:tabular-nums;
+  min-height:1em}
+.stat .k{margin-top:14px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff}
+.stat .e{margin-top:10px;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.7)}
+.stat-note{margin-top:26px;font-size:12px;color:rgba(255,255,255,.55)}
+
+/* partnership tiers */
+.tier-wrap{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+.tier-table{min-width:640px}
+.tier-table{width:100%;border-collapse:collapse;font-size:15px}
+.tier-table th,.tier-table td{padding:16px 18px;border-top:1px solid var(--border);text-align:left}
+.tier-table thead th{font-family:var(--font-display);font-weight:400;text-transform:uppercase;
+  letter-spacing:-.01em;font-size:19px;border-top:0}
+.tier-table tbody th{font-weight:500;color:var(--grey-body);width:38%}
+.tier-table .invest td{font-size:19px}
+.tier-table .invest th,.tier-table .invest td{border-top:2px solid var(--ink);padding-top:20px}
+.tier-table .yes{color:var(--red);font-weight:700}
+.tier-table .no{color:var(--grey-muted)}
+.sec-head .measure-2,.measure-2{columns:2;column-gap:40px;max-width:540px;text-align:left}
+.measure-2 p+p{margin-top:12px}
+.align-right{text-align:right;margin-left:auto}
+
+/* newsletter dome — Capital Belgium's modal, the screenshot they singled out */
+.dome{position:fixed;inset:0;z-index:200;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(15,16,21,.45)}
+.dome[hidden]{display:none}
+.dome-panel{position:relative;width:min(1180px,96vw);background:var(--bone);color:var(--ink);
+  border-radius:50% 50% 0 0 / 34% 34% 0 0;padding:96px 8% 60px;text-align:center;
+  transform:translateY(100%);animation:domeUp 420ms var(--ease) forwards}
+.dome-in{max-width:440px;margin:0 auto}
+.dome-mark{display:block;font-family:var(--font-display);font-size:26px;color:var(--red);margin-bottom:18px}
+.dome h2{font-family:var(--font-display);font-weight:400;font-size:clamp(24px,3vw,34px);
+  line-height:1;text-transform:uppercase;letter-spacing:-.02em;margin-bottom:12px}
+.dome-form{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.dome-form input{border:1px solid var(--border-sand);background:#fff;padding:15px 18px;font-size:15px}
+.dome-close{position:absolute;top:18px;right:20px;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--border-sand);background:#fff;font-size:20px;cursor:pointer;line-height:1}
+.pill--dark{background:var(--ink);color:#fff;height:52px}
+.pill--dark:hover{background:var(--red)}
+@keyframes domeUp{to{transform:none}}
+@media (prefers-reduced-motion:reduce){.dome-panel{animation:none;transform:none}}
+@media (max-width:820px){.dome-panel{border-radius:38px 38px 0 0;padding:56px 24px 40px}}
+
+/* three colour-blocked closing cards (Foodmaker) */
+.cta-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cta-card{padding:44px 36px;display:flex;flex-direction:column;gap:14px;color:#fff}
+.cta-card--ink{background:var(--ink)}
+.cta-card--red{background:var(--red)}
+.cta-card--burgundy{background:var(--burgundy)}
+.cta-card h3{font-family:var(--font-display);font-weight:400;font-size:clamp(22px,2.2vw,28px);
+  line-height:1;text-transform:uppercase;letter-spacing:-.02em}
+.cta-card p{color:rgba(255,255,255,.78);font-size:15px;line-height:1.6;flex:1}
+.cta-card .pill{align-self:flex-start;margin-top:8px}
+.cta-card--red .pill--primary{background:var(--ink)}
+.cta-card--red .pill--primary:hover{background:#fff;color:var(--red)}
+.cta-card .field-row{border-bottom-color:rgba(255,255,255,.55)}
+.cta-card .field-row input{color:#fff}
+.cta-card .field-row input::placeholder{color:rgba(255,255,255,.6)}
+
+/* expert grid: variable count, three named people today */
+.expert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:26px;overflow:hidden}
+.expert{border:1px solid var(--border);padding:28px 26px;margin:-0.5px}
+.expert h4{font-family:var(--font-display);font-weight:400;font-size:21px;line-height:1.05;
+  text-transform:uppercase;letter-spacing:-.02em}
+.expert .org{margin-top:6px;font-size:13px;color:var(--red);font-weight:600}
+.expert .body{margin-top:12px}
+.expert .r{margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--grey-warm)}
+
+/* hosted set apart from the four peer formats */
+.format-row--hosted{border-top-width:2px;border-top-color:rgba(255,255,255,.45);margin-top:10px}
+
+@media (max-width:1180px){
+  .stats,.stats--3{grid-template-columns:1fr 1fr}
+  .cta-cards{grid-template-columns:1fr}
+  .expert-grid{grid-template-columns:1fr 1fr}
+  .measure-2{columns:1}
+}
+@media (max-width:820px){
+  .stats,.stats--3{grid-template-columns:1fr}
+  .expert-grid{grid-template-columns:1fr}
+  .running{position:static;display:block;margin-bottom:14px}
+  .sec-head{padding-top:0}
+  .align-right{text-align:left;margin-left:0}
+  /* transpose to one card per tier, from the same markup: rows become
+     display:contents so every cell is a flex item, then flex `order` groups
+     the cells of one tier together. */
+  .tier-wrap{overflow:visible}
+  .tier-table{min-width:0;display:block}
+  .tier-table thead,.tier-table tbody th{display:none}
+  .tier-table tbody{display:flex;flex-direction:column}
+  .tier-table tr{display:contents}
+  .tier-table td{order:var(--tier);display:flex;justify-content:space-between;gap:20px;
+    padding:11px 0;border-top:1px solid var(--border);font-size:14px}
+  .tier-table td::before{content:attr(data-label);color:var(--grey-body)}
+  .tier-table td[data-tier-name]{margin-top:32px;border-top:2px solid var(--ink);padding-top:16px}
+  .tier-table td[data-tier-name]::after{content:attr(data-tier-name);position:absolute;
+    margin-top:-52px;font-family:var(--font-display);font-size:20px;text-transform:uppercase;
+    letter-spacing:-.02em}
+  .tier-table td[data-tier-name]{position:relative}
+}
+
+/* ================= craft pass: a11y + global ================= */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:-9999px;z-index:300;background:var(--ink);color:#fff;
+  padding:14px 20px;font-size:13px;font-weight:700}
+.skip-link:focus{left:12px;top:12px}
+
+/* visible focus everywhere — replaces outline:none on inputs */
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.field input:focus-visible,.field select:focus-visible,.field-row input:focus-visible,
+.dome-form input:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.hero :focus-visible,.section--black :focus-visible,.section--burgundy :focus-visible,
+.footer :focus-visible,.util :focus-visible{outline-color:#fff}
+
+/* the whole IA is anchor-driven and the event page has a sticky bar */
+[id]{scroll-margin-top:96px}
+
+.util .lang{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff}
+
+/* ---------- photo-strip (Capital Belgium layout, IMPACT palette) ---------- */
+.section--red{background:var(--red);color:#fff;padding:var(--pad) 0}
+.section--red h2,.section--red .d-l{color:#fff}
+.section--red .body{color:rgba(255,255,255,.85)}
+.section--red .running{color:rgba(255,255,255,.6)}
+.section--red .tlink{color:#fff;border-bottom-color:rgba(255,255,255,.5)}
+.section--red .tlink:hover{color:var(--ink);border-bottom-color:var(--ink)}
+.section--red .track{background:rgba(255,255,255,.25)}
+.section--red .track span{background:#fff}
+.section--red .counter{color:rgba(255,255,255,.7)}
+
+.strip{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  padding:44px max(var(--margin),calc((100vw - var(--maxw))/2 + var(--margin))) 8px;
+  scroll-padding-left:max(var(--margin),calc((100vw - var(--maxw))/2 + var(--margin)))}
+.strip::-webkit-scrollbar{display:none}
+.strip-card{flex:0 0 340px;scroll-snap-align:start}
+.strip-img{position:relative;aspect-ratio:4/5;overflow:hidden}
+.strip-img img{width:100%;height:100%;object-fit:cover}
+.chip{position:absolute;left:14px;bottom:14px;background:var(--bone);color:var(--red);
+  font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px}
+.section--burgundy .chip{color:var(--burgundy)}
+.strip-card .body{margin-top:16px;font-size:14.5px}
+.strip-nav{display:flex;gap:8px;align-self:flex-end}
+.strip-btn{width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.5);
+  background:none;color:#fff;font-size:16px;cursor:pointer;
+  transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.strip-btn:hover{background:#fff;color:var(--red)}
+.strip-intro{margin-top:8px}
+@media (max-width:820px){
+  .strip-card{flex:0 0 78vw}
+  .strip-nav{display:none}
+}
+
+/* flex items must be allowed to shrink below their min-content, or a long
+   display word pushes the whole section wider than the viewport */
+.sec-head > *{min-width:0}
+.sec-head h2,.sec-head .d-l{overflow-wrap:break-word}
+@media (max-width:820px){
+  .sec-head{flex-direction:column;align-items:flex-start;gap:18px}
+  .sec-head--stack{display:block}
+}
+
+/* the -0.5px border-collapse trick must never widen the document */
+.fund-grid,.expert-grid,.expert-slots{overflow:hidden}
+
+/* Collapsed hairlines without the -0.5px margin hack: outlines don't take part
+   in layout, so a grid of bordered cells can never widen the document. */
+.fund-cell,.expert,.expert-slot,.route{border:0;margin:0;
+  outline:1px solid var(--border);outline-offset:-1px}
+.route{outline-color:var(--border-sand)}
+.route:hover{outline-color:var(--ink)}
+.expert-slot{outline-color:var(--border)}
