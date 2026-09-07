@@ -94,8 +94,21 @@ If consent is not in hand, the section comes out again — it is one block to re
 - **Privacy policy and algemene voorwaarden.** No copy exists, so the footer links were
   removed rather than pointing nowhere. Both are legally required before launch, and a privacy
   policy is required before the waitlist and newsletter forms collect real data.
-- **EN language switch.** Cut for this milestone per `00-INDEX.md` decision 4 — a switcher
-  leading to untranslated pages is worse than no switcher. The `hreflang` scaffolding stays.
+## English — now live, and it needs her eye
+
+`00-INDEX.md` decision 4 cut English from this milestone. The client asked for it, so the
+site is bilingual: ten English pages at `/en/`, a working switch, per-locale canonicals and
+a sitemap declaring both.
+
+**What needs confirming:** the English is *our* translation of *our* structural Dutch — not
+her voice, and not reviewed by a native speaker. Two things follow from that:
+
+1. She should read `i18n/en.json` and correct the tone. It is a flat list of Dutch string to
+   English string; no markup to break.
+2. When her own Dutch copy arrives, every English string tied to it goes stale.
+   `python tools/i18n.py --extract` lists exactly which ones.
+
+Names, brand lines and headlines that were already English were left untouched.
 - **Journal article links.** No articles exist yet, so the cards are not links. They become
   links the moment the CMS has posts.
 

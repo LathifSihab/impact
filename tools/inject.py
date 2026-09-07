@@ -22,7 +22,8 @@ NAV = """
     <div class="right">
       <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
       <span class="divider"></span>
-      <span class="lang">NL</span>
+      <a href="/{page_nl}" class="lang is-active" hreflang="nl">NL</a>
+      <a href="/en/{page_en}" class="lang" hreflang="en">EN</a>
     </div>
   </div>
 </div>
@@ -184,9 +185,12 @@ FOOTER = """
 ACTIVE = ' class="is-active"'
 
 
-def nav_for(page):
+def nav_for(page, filename="index.html"):
     fields = {k: "" for k in ("c_over", "c_events", "c_samenwerken", "c_social",
                               "a_media", "a_journal", "a_contact")}
+    # the switch points at this page's counterpart in the other language
+    fields["page_nl"] = "" if filename == "index.html" else filename
+    fields["page_en"] = "" if filename == "index.html" else filename
     main = {"over": "c_over", "events": "c_events", "samenwerken": "c_samenwerken",
             "social": "c_social"}.get(page)
     if main:
@@ -215,7 +219,7 @@ def inject(path):
     page = re.search(r'<body[^>]*data-nav="([^"]*)"', html)
     page = page.group(1) if page else ""
     out, n = html, 0
-    for marker, block in (("NAV", nav_for(page)), ("FOOTER", footer_for(page, html))):
+    for marker, block in (("NAV", nav_for(page, path.name)), ("FOOTER", footer_for(page, html))):
         pattern = re.compile(r"<!--%s-->.*?<!--/%s-->" % (marker, marker), re.S)
         if pattern.search(out):
             out = pattern.sub("<!--%s-->%s<!--/%s-->" % (marker, block, marker), out)

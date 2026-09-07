@@ -178,6 +178,20 @@ testimonials stay empty until the client confirms consent.
 
 ---
 
+## 2b. The English site
+
+English is generated from the Dutch pages, so there is one set of pages to keep in
+structural sync. `site/en/` is build output — never edit it by hand.
+
+| Step | Expect |
+|---|---|
+| Open `/` and click **EN** top right | Same page in English at `/en/`, EN highlighted |
+| Click **NL** | Back to the Dutch page you came from, not the Dutch homepage |
+| Any `/en/` page | `<html lang="en">`, English nav (ABOUT · EVENTS · PARTNER WITH US · SOCIAL IMPACT), English title and description |
+| View source on `/en/over.html` | `canonical` points at the **/en/** URL, and `hreflang` lists both locales |
+| `/sitemap.xml` | 20 URLs — both locales, each declaring its counterpart |
+| Change a Dutch string | `python tools/i18n.py --extract` lists it as untranslated; fill it in `i18n/en.json`, run `python tools/i18n.py` |
+
 ## 3. Cross-cutting checks (both)
 
 ### Responsive
@@ -229,7 +243,9 @@ These will look like bugs and are not:
   they link to the CMS entry.
 - **No Privacy / Algemene voorwaarden links** — no copy exists, so they were
   removed rather than pointing nowhere. Both are required before launch.
-- **No EN language switch** — cut from this milestone; `hreflang` is in place.
+- **The English copy is our translation, not the client's voice.** She writes the Dutch;
+  English was generated from it so the switch works end to end. When her Dutch copy lands,
+  `tools/i18n.py --extract` reports exactly which English strings went stale.
 - **No LinkedIn or TikTok links** — no URLs supplied.
 - **The hero video is still a placeholder** built from their own stills. The four clips the
   client sent are 480x848 portrait phone recordings, so they are used as participant

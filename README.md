@@ -11,6 +11,7 @@ brand for ages 8–25. Built by [DRP BuildLab](https://drpbuildlab.com).
 |---|---|
 | `site/` | The static craft-pass site. 10 pages, hand-written HTML/CSS/JS, no build step. **This is what staging serves and what the client reviews.** |
 | `web/` | The Astro 5 app that replaces it — **on the `feat/astro-cms` branch**, not on `main`, until it reaches page parity and the backend choice is settled. `git checkout feat/astro-cms` |
+| `i18n/en.json` | Every translatable string, keyed by the Dutch original. English copy is edited here, not in markup |
 | `tools/` | The scripts that maintain both: shared nav/footer, SEO head, image variants, deck harvesting, the placeholder video, content seeding |
 | `brief/` | Client briefs, the 18 branddeck slides, reference captures, and `brief/docs/` — the build documentation that drives the current phase |
 | `PLAN.md` | Stack decision, the events/waitlist architecture, staged timeline |
@@ -45,9 +46,14 @@ opened" campaign · Mollie for payments · Plausible for cookieless analytics.
 ## Maintaining the static site
 
 ```bash
-python tools/inject.py    # shared utility bar, nav, mobile menu, newsletter band, footer
-python tools/seo.py       # titles, canonical, hreflang, OG, JSON-LD, sitemap.xml, robots.txt
+python tools/inject.py          # shared utility bar, nav, mobile menu, newsletter band, footer
+python tools/seo.py             # titles, canonical, hreflang, OG, JSON-LD, sitemap.xml, robots.txt
+python tools/i18n.py --extract  # pick up any new Dutch strings into i18n/en.json
+python tools/i18n.py            # regenerate site/en/ from the Dutch pages
 ```
+
+Run all four after editing a page. The Dutch pages are the source; `site/en/` is
+generated and should never be edited by hand.
 
 Run both after editing their templates. `site/README.md` documents the design system
 and every decision the craft pass took.
