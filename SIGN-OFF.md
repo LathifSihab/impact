@@ -66,6 +66,12 @@ Before the site goes to the live domain we need, in writing:
    launch. If consent covers only some clips, name which ones and we publish only those.
 2. **Whether faces may stay unblurred** and whether first names may be used in captions.
    Right now every caption reads "Deelnemer · Basketball Edition 2026" — no names.
+
+   The **poster frames deliberately show no identifiable child**: a coach with the group seen
+   from behind, a wide shot of the field, and a participant turned away. A visitor sees a face
+   only after choosing to press play. The three clips on the homepage are the safest of the
+   four; the media page, which is aimed at press and partners, also carries the fourth, whose
+   safest frame is a participant writing with the face under a cap.
 3. **Captions or transcripts.** The clips carry speech, so without captions they fail
    WCAG 1.2.2 and are unusable for deaf visitors and in silent autoplay contexts. A plain
    text transcript per clip is enough; we generate the caption files from it.
