@@ -91,7 +91,7 @@ const statusLabel: Record<string, string> = {
 
   {peers.map((f, i) => (
     <section class:list={['section', i % 2 === 1 && 'section--sand']} id={f.id}>
-      <div class="wrap two-col">
+      <div class="wrap two-col two-col--media">
         {i % 2 === 1 && <img src={'/' + f.data.image} alt={f.data.name} loading="lazy"
                              style="width:100%;aspect-ratio:16/9;object-fit:cover" />}
         <div>
