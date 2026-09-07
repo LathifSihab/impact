@@ -38,6 +38,8 @@ the file protocol.
 | Look at a row's label | `Camp` and `5 dagen` as separate meta cells, not "Camp · 5 dagen" |
 | Scroll to the black *formats* section | Four numbered peers, then a rule, then Hosted Experiences set apart with `—` |
 | Scroll to *IMPACT FOR ALL* | No counters here (the real figures live on the social-impact page) |
+| Scroll to *Wat deelnemers zeggen* | Three portrait video players on burgundy, poster frames showing, **nothing downloaded yet** (`preload="none"` — check the Network tab) |
+| Press play on one | It fetches the `.webm` at that moment and plays with sound, native controls |
 | Scroll to the bottom | Partner marquee runs continuously with nine real logos, greyscale, colour on hover, pausing while hovered |
 | Look at the footer | "Built by DRP BuildLab", hyperlinked. Phone and Instagram are real links. No dead `#` links anywhere |
 
@@ -78,7 +80,7 @@ localStorage.removeItem('impact.dome.until')
 | `/social-impact.html` | Burgundy proof block: **30 / 11 / 4** counting up once on entry, with the "na Basketball Edition 2026" caption |
 | `/samenwerken.html` | Partnership tier table (€2.000 → €7.000) · reach figures on burgundy · nine partner logos · three colour-blocked CTA cards |
 | `/journal.html` | Category chips filter the grid. Cards use real camp photography |
-| `/media.html` | Six real camp photos in the archive grid · brochure download is 2.0 MB, not 12 |
+| `/media.html` | Four real participant videos under *Bewegend beeld*, portrait with posters · six real camp photos in the archive grid · brochure download is 2.0 MB, not 12 |
 | `/events.html` | Five upcoming rows, per-format sections, full overview table |
 
 There should be **no string anywhere** that says content is missing —
@@ -225,8 +227,16 @@ These will look like bugs and are not:
   removed rather than pointing nowhere. Both are required before launch.
 - **No EN language switch** — cut from this milestone; `hreflang` is in place.
 - **No LinkedIn or TikTok links** — no URLs supplied.
-- **The hero video is a placeholder** built from their own stills. Drop
-  `hero.webm` + `hero.mp4` into `assets/video/` to replace it.
+- **The hero video is still a placeholder** built from their own stills. The four clips the
+  client sent are 480x848 portrait phone recordings, so they are used as participant
+  testimonials rather than as a landscape header. Drop a 16:9 `hero.webm` + `hero.mp4` into
+  `assets/video/` to replace the placeholder.
+- **The participant videos have no captions.** The clips carry speech and no transcript was
+  supplied, so they currently fail WCAG 1.2.2. Transcripts are on the ask list; caption files
+  get generated from them.
+- **Video masters live in `brief/video-masters/`**, outside the publish directory, so the
+  24 MB of WhatsApp originals is never deployed. `tools/process_client_video.py` regenerates
+  the web assets from them.
 - **`SITE_URL` is the production domain** in `tools/seo.py` and `web/src/lib/seo.ts`.
   Staging is kept out of the index by `netlify/edge-functions/noindex.ts`, which adds
   `X-Robots-Tag: noindex, nofollow` on every host that is not wemakeimpact.be. To verify
