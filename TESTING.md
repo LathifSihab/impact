@@ -34,7 +34,8 @@ the file protocol.
 | Scroll to the red *Six foundations* band | Six 4:5 portraits, each with a `[01] SELF-KNOWLEDGE` chip on the image, bleeding off the right edge |
 | Click the → arrow top-right of that band | The row scrolls one card. The `01 / 06` counter and the progress bar follow |
 | Drag / wheel-scroll the row instead | Same. **Nothing auto-advances** — that was removed on purpose |
-| Scroll to *Upcoming IMPACT events* | Three rows. The row and its waitlist pill are two separate click targets |
+| Scroll to *Upcoming IMPACT events* | Three rows. Click the row → the event page; click the pill → the same page at `#wachtlijst`. Two separate targets, and the pill is not inside the row's link |
+| Look at a row's label | `Camp` and `5 dagen` as separate meta cells, not "Camp · 5 dagen" |
 | Scroll to the black *formats* section | Four numbered peers, then a rule, then Hosted Experiences set apart with `—` |
 | Scroll to *IMPACT FOR ALL* | No counters here (the real figures live on the social-impact page) |
 | Scroll to the bottom | Partner marquee runs continuously with nine real logos, greyscale, colour on hover, pausing while hovered |
@@ -73,7 +74,7 @@ localStorage.removeItem('impact.dome.until')
 
 | Page | Check |
 |---|---|
-| `/over.html` | Six fundamenten with the brochure's own "Waar we op werken" lists · founders' own texts · two founder media cards · `#systeem` four-layer block · three named experts |
+| `/over.html` | Hero is the **overlaid** variant: headline left, intro under it, the three age bands top-right, all set on the photo with no card (branddeck slide 6) · Six fundamenten with the brochure's own "Waar we op werken" lists · founders' own texts · two founder media cards · `#systeem` four-layer block · three named experts |
 | `/social-impact.html` | Burgundy proof block: **30 / 11 / 4** counting up once on entry, with the "na Basketball Edition 2026" caption |
 | `/samenwerken.html` | Partnership tier table (€2.000 → €7.000) · reach figures on burgundy · nine partner logos · three colour-blocked CTA cards |
 | `/journal.html` | Category chips filter the grid. Cards use real camp photography |
@@ -227,4 +228,7 @@ These will look like bugs and are not:
 - **The hero video is a placeholder** built from their own stills. Drop
   `hero.webm` + `hero.mp4` into `assets/video/` to replace it.
 - **`SITE_URL` is the production domain** in `tools/seo.py` and `web/src/lib/seo.ts`.
-  Staging must carry `noindex` until cutover, or set it to the staging host.
+  Staging is kept out of the index by `netlify/edge-functions/noindex.ts`, which adds
+  `X-Robots-Tag: noindex, nofollow` on every host that is not wemakeimpact.be. To verify
+  after a deploy: `curl -sI https://<site>.netlify.app | grep -i x-robots-tag` should show
+  it, and the same call against the production domain should not.
