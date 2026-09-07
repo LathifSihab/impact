@@ -457,6 +457,80 @@
     }
   }
 
+  /* ---- participant clips: autoplay muted when scrolled into view ----
+     Autoplay is only permitted while muted, so the clips start silent and carry
+     a hint; the native controls remain, so sound is one click away. One plays at
+     a time, loading starts near the viewport rather than on page load, and it
+     stays off under reduced motion or a metered connection. */
+  var clips = Array.prototype.slice.call(document.querySelectorAll('.vcard video'));
+  if (clips.length && 'IntersectionObserver' in window) {
+    var saveData = !!(navigator.connection && navigator.connection.saveData);
+    var mayAutoplay = !reduced && !saveData;
+    var playing = null;
+
+    clips.forEach(function (v) {
+      v.muted = true;                 // required for autoplay to be allowed
+      v.setAttribute('muted', '');
+      v.loop = true;
+      var hint = v.parentNode.querySelector('.vhint');
+      // once the visitor unmutes, stop treating this clip as ambient
+      v.addEventListener('volumechange', function () {
+        if (!v.muted) {
+          v.parentNode.classList.remove('is-live');
+          if (hint) hint.remove();
+        }
+      });
+      v.addEventListener('play', function () {
+        if (playing && playing !== v) playing.pause();
+        playing = v;
+        // the hint only makes sense while this clip is actually running silent
+        if (v.muted) v.parentNode.classList.add('is-live');
+      });
+      v.addEventListener('pause', function () { v.parentNode.classList.remove('is-live'); });
+      if (hint) {
+        hint.addEventListener('click', function () {
+          v.muted = false;
+          v.play();
+          hint.remove();
+        });
+      }
+    });
+
+    // start fetching a little before it is needed
+    var preloader = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.preload = 'auto';
+      });
+    }, { rootMargin: '300px' });
+    clips.forEach(function (v) { preloader.observe(v); });
+
+    if (mayAutoplay) {
+      var watcher = new IntersectionObserver(function (entries) {
+        // the most visible card wins, so two never play at once
+        var best = null;
+        entries.forEach(function (e) {
+          if (e.isIntersecting && e.intersectionRatio >= 0.6) {
+            if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+          } else if (!e.isIntersecting) {
+            e.target.pause();
+          }
+        });
+        if (best) {
+          var v = best.target;
+          if (v.paused && v.muted) {
+            var p = v.play();
+            if (p && p.catch) p.catch(function () { /* blocked: the poster stays */ });
+          }
+        }
+      }, { threshold: [0, 0.6, 0.9] });
+      clips.forEach(function (v) { watcher.observe(v); });
+
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden && playing) playing.pause();
+      });
+    }
+  }
+
   /* ---- mobile bottom action bar on the event page ---- */
   if (document.querySelector('.mobile-cta')) document.body.classList.add('has-mobile-cta');
 })();
