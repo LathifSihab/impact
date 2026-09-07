@@ -9,3 +9,7 @@ Thumbs.db
 # local screenshots / scratch output
 _*.png
 _*.txt
+
+# The Astro app lives on feat/astro-cms until it reaches parity. Delete this line
+# when that branch merges, or the merged files will be ignored on main.
+/web/
