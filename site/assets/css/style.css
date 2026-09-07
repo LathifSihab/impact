@@ -206,8 +206,12 @@ ul{margin:0;padding:0;list-style:none}
   font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-warm)}
 
 /* ---------- 04 events ---------- */
-.event-row{display:grid;grid-template-columns:200px 1fr 220px 150px 230px;gap:32px;align-items:center;
+/* Two targets, not a nested anchor: the row is one link, the waitlist pill is
+   another. Same visual grid as before, split across two elements. */
+.event-row{display:grid;grid-template-columns:1fr 230px;gap:32px;align-items:center;
   padding:30px 0;border-top:1px solid var(--border);transition:background var(--dur-fast) var(--ease)}
+.event-row-main{display:grid;grid-template-columns:200px 1fr 220px 150px;gap:32px;align-items:center}
+.tag--dim{color:var(--grey-warm);margin-left:12px}
 .event-row:hover{background:var(--sand-card)}
 .event-row img{width:100%;object-fit:cover;aspect-ratio:16/9}
 .event-row h3{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-top:10px}
@@ -371,9 +375,10 @@ ul{margin:0;padding:0;list-style:none}
   :root{--margin:40px;--pad:72px}
   .d-xl{font-size:56px}.d-l{font-size:40px}.hero{height:640px}
   .hero--event h1{font-size:54px}
-  .event-row{grid-template-columns:160px 1fr 180px}
+  .event-row{grid-template-columns:1fr}
+  .event-row-main{grid-template-columns:160px 1fr 180px}
   .event-row .age{display:none}
-  .event-row .cta{grid-column:1/-1;text-align:left}
+  .event-row .cta{text-align:left}
   .format-row{grid-template-columns:50px 1fr 40px}
   .format-row .desc,.format-row .m{display:none}
   .cards-4{grid-template-columns:1fr 1fr}
@@ -401,7 +406,7 @@ ul{margin:0;padding:0;list-style:none}
   .track{width:100%;max-width:none}
   .cards-3,.cards-4,.two-col,.gallery,.fund-grid,.experts{grid-template-columns:1fr}
   .who-card img{aspect-ratio:16/9;height:auto}
-  .event-row{grid-template-columns:1fr;gap:14px}
+  .event-row,.event-row-main{grid-template-columns:1fr;gap:14px}
   .event-row .cta .pill{width:100%}
   .format-row{grid-template-columns:40px 1fr}
   .format-row .arrow{display:none}
@@ -973,3 +978,50 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 .route{outline-color:var(--border-sand)}
 .route:hover{outline-color:var(--ink)}
 .expert-slot{outline-color:var(--border)}
+
+/* ---------- hero--overlaid (branddeck slide 6) ----------
+   Everything sits directly on the photograph: headline top-left, body under it,
+   a meta column top-right. No card, no panel. The scrim is heavier than the
+   page hero's because there is small text over the image, not just display type. */
+.hero--overlaid .hero-content{justify-content:flex-start;padding-top:96px;padding-bottom:72px}
+.hero--overlaid .hero-content > div{display:grid;grid-template-columns:1.05fr .95fr;
+  gap:64px;align-items:start;width:100%}
+.hero--overlaid::after{background:linear-gradient(to right,rgba(0,0,0,.86) 0%,
+  rgba(0,0,0,.62) 52%,rgba(0,0,0,.42) 100%)}
+.hero--overlaid h1{max-width:13ch;margin-bottom:26px}
+.hero--overlaid .intro{max-width:44ch;margin-top:0}
+.overlay-meta{display:grid;gap:26px;padding-top:8px}
+.overlay-meta .item h3{font-family:var(--font-display);font-weight:400;font-size:14px;
+  letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:8px}
+.overlay-meta .item p{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.82);max-width:34ch}
+@media (max-width:1180px){
+  .hero--overlaid .hero-content > div{grid-template-columns:1fr;gap:34px}
+  .hero--overlaid .hero-content{padding-top:80px}
+}
+@media (max-width:820px){
+  .overlay-meta{gap:18px}
+  .hero--overlaid .hero-content{padding-top:56px;padding-bottom:44px}
+}
+
+/* ---------- participant video (branddeck slide 11, THE FEEDBACK) ----------
+   Portrait, because that is how the footage was shot. Nothing downloads until
+   the visitor presses play: preload="none" plus a poster frame. */
+/* portrait footage: cap the column width, or a 9:16 card at 400px runs 700px tall */
+.vcards{display:grid;grid-template-columns:repeat(3,minmax(0,264px));gap:24px;margin-top:44px}
+.vcards--4{grid-template-columns:repeat(4,minmax(0,232px))}
+.vcard{margin:0}
+.vwrap{position:relative;aspect-ratio:9/16;background:var(--burgundy-card);overflow:hidden}
+.vcards--4 .vwrap{background:var(--bone-card)}
+.vwrap video{width:100%;height:100%;object-fit:cover;display:block}
+.vcard figcaption{margin-top:14px;font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.62)}
+.vcards--4 .vcard figcaption{color:var(--grey-warm)}
+.vcard--tile .vwrap{aspect-ratio:9/16;height:340px}
+@media (max-width:1180px){
+  .vcards,.vcards--4{grid-template-columns:1fr 1fr}
+}
+@media (max-width:820px){
+  .vcards,.vcards--4{grid-template-columns:1fr;gap:20px}
+  .vwrap{max-height:70vh}
+  .vcard--tile .vwrap{height:auto}
+}

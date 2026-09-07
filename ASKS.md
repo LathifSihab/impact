@@ -19,7 +19,8 @@ blocks a *later* milestone. Owner column: **C** = client (IMPACT), **D** = DRP B
 | # | Item | Owner | Blocks | If it is late |
 |---|---|---|---|---|
 | 7 | Photo library as a drive folder | C | 17 Sep | Everything on the demo is cropped out of the brochure PDF. One grade across the site is impossible until we see the library. |
-| 8 | Banner video / aftermovie masters, 16:9 | C | 17 Sep | Heroes stay on stills. The wiring is already built — drop the file in and it upgrades itself. |
+| 8 | **Landscape 16:9** banner video / aftermovie master | C | 17 Sep | Four clips arrived but they are 480x848 portrait phone recordings. They are now used as participant testimonials, which is what they are; a full-bleed landscape header still needs a 16:9 master. The wiring is built — drop the file in and it upgrades itself. |
+| 8b | **Parental consent for the minors speaking on camera**, plus transcripts for captions | C | Before launch | Without consent the feedback section comes out. Without transcripts the videos fail WCAG 1.2.2. |
 | 9 | Logo + beeldmerk as SVG; partner logos as SVG | C | 17 Sep | Currently rasters lifted off the live site. Visibly soft on retina, and the logo cannot be recoloured. |
 | 10 | Brand font files | C | Post-launch swap is fine | Archivo Black is the agreed substitute. Two-line swap whenever the real font arrives. |
 | 11 | Expert portraits (Julie, TaPas, Olivier) | C | 17 Sep | The expert grid is text-only until then. |

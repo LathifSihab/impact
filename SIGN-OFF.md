@@ -52,12 +52,32 @@ the brochure all say. Only the website brief said 15–18.
 
 **Question:** confirm 14–18.
 
+## Participant videos — needs an explicit yes before launch
+
+Four clips arrived from IMPACT: portrait phone recordings from Basketball Edition 2026,
+mostly **participants (minors) speaking on camera**. They are now on staging: three as the
+homepage feedback section, four on the media page, one in the event gallery. Staging carries
+`noindex`, so nothing is indexable yet.
+
+Before the site goes to the live domain we need, in writing:
+
+1. **Parental consent for each identifiable minor on camera**, for publication on a public
+   website. This is stricter than photo consent and it is the one item that can stop the
+   launch. If consent covers only some clips, name which ones and we publish only those.
+2. **Whether faces may stay unblurred** and whether first names may be used in captions.
+   Right now every caption reads "Deelnemer · Basketball Edition 2026" — no names.
+3. **Captions or transcripts.** The clips carry speech, so without captions they fail
+   WCAG 1.2.2 and are unusable for deaf visitors and in silent autoplay contexts. A plain
+   text transcript per clip is enough; we generate the caption files from it.
+
+If consent is not in hand, the section comes out again — it is one block to remove.
+
 ## Removed rather than faked
 
-- **Testimonials.** The deck has real parent messages, but they are private-message
-  attributions and consent is unknown, so the homepage testimonial section is **not** shipped.
-  Send the quotes you have written consent for, with the attribution you want
-  ("Ouder · Basketball Edition 2026", or a first name), and the component goes back in.
+- **Written testimonials.** The deck has real parent messages, but they are private-message
+  attributions and consent is unknown, so no written quotes are published. Send the quotes you
+  have written consent for, with the attribution you want ("Ouder · Basketball Edition 2026",
+  or a first name), and they slot in alongside the video.
 - **LinkedIn and TikTok links.** No URLs supplied — the icons were dead links, so only
   Instagram is linked for now.
 - **Privacy policy and algemene voorwaarden.** No copy exists, so the footer links were
@@ -70,7 +90,9 @@ the brochure all say. Only the website brief said 15–18.
 
 ## Still needed from the client, unchanged
 
-Brand font files · logo and beeldmerk as SVG · partner logos as SVG · the banner video and
-aftermovie masters (16:9) · the photo library as a drive folder · the 1–2 September events with
+Brand font files · logo and beeldmerk as SVG · partner logos as SVG · **the landscape 16:9
+banner video and the Basketball Edition 2026 aftermovie** (the four clips received are 480x848
+portrait phone recordings — good for the feedback section, not usable as a full-bleed landscape
+header) · the photo library as a drive folder · the 1–2 September events with
 dates, price and capacity · FAQ answers · the Basketball Edition 2027 day programme · which
 accounting system · Mollie KYC started.

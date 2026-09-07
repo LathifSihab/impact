@@ -16,6 +16,11 @@
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# robots.txt allows crawling because the production domain should be crawled;
+# the edge function in netlify/edge-functions/noindex.ts adds
+# `X-Robots-Tag: noindex` on every other host, so staging and previews stay out
+# of the index without a launch-day checklist step.
+
 [[headers]]
   for = "/*.html"
   [headers.values]
