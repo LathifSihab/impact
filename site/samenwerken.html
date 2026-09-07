@@ -32,9 +32,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
-<!-- reveal-boot: marks the document as scripted before first paint, so the
-     scroll-reveal start state never applies to a page that cannot animate. -->
-<script>document.documentElement.classList.add('js')</script>
+<!-- boot: runs before first paint. Marks the document as scripted, so the
+     scroll-reveal start state never applies to a page that cannot animate. Also
+     consumes the preloader flag: whichever page a visitor lands on first is the
+     first impression, so the homepage preloader never appears halfway through a
+     session. -->
+<script>
+(function (d) {
+  d.documentElement.classList.add('js');
+  try { sessionStorage.setItem('hasSeenPreloader', '1'); } catch (e) {}
+})(document);
+</script>
 </head>
 <body data-nav="samenwerken">
 

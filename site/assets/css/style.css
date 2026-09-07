@@ -34,7 +34,9 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* the gutter is reserved so locking scroll — the preloader, the newsletter
+   dome, the mobile menu — never shifts the page sideways */
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
 body{margin:0;font-family:var(--font);color:var(--black);background:var(--white);
   font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%;height:auto}
@@ -1238,4 +1240,51 @@ html.has-cinema{scroll-behavior:auto}
   text-transform:uppercase;color:var(--grey-warm)}
 @media (max-width:640px){
   .logo-grid .slot--build{flex-direction:column;gap:12px;text-align:center}
+}
+
+/* ---------- preloader ----------
+   The overlay is hidden unless the inline <head> script has decided it should
+   run, so the default state of the page — no JS, GSAP blocked, a second visit in
+   the same session — is simply the page, never a black screen waiting on a
+   script that may not arrive.
+
+   The word is in the DOM twice, once per panel. Each panel holds a zero-size
+   anchor point sitting exactly on the seam, and the word is centred on that
+   point, so the two copies read as one word across the cut and tear apart when
+   the panels do. Both copies therefore have identical geometry — which is the
+   whole trick: nothing can drift between them.
+
+   Note what is deliberately NOT here: no transform on the word or its spans.
+   GSAP owns those completely (xPercent/yPercent), because a CSS
+   translate(-50%) gets parsed into pixels at the moment GSAP first touches the
+   element, and the cycled words are different widths — so the centring would go
+   stale on every word change. */
+#preloader{display:none}
+html.is-preloading{overflow:hidden}
+html.is-preloading body{overflow:hidden}
+html.is-preloading #preloader{display:block}
+
+.pre{position:fixed;inset:0;z-index:9999;pointer-events:none}
+.pre-panel{position:absolute;left:0;right:0;overflow:hidden;background:var(--ink);
+  will-change:transform}
+.pre-panel--top{top:0;bottom:50%}
+.pre-panel--bot{top:50%;bottom:0}
+
+/* the anchor: a point on the seam. The nudge lifts the type so the cut lands on
+   the optical middle of the capitals rather than the middle of the em box. */
+.pre-word{--seam:0.07em;position:absolute;left:50%;width:0;height:0}
+.pre-panel--top .pre-word{top:calc(100% - var(--seam))}
+.pre-panel--bot .pre-word{top:calc(var(--seam) * -1)}
+
+.pre-word > span{position:absolute;left:0;top:0;display:block;white-space:nowrap;
+  font-family:var(--font-display);font-size:clamp(34px,7.4vw,104px);line-height:1;
+  letter-spacing:-.03em;color:var(--white);
+  -webkit-font-smoothing:antialiased;will-change:transform,opacity}
+.pre-final{opacity:0}
+.pre-final em{font-style:normal;color:var(--red)}   /* the brackets */
+
+@media (prefers-reduced-motion:reduce){
+  /* the script exits early, but never leave a black panel behind if it cannot */
+  html.is-preloading #preloader{display:none}
+  html.is-preloading,html.is-preloading body{overflow:visible}
 }

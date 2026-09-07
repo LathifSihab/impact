@@ -34,7 +34,17 @@
   }
 
   var hero = document.querySelector('[data-reveal-root]');
-  if (hero) requestAnimationFrame(function () { hero.classList.add('is-revealed'); });
+  if (hero) {
+    var revealHero = function () { hero.classList.add('is-revealed'); };
+    if (document.documentElement.classList.contains('is-preloading')) {
+      // the preloader owns the first frame, so the headline plays as the curtain
+      // opens rather than finishing behind it
+      document.addEventListener('impact:curtain', revealHero, { once: true });
+      setTimeout(revealHero, 3200);        // never leave the headline hidden
+    } else {
+      requestAnimationFrame(revealHero);
+    }
+  }
 
   /* ---- hero video: progressive, poster-first ----
      The poster <img> carries data-video-* paths. We probe the webm; if it exists we

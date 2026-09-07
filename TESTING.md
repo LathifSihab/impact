@@ -69,6 +69,38 @@ the file protocol.
 | Scroll to the bottom | Partner marquee runs continuously with nine real logos, greyscale, colour on hover, pausing while hovered |
 | Look at the footer | "Built by DRP BuildLab", hyperlinked. Phone and Instagram are real links. No dead `#` links anywhere |
 
+### 1.1b The preloader
+
+It plays **once per browser session**, on the homepage. Any other page visited
+first consumes the flag, so it never appears halfway through a session.
+
+```js
+// DevTools console — replay it
+sessionStorage.removeItem('hasSeenPreloader'); location.reload();
+```
+
+What to look for, in 1.88s total:
+
+- EXPERIENCES → CONNECTION → GROWTH, each rising in and out (0.24s each)
+- `[IMPACT]` landing with red brackets, held briefly
+- the two panels parting, tearing the wordmark in half as they go
+- the hero headline revealing **as** the curtain opens, not before it
+
+Things that should all end with the page visible and scrollable:
+
+| Test | Expected |
+|---|---|
+| Reload immediately | No preloader (flag set) |
+| New tab | Preloader plays again (session is per tab) |
+| Block `cdnjs.cloudflare.com` in DevTools → Network → Block request domain | No preloader at all; page renders normally. The `<head>` failsafe clears the overlay after 3s at the latest, but the animation is skipped, not delayed |
+| `prefers-reduced-motion: reduce` (DevTools → Rendering) | No animation, no black frame |
+| Private window with site data blocked | No preloader, no error |
+| Scroll during the animation | Locked, and the page must not shift sideways when it unlocks — the scrollbar gutter is reserved for exactly this |
+
+The decision to run lives in an inline `<head>` script, not in `preloader.js`: by
+the time a deferred script executes, the page has already painted, so a black
+overlay applied there would flash the content first.
+
 ### 1.2 The newsletter dome (the modal the client asked for)
 
 ```bash
