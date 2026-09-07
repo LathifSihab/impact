@@ -1155,3 +1155,14 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 @media (prefers-reduced-motion:reduce){
   .js [data-reveal]{opacity:1;transform:none;transition:none}
 }
+
+/* Our own credit sits inside the partner grid, as asked, but as the tenth of
+   nine: it takes the full last row so the nine client logos stay a clean 3x3
+   and the row reads as a role rather than a sponsor. */
+.logo-grid .slot--build{grid-column:1 / -1;height:auto;gap:20px;padding:22px 30px}
+.logo-grid .slot--build img{max-height:44px}
+.logo-grid .slot--build span{font-size:10px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grey-warm)}
+@media (max-width:640px){
+  .logo-grid .slot--build{flex-direction:column;gap:12px;text-align:center}
+}
