@@ -12,6 +12,28 @@ cross-cutting stuff (responsive, keyboard, reduced motion) and applies to both.
 
 ---
 
+## 0. Structural check — run this first, it takes a second
+
+```bash
+python tools/check_html.py
+```
+
+Balanced container tags across all 20 pages, and every local `href`/`src`/`poster`
+resolving to a file that exists. Run it after any hand edit to a page.
+
+It exists because a lost `<div class="expert-slots">` opening tag shipped
+unnoticed on two pages: the orphaned `</div>` closed the page's own column
+wrapper instead, which threw the FAQ section into the event page's sidebar column
+and dropped the waitlist card to the bottom of the document. Nothing errored and
+the markup looked fine — the browser just silently reflowed around it. The same
+run also found a duplicate `</main>` on the homepage.
+
+Also worth knowing, for the event page specifically: the waitlist column is taller
+than a laptop viewport, so it only sticks at `min-height: 1320px`. Below that it
+scrolls normally, on purpose — a stuck column that does not fit puts its own
+bottom permanently out of reach. The sticky metabar carries the waitlist CTA at
+every viewport, so nothing is lost.
+
 ## 1. The static site (`site/`)
 
 ```bash

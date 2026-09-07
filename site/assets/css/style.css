@@ -359,7 +359,16 @@ ul{margin:0;padding:0;list-style:none}
 .faq summary .plus{color:var(--red);font-size:22px;line-height:1;transition:transform var(--dur-fast) var(--ease)}
 .faq[open] summary .plus{transform:rotate(45deg)}
 .faq .a{padding:0 0 24px;max-width:640px}
-.sticky-col{position:sticky;top:110px}
+/* The waitlist column is ~1170px tall — taller than a laptop viewport minus the
+   110px the sticky metabar needs. A stuck column that does not fit puts its own
+   bottom permanently out of reach: on a 800px viewport the whole Praktisch table
+   became unreachable. So it only sticks where it actually fits, and the metabar
+   above it already carries a persistent "Zet me op de wachtlijst" on every
+   viewport, so nothing is lost by letting the column scroll. */
+.sticky-col{position:static}
+@media (min-height:1320px){
+  .sticky-col{position:sticky;top:110px}
+}
 .wl-card{background:var(--sand-card);border:1px solid var(--border);padding:34px 32px}
 .wl-card h2{font-size:28px;line-height:1.1;margin-bottom:14px;text-transform:none;letter-spacing:-.02em}
 .field{margin:22px 0}
