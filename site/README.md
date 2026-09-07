@@ -49,6 +49,27 @@ now live on staging is listed in `../SIGN-OFF.md`.
 - `expert-grid` variable count with the three real experts; `format-row` as four peers then a
   rule then Hosted; `event-row` meta without middle dots.
 
+## Two-column sections
+
+`.two-col` was one 1.05fr/.95fr grid with `align-items:start` doing duty for three
+different pairings, and it showed: nine of thirteen instances had columns whose heights
+differed by 250–1.360px. It now has variants that match the content:
+
+- **`.two-col--media`** — copy beside a photograph. The photo gets a real height
+  (`clamp(340px, 50vh, 620px)`) and sticks at `top: 96px`, so it stays alongside a long
+  column instead of floating at its own ratio with dead space under it. Capped
+  deliberately: stretching a 16:9 source to a 1.100px column crops it to a vertical sliver.
+  Sticky and the fixed height are dropped below 820px, where there is nothing to sit beside.
+- **`.two-col--form`** — copy beside a form: narrower form column, vertically centred.
+- **`.two-col--story`** — copy beside one portrait video card.
+- Plain `.two-col` stays for two comparable text columns.
+
+Two bugs fixed along the way: `fr` tracks floor at min-content, so the contact table on the
+media page was squeezing the boilerplate column into a 150px ribbon (`min-width: 0` on the
+children fixes the ratio), and "JOURNALISTEN" was overflowing its column into the next one
+(display type now has `overflow-wrap: break-word` + `hyphens: auto`, and a smaller display
+step inside a half-width column).
+
 ## Global
 
 - Skip link, `<main>` landmark, visible `:focus-visible` on everything, `aria-expanded` +
