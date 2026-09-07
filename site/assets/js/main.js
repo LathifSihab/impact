@@ -41,24 +41,30 @@
      insert a muted, looping, playsinline <video> over the poster. Nothing is
      downloaded when prefers-reduced-motion is set or when the file is absent. */
   var poster = document.querySelector('[data-hero-poster]');
-  if (poster && !reduced) {
-    var webm = poster.dataset.videoWebm, mp4 = poster.dataset.videoMp4;
-    fetch(webm, { method: 'HEAD' }).then(function (r) {
-      if (!r.ok) return;
-      var v = document.createElement('video');
-      v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
-      v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
-      v.preload = 'auto'; v.poster = poster.getAttribute('src');
-      v.setAttribute('aria-hidden', 'true');
-      [webm, mp4].forEach(function (src, i) {
-        if (!src) return;
+  if (poster && !reduced && poster.dataset.videoWebm) {
+    var v = document.createElement('video');
+    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    v.setAttribute('aria-hidden', 'true');
+    v.preload = 'auto';
+    v.poster = poster.currentSrc || poster.getAttribute('src');
+    [[poster.dataset.videoWebm, 'video/webm'], [poster.dataset.videoMp4, 'video/mp4']]
+      .forEach(function (pair) {
+        if (!pair[0]) return;
         var s = document.createElement('source');
-        s.src = src; s.type = i === 0 ? 'video/webm' : 'video/mp4';
+        s.src = pair[0]; s.type = pair[1];
         v.appendChild(s);
       });
-      poster.parentNode.insertBefore(v, poster.nextSibling);
-      v.play().catch(function () { v.remove(); });   // autoplay blocked → keep the still
-    }).catch(function () { /* no video shipped yet */ });
+    // if none of the sources resolve — no file shipped yet — drop back to the still
+    v.addEventListener('error', function () { v.remove(); }, true);
+    v.addEventListener('loadeddata', function () { v.classList.add('is-ready'); });
+    // the poster now sits inside a <picture>, so mount the video on the hero itself
+    var heroEl = poster.closest('.hero');
+    var mount = heroEl || poster.parentNode;
+    var pictureEl = poster.closest('picture') || poster;
+    mount.insertBefore(v, pictureEl.nextSibling);
+    var play = v.play();
+    if (play && play.catch) play.catch(function () { v.remove(); });
   }
 
   /* ---- nav dropdowns: hover with delay on desktop, click/focus for keyboard ---- */
