@@ -38,8 +38,12 @@ the file protocol.
 | Look at a row's label | `Camp` and `5 dagen` as separate meta cells, not "Camp · 5 dagen" |
 | Scroll to the black *formats* section | Four numbered peers, then a rule, then Hosted Experiences set apart with `—` |
 | Scroll to *IMPACT FOR ALL* | No counters here (the real figures live on the social-impact page) |
-| Scroll to *Wat deelnemers zeggen* | Three portrait video players on burgundy, poster frames showing, **nothing downloaded yet** (`preload="none"` — check the Network tab) |
-| Press play on one | It fetches the `.webm` at that moment and plays with sound, native controls |
+| Scroll to *Don't take our word for it.* | Three portrait players on burgundy. Nothing is downloaded before the section is near the viewport (`preload="none"`, then `auto` at 300px out — check the Network tab) |
+| Keep it in view | The most visible clip starts playing **muted**, with a "tik voor geluid" pill top-left. The other two stay on their posters — only one clip ever plays |
+| Scroll away | It pauses. Scroll back and it resumes |
+| Click the pill | Sound on, the pill disappears, the clip keeps playing |
+| Switch tabs and back | It paused while the tab was hidden |
+| Turn on *Reduce motion* | Nothing autoplays; the posters stay and the pill never appears |
 | Scroll to the bottom | Partner marquee runs continuously with nine real logos, greyscale, colour on hover, pausing while hovered |
 | Look at the footer | "Built by DRP BuildLab", hyperlinked. Phone and Instagram are real links. No dead `#` links anywhere |
 
