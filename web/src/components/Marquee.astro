@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props { label?: string; note?: string; sand?: boolean }
+const {
+  label = 'Partners & hosts',
+  note = 'Elk logo linkt naar de partner.',
+  sand = false,
+} = Astro.props;
+
+const partners = await getCollection('partners');
+---
+
+<div class:list={['marquee', sand && 'marquee--sand']}>
+  <div class="mq-head">
+    <span class="label">[ {label} ]</span>
+    <span class="mq-note">{note}</span>
+  </div>
+  <div class="mq-track">
+    <div class="mq-set">
+      {partners.map((p) => (
+        <div class="cell">
+          <a class="slot" href={p.data.url} target="_blank" rel="noopener" title={p.data.name}>
+            <img src={'/' + p.data.logo} alt={p.data.name} loading="lazy" />
+          </a>
+        </div>
+      ))}
+    </div>
+    <div class="mq-set" aria-hidden="true">
+      {partners.map((p) => (
+        <div class="cell">
+          <span class="slot"><img src={'/' + p.data.logo} alt="" loading="lazy" /></span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

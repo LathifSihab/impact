@@ -1,0 +1,16 @@
+<div class="dome" id="dome" hidden>
+  <div class="dome-panel" role="dialog" aria-modal="true" aria-labelledby="dome-title">
+    <button class="dome-close" type="button" aria-label="Sluiten">&times;</button>
+    <div class="dome-in">
+      <span class="dome-mark">[ ]</span>
+      <h2 id="dome-title">Blijf op de hoogte</h2>
+      <p class="body">Nieuwe events, verhalen en partnerships. Eén mail per maand.</p>
+      <form class="dome-form" data-newsletter data-dome-form method="post" action="/api/newsletter" novalidate>
+        <label class="sr-only" for="dome-email">E-mailadres</label>
+        <input id="dome-email" name="email" type="email" placeholder="jouw e-mailadres" required />
+        <button type="submit" class="pill pill--dark">Inschrijven</button>
+        <p class="form-msg" role="status"></p>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "participants",
+    "value": 30,
+    "display": "30",
+    "label": "Participants",
+    "group": "forAll",
+    "explanation": "jongeren namen deel aan onze eerste IMPACT Camp",
+    "period": "na IMPACT Camp: Basketball Edition 2026",
+    "confirmed": false
+  },
+  {
+    "id": "for-all",
+    "value": 11,
+    "display": "11",
+    "label": "IMPACT FOR ALL",
+    "group": "forAll",
+    "explanation": "jongeren namen deel via onze jeugdwerking, dankzij gesponsorde tickets",
+    "period": "na IMPACT Camp: Basketball Edition 2026",
+    "confirmed": false
+  },
+  {
+    "id": "sponsors",
+    "value": 4,
+    "display": "4",
+    "label": "Sponsors",
+    "group": "forAll",
+    "explanation": "bedrijven en ondernemers maakten die deelname mee mogelijk",
+    "period": "na IMPACT Camp: Basketball Edition 2026",
+    "confirmed": false
+  },
+  {
+    "id": "visitors",
+    "value": 1500,
+    "display": "1.500",
+    "suffix": "+",
+    "label": "Website visitors",
+    "group": "reach",
+    "period": "na IMPACT Camp: Basketball Edition 2026",
+    "confirmed": false
+  },
+  {
+    "id": "signups",
+    "value": 200,
+    "display": "200",
+    "suffix": "+",
+    "label": "Newsletter sign-ups",
+    "group": "reach",
+    "period": "na IMPACT Camp: Basketball Edition 2026",
+    "confirmed": false
+  },
+  {
+    "id": "followers",
+    "value": 600,
+    "display": "600",
+    "suffix": "+",
+    "label": "Instagram followers",
+    "group": "reach",
+    "period": "na IMPACT Camp: Basketball Edition 2026",
+    "confirmed": false
+  }
+]
