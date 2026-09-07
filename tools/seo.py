@@ -70,7 +70,7 @@ EVENT_LD = {
 
 PAGES = {
     "index.html": (
-        "IMPACT — Building foundations for the new generation",
+        "IMPACT — Building foundations for life",
         "Youth development voor jongeren van 8 tot 25 jaar. Camps, Days, Retreats, Community en "
         "Hosted Experiences, opgebouwd rond zes fundamenten. Bekijk de upcoming events.",
         "1.0", "weekly", [ORG, WEBSITE]),
@@ -172,13 +172,24 @@ def run():
         f.write_text(html, encoding="utf8")
         print("seo:", name)
 
-    urls = "\n".join(
-        f"  <url><loc>{SITE_URL}/{'' if n == 'index.html' else n}</loc>"
-        f"<changefreq>{freq}</changefreq><priority>{prio}</priority></url>"
-        for n, (_t, _d, prio, freq, _e) in PAGES.items())
+    def entry(path, prio, freq, slug):
+        """Each URL declares both locales, so search engines pair them themselves."""
+        return (f"  <url><loc>{SITE_URL}{path}</loc>"
+                f"<changefreq>{freq}</changefreq><priority>{prio}</priority>"
+                f'<xhtml:link rel="alternate" hreflang="nl-BE" href="{SITE_URL}/{slug}"/>'
+                f'<xhtml:link rel="alternate" hreflang="en" href="{SITE_URL}/en/{slug}"/>'
+                "</url>")
+
+    rows = []
+    for n, (_t, _d, prio, freq, _e) in PAGES.items():
+        slug = "" if n == "index.html" else n
+        rows.append(entry("/" + slug, prio, freq, slug))
+        rows.append(entry("/en/" + slug, prio, freq, slug))
+    urls = "\n".join(rows)
     (site / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n",
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+        ' xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls + "\n</urlset>\n",
         encoding="utf8")
     (site / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n\n"
