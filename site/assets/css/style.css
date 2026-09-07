@@ -290,13 +290,18 @@ ul{margin:0;padding:0;list-style:none}
    Seamless loop maths: the track holds two identical sets, each cell carries its
    gap as margin-right (never a flex `gap`), so one set is exactly half the track
    and translateX(-50%) lands the duplicate precisely where the original started. */
-.marquee{--mq-gap:90px;--mq-cell:170px;
+/* --mq-dur is set per breakpoint rather than once, because the track is built
+   from --mq-cell + --mq-gap: those shrink on narrow screens, so a single
+   duration made the marquee travel ~62px/s on desktop but only ~38px/s on a
+   phone. The durations below hold it at roughly 90px/s, a little quicker on
+   mobile where a logo crosses a narrow viewport anyway. */
+.marquee{--mq-gap:90px;--mq-cell:170px;--mq-dur:30s;
   background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
   padding:26px 0;overflow:hidden}
 .marquee .mq-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
   padding:0 var(--margin) 20px}
 .marquee .mq-note{font-size:11.5px;color:var(--grey-muted)}
-.mq-track{display:flex;width:max-content;animation:mq 42s linear infinite;will-change:transform}
+.mq-track{display:flex;width:max-content;animation:mq var(--mq-dur) linear infinite;will-change:transform}
 .mq-set{display:flex}
 .marquee:hover .mq-track{animation-play-state:paused}
 .mq-track .cell{flex:0 0 var(--mq-cell);margin-right:var(--mq-gap);
@@ -616,9 +621,9 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
   .dl-row .m{display:none}
 }
 
-@media (max-width:1180px){.marquee{--mq-gap:64px;--mq-cell:150px}}
+@media (max-width:1180px){.marquee{--mq-gap:64px;--mq-cell:150px;--mq-dur:23s}}
 @media (max-width:820px){
-  .marquee{--mq-gap:40px;--mq-cell:120px}
+  .marquee{--mq-gap:40px;--mq-cell:120px;--mq-dur:15s}
   .marquee .mq-note{display:none}
   .mq-track .slot{height:38px}
   .mq-track .slot img{max-height:30px}
