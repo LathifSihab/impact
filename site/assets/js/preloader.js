@@ -52,7 +52,7 @@
      the element's own box, so a word of a different width re-centres itself. A
      CSS translate(-50%) would be parsed into pixels the first time GSAP touched
      the element and then go stale on the next word. */
-  gsap.set(cycles.concat(finals), { xPercent: -50, yPercent: -50 });
+  gsap.set(cycles.concat(finals), { x: 0, y: 0, xPercent: -50, yPercent: -50 });
 
   var CYCLE = ['EXPERIENCES', 'CONNECTION', 'GROWTH'];
   var BEAT = 0.24;          // per cycled word
