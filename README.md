@@ -10,7 +10,7 @@ brand for ages 8–25. Built by [DRP BuildLab](https://drpbuildlab.com).
 | Path | What it is |
 |---|---|
 | `site/` | The static craft-pass site. 10 pages, hand-written HTML/CSS/JS, no build step. **This is what staging serves and what the client reviews.** |
-| `web/` | The Astro 5 app that replaces it. CMS-driven event pages, real form endpoints. In progress. |
+| `web/` | The Astro 5 app that replaces it — **on the `feat/astro-cms` branch**, not on `main`, until it reaches page parity and the backend choice is settled. `git checkout feat/astro-cms` |
 | `tools/` | The scripts that maintain both: shared nav/footer, SEO head, image variants, deck harvesting, the placeholder video, content seeding |
 | `brief/` | Client briefs, the 18 branddeck slides, reference captures, and `brief/docs/` — the build documentation that drives the current phase |
 | `PLAN.md` | Stack decision, the events/waitlist architecture, staged timeline |
@@ -32,9 +32,13 @@ opened" campaign · Mollie for payments · Plausible for cookieless analytics.
   headline construction rebuilt, photo-strip / stat-block / tier-table /
   newsletter-dome / CTA cards built, real camp photography in, a placeholder hero
   video, accessibility and responsive pass. See `site/README.md`.
-- **CMS (17 Sep)** — in progress. Astro app builds, content models mirror the Payload
-  schema, event pages generate per entry, form endpoints validate and capture
-  attribution. Payload, Brevo and Plausible still to wire.
+- **CMS (17 Sep)** — in progress on **`feat/astro-cms`**. The Astro app builds, content
+  models mirror the Payload schema, event pages generate per entry, and the form
+  endpoints validate and capture attribution. Held on a branch because the backend
+  choice is still open: self-hosted Payload versus a ticketing platform that already
+  does waitlists, payments and participant management (see the options table in the
+  handover notes). Nothing built so far is specific to either — only the loader behind
+  `src/content.config.ts` changes.
 - **Sellable (24 Sep)** and **launch (30 Sep)** — blocked on the client. See
   [ASKS.md](ASKS.md).
 
