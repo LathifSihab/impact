@@ -166,12 +166,18 @@ does reach Brevo (§0d).
 
 ### Two gaps to know before testing anything else
 
-**Guardian consent is not enforced here.** Posting to `/api/waitlist` **without**
-`consent` returns `200` and succeeds. The deployed
-`netlify/functions/subscribe.mjs` returns `422` and refuses. This form collects
-a child's name and age, so the server-side tick is not a nicety — the Astro
-route has to match the function's behaviour before it goes anywhere near
-production. Verified 8 Sep; see item 22 in `STATUS.md`.
+**Guardian consent — fixed 8 Sep, keep it tested.** The route used to accept a
+submission with no consent and answer `200`, and the event page had no consent
+checkbox at all. Both are now in place. This is the check most worth re-running
+after any change to the form or the route, because it fails silently — a missing
+tick looks like a working form:
+
+```bash
+curl -s -X POST http://localhost:4321/api/waitlist \
+  -d 'email=a@b.be&naam=Sam&leeftijd=12&event=camp-basketball-edition-2027'
+```
+
+Must be `422 {"errors":{"consent":...}}`. A `200` means the guard is gone.
 
 **Page parity is 6 of 20.** `over`, `samenwerken`, `social-impact`, `journal`,
 `media`, `contact` and `hosted-experiences` exist only as static HTML in

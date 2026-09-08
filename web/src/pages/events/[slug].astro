@@ -192,6 +192,18 @@ const statusPill = {
               <input id="gemeente" name="gemeente" type="text" />
               <span class="err" role="alert"></span>
             </div>
+            {/* The child's first name and age are above this line, so the
+                guardian's tick is the lawful basis for holding them. Unticked by
+                default, and re-checked in the API route — the browser check is a
+                courtesy, the server one is what counts. */}
+            <div class="field field--check">
+              <input type="checkbox" id="wl-consent" name="consent" value="ja" />
+              <label for="wl-consent">
+                Ik ben de ouder of voogd, en ik ga akkoord met de
+                <a href="/privacy">privacyverklaring</a> voor het verwerken van deze gegevens.
+              </label>
+              <span class="err" role="alert"></span>
+            </div>
             <button type="submit" class="pill pill--primary">
               {isWaitlist ? 'Zet me op de wachtlijst' : 'Schrijf me in'}
             </button>

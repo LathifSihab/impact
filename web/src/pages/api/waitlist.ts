@@ -10,6 +10,14 @@ export const prerender = false;
  * validates and returns; the Payload write and the Brevo double opt-in land in
  * the 17 September milestone, at the two marked TODOs, without touching the
  * form or the client-side handler.
+ *
+ * The guardian's consent is checked here and not only in the browser. This form
+ * collects a child's first name and age, so the tick is the lawful basis for
+ * holding it — and anything at all can POST to this URL, which makes the
+ * browser check a courtesy to the visitor and this one the only one that
+ * counts. It is stored on the entry too: consent that cannot be evidenced later
+ * is the same as no consent. Mirrors netlify/functions/subscribe.mjs, which is
+ * what the live site posts to today; the two must not drift.
  */
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,6 +34,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     participantAge: Number(get('leeftijd')),
     parentEmail: get('email'),
     municipality: get('gemeente') || null,
+    guardianConsent: get('consent') !== '',
     locale: 'nl',
     source: request.headers.get('referer') ?? null,
     utm: Object.fromEntries(
@@ -40,6 +49,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!Number.isFinite(entry.participantAge)) errors.leeftijd = 'Vul een leeftijd in.';
   if (!EMAIL.test(entry.parentEmail)) errors.email = 'Vul een geldig e-mailadres in.';
   if (!entry.event) errors.event = 'Onbekend event.';
+  if (!entry.guardianConsent) errors.consent = 'Bevestig dit om je in te schrijven.';
 
   // the age range is the event's own, sent with the form and re-checked server-side
   const min = Number(form.get('ageMin') ?? 0);
