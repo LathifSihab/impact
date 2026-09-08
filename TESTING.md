@@ -98,6 +98,25 @@ the file protocol.
 | Scroll to the bottom | Partner marquee runs continuously with nine real logos, greyscale, colour on hover, pausing while hovered |
 | Look at the footer | "Built by DRP BuildLab", hyperlinked. Phone and Instagram are real links. No dead `#` links anywhere |
 
+### 1.1a The sticky nav
+
+Scroll any page. At the top the nav is spacious (22px padding, 26px logo, no
+shadow); past 50px it compacts (10px padding, 21px logo, soft shadow) and stays
+pinned to the top. Scrolling back under 24px restores it — the gap between 50
+and 24 is deliberate hysteresis, so a nav sitting exactly on the threshold
+cannot flicker on a trackpad.
+
+The utility bar is not sticky and scrolls away; only the nav pins.
+
+Two things to check that are easy to break:
+
+- **Anchor links** (`/event.html#wachtlijst`, the nav dropdown links) must land
+  below the nav, not underneath it. `[id]{scroll-margin-top}` reads `--nav-h`.
+- **The event page metabar** sticks directly below the nav, never over it. Its
+  `top` also reads `--nav-h`, which main.js writes from the nav's real measured
+  height on load, on resize, and when the padding transition ends — so no
+  number needs keeping in sync when the nav's padding or logo changes.
+
 ### 1.1b The preloader
 
 It plays **once per browser session**, on the homepage. Any other page visited

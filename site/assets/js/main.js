@@ -77,6 +77,46 @@
     if (play && play.catch) play.catch(function () { v.remove(); });
   }
 
+  /* ---- sticky nav: compact once scrolling starts ----
+     Two jobs. One: toggle `is-scrolled` past 50px, with a lower release point so
+     a nav that is exactly on the threshold cannot flip back and forth on a
+     trackpad. Two: publish the nav's real height as --nav-h, because the event
+     page's metabar sticks below it and every anchor target offsets by it — a
+     hard-coded number would drift the moment the padding or logo changes. */
+  var navEl = document.querySelector('.nav');
+  if (navEl) {
+    var ON = 50, OFF = 24;            // hysteresis band
+    var stuck = false;
+    var queued = false;
+
+    function publishHeight() {
+      document.documentElement.style.setProperty('--nav-h', navEl.offsetHeight + 'px');
+    }
+
+    function onScroll() {
+      var y = window.scrollY || document.documentElement.scrollTop;
+      if (!stuck && y > ON) { stuck = true; document.documentElement.classList.add('is-scrolled'); }
+      else if (stuck && y < OFF) { stuck = false; document.documentElement.classList.remove('is-scrolled'); }
+      // the height changes with the state, so republish after the transition
+      publishHeight();
+    }
+
+    function schedule() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; onScroll(); });
+    }
+
+    publishHeight();
+    onScroll();                        // a reload can restore a scrolled position
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', function () { publishHeight(); schedule(); });
+    // the padding transition ends after the class flips, so settle the value then
+    navEl.addEventListener('transitionend', function (e) {
+      if (e.propertyName.indexOf('padding') === 0) publishHeight();
+    });
+  }
+
   /* ---- nav dropdowns: hover with delay on desktop, click/focus for keyboard ---- */
   var items = document.querySelectorAll('.nav-main > li');
   var openTimer = null;

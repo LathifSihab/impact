@@ -37,6 +37,8 @@
 /* the gutter is reserved so locking scroll — the preloader, the newsletter
    dome, the mobile menu — never shifts the page sideways */
 html{scroll-behavior:smooth;scrollbar-gutter:stable}
+/* in-page links have to clear the sticky nav */
+[id]{scroll-margin-top:calc(var(--nav-h,0px) + 18px)}
 body{margin:0;font-family:var(--font);color:var(--black);background:var(--white);
   font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%;height:auto}
@@ -118,8 +120,25 @@ ul{margin:0;padding:0;list-style:none}
 .util .right{display:flex;align-items:center;gap:18px}
 .util .divider{width:1px;height:11px;background:rgba(255,255,255,.25)}
 
-.nav{background:var(--white);position:relative;z-index:60}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:22px;padding-bottom:22px}
+/* Sticky nav that compacts once scrolling starts. Spacious at the top of the
+   page, then padding and logo step down and a soft shadow lifts it off the
+   content. `is-scrolled` is set on <html> by main.js past 50px, with hysteresis
+   so it cannot flap on a trackpad, and --nav-h is written from the nav's real
+   measured height rather than hard-coded — the metabar, sticky columns and
+   anchor offsets all read it, so nothing has to be kept in sync by hand. */
+.nav{background:var(--white);position:sticky;top:0;z-index:60;
+  transition:box-shadow var(--dur-reveal) var(--ease)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;
+  padding-top:22px;padding-bottom:22px;
+  transition:padding-top 260ms var(--ease),padding-bottom 260ms var(--ease)}
+.nav .logo img{transition:height 260ms var(--ease)}
+html.is-scrolled .nav{box-shadow:0 14px 34px -16px rgba(15,16,21,.24)}
+html.is-scrolled .nav .wrap{padding-top:10px;padding-bottom:10px}
+html.is-scrolled .nav .logo img{height:21px}
+/* the shrink is motion: hold the spacious state if the visitor asked for less */
+@media (prefers-reduced-motion:reduce){
+  .nav .wrap,.nav .logo img,.nav{transition:none}
+}
 .logo{display:block;line-height:0}
 .logo img{width:auto;height:26px}
 .mobile-menu .logo img{height:24px}
@@ -362,7 +381,8 @@ ul{margin:0;padding:0;list-style:none}
   color:rgba(255,255,255,.8);text-transform:uppercase;margin-bottom:8px}
 .hero--event h1{font-size:82px;line-height:.94}
 .hero--event .stand{max-width:620px;font-size:18px;line-height:1.6;color:rgba(255,255,255,.9);margin-top:24px}
-.metabar{background:var(--black);color:#fff;position:sticky;top:0;z-index:50}
+.metabar{background:var(--black);color:#fff;position:sticky;
+  top:var(--nav-h,0px);z-index:50}
 .metabar .wrap{display:flex;align-items:center;justify-content:space-between;gap:40px;
   padding-top:26px;padding-bottom:26px}
 .metabar .pairs{display:flex;gap:64px;flex-wrap:wrap}
