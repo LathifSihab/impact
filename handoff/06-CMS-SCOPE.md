@@ -67,9 +67,12 @@ empty rather than inventing quotes.
 Two things no off-the-shelf tool gives, both small:
 
 **A joined view.** Signups from Brevo, orders from Ticket Tailor, campaign
-attribution from your own data, in one screen. The brief asks for "all signups in
-one place" and "which campaign drove each signup" — the data exists across three
-systems and nothing joins it today. Read-only, one page, high perceived value.
+attribution from your own data, traffic from Plausible — in one screen. The brief
+asks for "all signups in one place" and "which campaign drove each signup"; the
+data exists across four systems and nothing joins it today. Read-only, high
+perceived value. **This is now specced in full as
+[08-DASHBOARD.md](08-DASHBOARD.md), and it is the half of the build the client
+will judge the demo on.**
 
 **A publish gate on consent.** `confirmed` on experts and figures,
 `consentOnFile` on testimonials. These are real people's names and real claims. A

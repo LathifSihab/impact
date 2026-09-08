@@ -3,9 +3,15 @@
 Written 9 September 2026, from a working project. Everything stated here was
 checked against the code or tested live, not recalled.
 
-**You are picking up a finished bilingual marketing site and building the thing
-it never had: a content management system.** The site is live, verified and not
-in question. Your job is the backoffice.
+**You are picking up a finished bilingual marketing site and building the two
+things it never had: a content management system, and a dashboard that answers
+who visited, who signed up and what sold.** The site is live, verified and not in
+question. Your job is the backoffice.
+
+Two documents carry the actual build: [06-CMS-SCOPE.md](06-CMS-SCOPE.md) for the
+editing side and [08-DASHBOARD.md](08-DASHBOARD.md) for the reporting side. The
+dashboard is the half that has never existed in any form, and it is what the
+client will judge the demo on.
 
 ---
 
@@ -20,6 +26,8 @@ in question. Your job is the backoffice.
 | [05-DESIGN-SYSTEM.md](05-DESIGN-SYSTEM.md) | Type, colour, spacing and components, so the CMS looks like it belongs |
 | [06-CMS-SCOPE.md](06-CMS-SCOPE.md) | What to build, what was decided and why, what is explicitly out of scope |
 | [07-DECISIONS.md](07-DECISIONS.md) | Judgement calls already made, with reasoning, so they are not relitigated |
+| [08-DASHBOARD.md](08-DASHBOARD.md) | The dashboard spec — content, signups, ticket sales and traffic in one screen, built in four tiers |
+| [09-SETUP-AND-CHECKS.md](09-SETUP-AND-CHECKS.md) | How to stand the project up, and how to prove each piece works rather than assume it |
 
 ## What is in this folder
 
