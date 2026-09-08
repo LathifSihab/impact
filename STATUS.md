@@ -38,6 +38,11 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 | 13 | **`feat/astro-cms` has diverged** — 14 commits behind main, 16 ahead | The reel, preloader, sticky nav, mobile-nav fixes and every responsive fix are on `main` only. Rebase before doing more Astro work, or the branch will need the whole craft pass again. |
 | 14 | A purpose-built 1200×630 OG share image | Currently reusing a content photo. |
 | 15 | The Wix 301 redirect map | Needs item 4 first. |
+| 16 | **On-demand rendering, so a new event does not need a rebuild** | The brief's own words: *"without needing a rebuild each time — this needs to be genuinely self-serve"*. The Astro app is `output: 'static'`; event pages come from `getStaticPaths()`. This is an architecture change (server or hybrid output, event routes `prerender = false`), not a content task, and it should be settled with item 8 rather than after it. |
+| 17 | **A CMS-driven page type** | The brief says "events/**pages**/waitlists". Only events are modelled. Without this she can add an event but not, say, a new landing page for a campaign. |
+| 18 | **The rest of the SEO starter package** | Search Console + Bing verification and sitemap submission (needs item 4), target queries per page, a Google Business Profile for local search, and a content plan. The technical foundation is done; this is the other half. |
+| 19 | **Participant management** | The brief asks to manage *"registrations, events and participants"*. Waitlist entries and participants are different objects — a participant has attendance, a guardian, dietary and medical notes, a payment state. Not modelled anywhere yet. |
+| 20 | **Brevo lists, tags and the automation** | "Usable for targeted comms/automations later" means segmented on arrival — per event, per locale, per source — not one flat list to be untangled afterwards. |
 
 ---
 
@@ -82,18 +87,19 @@ Six routes on the homepage, each one click from its next step, in both languages
 | Item | State | Note |
 |---|---|---|
 | Every event gets its own page | ✅ *(on `feat/astro-cms`)* | 4 event files generate 4 pages |
-| Separate waitlist per event | ✅ *(branch)* | Renders from the event's own status and age range; the server re-checks the range |
-| Self-serve: add events without a rebuild | 🟡 | The template proves out — but the CMS she edits in does not exist (item 8) |
+| Self-serve **new pages**, not just events | ⛔ | The brief says "events/pages/waitlists". Only events are modelled — there is no CMS-driven page type at all (item 17) |
+| Separate waitlist per event, **where relevant** | 🟡 | `status` is modelled as waitlist / open / full / past and the page branches on it, so "where relevant" is right in principle. But the `open` branch has no purchase flow behind it, because there are no payments yet (item 1) |
+| Self-serve: add events **without a rebuild** | ⛔ | Overstated in the previous version of this file. `astro.config.mjs` is `output: 'static'` and `[slug].astro` uses `getStaticPaths()`, so **every new event needs a rebuild and redeploy** — the exact thing the brief rules out. Needs on-demand rendering (item 16) |
 | Automatic targeted email when registration opens | ⛔ | Item 11 |
 
 ## Backend & data
 
 | Item | State | Note |
 |---|---|---|
-| Wix decision | ✅ | **No backend on Wix.** Let it lapse, keep it as a 301 source. Reasoning in `PLAN.md` §2 |
-| Privacy-friendly analytics | ⛔ | Item 9 |
-| All signups in one place | 🟡 | Item 10 |
-| CMS / backoffice | ⛔ | Item 8 |
+| Wix decision — *"that call is entirely yours"* | ✅ | **Build no backend on Wix.** It is a closed platform: its data layer cannot be queried by our stack, its automations cannot be triggered from our forms, and anything built there has to be rebuilt when the subscription ends. Since the year is already paid, keep it running as the 301 redirect source until it lapses — that is the one thing it is genuinely useful for. Reasoning in `PLAN.md` §2 |
+| Privacy-friendly analytics | ⛔ | Item 9. The brief lists seven things by name; five are stock Plausible (visits, unique visitors, traffic source, actions, signup conversion). Two are not: **page/section engagement** needs custom events fired per section, and **which campaign/page/waitlist drove each signup** has to be stored *on the signup record* and joined in the backoffice — analytics alone cannot answer it, so items 9 and 10 have to be built as one thing |
+| All signups in one place | ⛔ | Item 10, and worse than "partly": on staging today **no form has an `action`, so a submission shows the success message and is discarded**. Fine for a demo, a landmine the moment the link is shared — see the warning below. The branch endpoints validate and capture the attribution fields, then `console.info` them |
+| CMS / backoffice — *"a big priority... from day one"* | ⛔ | Items 8, 17, 19. Content models are written and mirrored to the Payload schema, so the modelling work is not lost whichever backend wins. Nothing is deployed |
 
 ## Integrations
 
@@ -101,16 +107,29 @@ Six routes on the homepage, each one click from its next step, in both languages
 |---|---|---|
 | Payments | ⛔ 🔒 | Item 1. Zero files in the repo reference Mollie or Stripe yet — deliberately, until KYC exists |
 | Accounting | ⛔ 🔒 | Item 6 |
-| SEO starter package | ✅ technical | See above |
+| **Technically solid SEO foundation** | ✅ | Titles, descriptions, canonicals, hreflang, OG/Twitter, JSON-LD, sitemap, robots, staging noindex |
+| **Full SEO starter package** | 🟡 | Marked done in the previous version of this file, which was wrong. The technical foundation is one half of it. Still missing: Search Console + Bing verification and sitemap submission, target queries per page, a Google Business Profile for local search, and a content plan (item 18) |
 | Webshop + events live by end of September | ⛔ 🔒 | Needs items 1, 2 and 8 |
 
 ---
 
+## ⚠ Before sharing the staging link with anyone
+
+No form on staging posts anywhere. Submit the waitlist or the newsletter and you
+get "Je staat op de wachtlijst" — and nothing is recorded. It was built that way
+deliberately, so the demo could be clicked through before a backend existed, but
+anyone who signs up in good faith is being told something untrue. Either say so
+when sharing the link, or let us point the forms at a temporary sink (a Netlify
+Form is 10 minutes) so real interest is not lost. Item 10.
+
 ## If you read one thing
 
-Items **1, 2 and 8** decide whether anything ships in September. Everything else on
-this page is work we can do on our own schedule. Items 9–13 are ours and none of
-them are blocked — they are just not done.
+Items **1, 2, 8 and 16** decide whether anything ships in September. 16 is new to
+this list: "self-serve without a rebuild" is a requirement the current
+architecture cannot satisfy, and it is cheaper to settle alongside the backend
+choice than to retrofit afterwards. Everything else here is work we can schedule
+ourselves — items 9–20 are ours and none of them are blocked. They are just not
+done.
 
 Full blocker list with owners and consequences, plus the Dutch message to send:
 `ASKS.md`. Content live on staging that still needs her yes: `SIGN-OFF.md`. How to
