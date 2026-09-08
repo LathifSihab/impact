@@ -226,6 +226,33 @@ Expected at 1400px wide: `inset(5% 13% round 26px)` at 0, `inset(0%)` at 1.
 asset, not the treatment. It upgrades itself when a real landscape file lands at
 `assets/video/hero.*`.
 
+### 1.1f The cookie banner
+
+Bottom-anchored, on every page, once per browser until the choice is changed.
+
+```js
+// DevTools console — bring it back
+localStorage.removeItem('impact.consent'); location.reload();
+```
+
+| Check | Expected |
+|---|---|
+| Both answers | Identical button: same size, colour, border, weight. Verified by comparing computed styles, not by eye |
+| Touch targets | 46px desktop, 48px full-width on mobile — both over the 44px minimum |
+| Analytics / Marketing | **Unticked** when the panel opens. Consent is opt-in; a pre-ticked box is not consent |
+| Necessary | Shown, ticked, disabled — it cannot be declined, so offering it as a choice would be theatre |
+| Privacy link | Inline in the sentence, to `/privacy.html` (`/en/privacy.html` on the English site) |
+| After choosing | Banner goes, choice persists, and "Cookievoorkeuren" appears in the footer to change it |
+| Adding a category later | `VERSION` in `consent.js`, or a new name in `USES`, re-asks — an old decision is not a decision about something that did not exist |
+
+**Nothing is gated yet, and the banner says so**: *"Vandaag plaatsen we er nog
+geen — je keuze geldt zodra dat verandert."* The categories are live so the gates
+exist before the trackers do. To gate something when it arrives:
+
+```js
+window.impactConsent.whenGranted('analytics', function () { /* load it */ });
+```
+
 ### 1.1b The preloader
 
 It plays **once per browser session**, on the homepage. Any other page visited

@@ -1451,6 +1451,7 @@ html.is-preloading #preloader{display:block}
 .consent h2{font-family:var(--font-display);font-weight:400;font-size:17px;
   line-height:1.25;letter-spacing:-.01em;margin:0 0 8px}
 .consent p{margin:0;font-size:13px;line-height:1.6;color:rgba(255,255,255,.72)}
+.consent-state{margin-top:6px !important;font-size:11.5px;color:rgba(255,255,255,.5)}
 .consent a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 
 /* the per-category list is the preferences view, folded away until asked for */
@@ -1458,15 +1459,32 @@ html.is-preloading #preloader{display:block}
   border-top:1px solid rgba(255,255,255,.14)}
 .consent--prefs .consent-cats{display:block}
 .consent-cat{display:flex;align-items:flex-start;gap:12px;padding:9px 0}
-.consent-cat input{width:19px;height:19px;flex:0 0 auto;margin-top:2px;accent-color:var(--red)}
+.consent-cat{min-height:44px}
+.consent-cat input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:var(--red)}
+/* necessary is shown, ticked and unavailable — the honest way to present a
+   category that cannot be declined */
+.consent-cat.is-locked{opacity:.72}
+.consent-cat.is-locked input{cursor:not-allowed}
 .consent-cat label{font-size:13px;line-height:1.5;color:rgba(255,255,255,.72)}
 .consent-cat b{display:block;color:#fff;font-weight:700;font-size:12.5px;margin-bottom:2px}
 
 .consent-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:0 0 auto}
-.consent-actions .linkish{color:rgba(255,255,255,.7);font-size:12px}
+
+/* Accepting and declining are the same decision seen from two sides, so they get
+   the same button: same size, same weight, same colour, same everything. A
+   filled red "accept" beside a faint outlined "decline" is a nudge, and a nudged
+   consent is not consent. Preferences is a text link rather than a third
+   button — it is a detour, not an answer, and giving it equal weight would make
+   the two real answers harder to find. */
+.consent-btn{min-height:46px;padding:0 24px;display:inline-flex;align-items:center;
+  justify-content:center;background:#fff;color:var(--ink);border:1px solid #fff;
+  border-radius:999px;font-family:var(--font-text);font-size:12.5px;font-weight:700;
+  letter-spacing:.04em;cursor:pointer;
+  transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.consent-btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.consent-actions .linkish{color:rgba(255,255,255,.72);font-size:12px;min-height:44px;
+  display:inline-flex;align-items:center;padding:0 4px}
 .consent-actions .linkish:hover{color:#fff}
-.consent-actions .pill--ghost{border-color:rgba(255,255,255,.4);color:#fff}
-.consent-actions .pill--ghost:hover{background:rgba(255,255,255,.12)}
 /* accept/reject are the two-button view; save belongs to preferences */
 .consent-actions [data-save]{display:none}
 .consent--prefs .consent-actions [data-all],
@@ -1476,8 +1494,11 @@ html.is-preloading #preloader{display:block}
 
 @media (max-width:900px){
   .consent-inner{flex-direction:column;gap:18px;padding:20px var(--margin)}
-  .consent-actions{width:100%}
-  .consent-actions .pill{flex:1 1 auto;justify-content:center}
+  .consent-actions{width:100%;gap:10px}
+  /* both answers full width and equal, stacked, each comfortably over the 44px
+     touch minimum */
+  .consent-btn{flex:1 1 100%;width:100%;min-height:48px}
+  .consent-actions .linkish{width:100%;justify-content:center}
 }
 
 /* ---------- scroll-to-expand stage (media page) ----------

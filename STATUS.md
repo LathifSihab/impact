@@ -72,6 +72,7 @@ Six routes on the homepage, each one click from its next step, in both languages
 | Responsive | ✅ | **20 pages × 15 widths, 320px to 1920px**: no horizontal overflow, no clipped content, no sliced words, no labels that do not fit. Repeatable via `tools/audit_responsive.html` |
 | Sticky nav | ✅ | Spacious at the top, compacts past 50px, on both desktop and mobile |
 | Preloader | ✅ | Kinetic wordmark into a split-curtain tear, 1.88s, once per session |
+| Cookie consent | ✅ | Bottom-anchored banner, both languages, Necessary / Statistics / Marketing, opt-in and unticked by default, equal-weight buttons, links to the privacy statement. Gates are live before the trackers are |
 
 ## Conversion
 

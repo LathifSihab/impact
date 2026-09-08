@@ -108,16 +108,21 @@ What has to come from IMPACT, or their lawyer or accountant:
 Until that is done, this page should not be published on the live domain. It is
 fine on staging, which is `noindex`.
 
-## Consent banner — built, dormant on purpose
+## Consent banner — live
 
-The site sets no advertising or analytics cookies, so there is nothing to consent
-to and no banner is shown. The mechanism is built and tested: adding a category
-to `USES` in `site/assets/js/consent.js` makes it appear on the next load, with
-per-category preferences and a footer link to change the choice.
+Bottom-anchored on every page, in both languages, with Necessary / Statistics /
+Marketing. Accepting and declining are the same button — same size, colour and
+weight — because a nudged consent is not consent. Statistics and Marketing are
+unticked by default; Necessary is shown ticked and disabled.
 
-**The decision to record:** we are not showing a banner today. It would ask
-permission for nothing, and cookie banners cost signups. It switches on by
-itself the day analytics or a third-party checkout goes in.
+**What she should know:** nothing is gated yet, because nothing sets an analytics
+or marketing cookie today, and the banner says so in its own copy. The categories
+are live so the gates exist *before* the trackers do — whatever is added later is
+covered by a choice the visitor already made, instead of appearing behind their
+back and needing a second ask.
+
+This reverses the earlier recommendation to keep it dormant, at the client's
+request.
 
 ## Removed rather than faked
 
