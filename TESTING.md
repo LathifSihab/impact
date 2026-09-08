@@ -100,6 +100,84 @@ looks identical from outside to one that is simply never called. The suite prove
 a correctly signed request is accepted, that an unsigned one is not, and that a
 valid signature from ten minutes ago is refused as a replay.
 
+## 0e. The Astro app and the content layer
+
+Merged to `main` on 8 September. **It is not deployed** — `netlify.toml` still
+publishes `site/` and runs no build, so nothing here affects the live site yet.
+Everything below runs locally.
+
+### What "the CMS" is today
+
+There is no admin UI and no database. Content is **git-based collections**: JSON
+and Markdown under `web/src/content/`, validated by a Zod schema in
+`web/src/content.config.ts`. Editing content means editing a file and
+redeploying.
+
+That matters for expectations: the schemas are the real work, and they were
+written to mirror the Payload models, so when Payload goes live the loaders swap
+to its REST API and the components stay as they are. But **today nobody outside
+the repo can add an event.**
+
+Ten collections are defined: `events`, `formats`, `foundations`, `ageGroups`,
+`experts`, `partners`, `tiers`, `figures`, `journal`, `testimonials`.
+
+### Run it
+
+```bash
+cd web
+npm install        # first time only
+npm run build      # type-checks every content file against its schema
+npm run dev        # http://localhost:4321
+```
+
+`npm run build` is the content test. A file that breaks its schema fails the
+build with the field named — that is the whole point of the Zod layer, and it
+is why there is no separate content linter.
+
+**Verified 8 September:** build completes in ~7s and prerenders **6 pages** —
+4 event pages, `/events`, and `/`.
+
+Two things that look like faults and are not:
+
+- `The collection "testimonials" does not exist or is empty` — `testimonials.json`
+  is `[]` on purpose. Nothing renders without `consentOnFile: true`, and no
+  testimonial has written consent yet. The warning is noise, not breakage.
+- `output: "static"` with `mode: "server"` — pages prerender, the two API routes
+  run on demand via `prerender = false`.
+
+### Test the API routes
+
+With `npm run dev` running:
+
+```bash
+curl -s -X POST http://localhost:4321/api/newsletter -d 'email=test@example.be&locale=nl'
+curl -s -X POST http://localhost:4321/api/newsletter -d 'email=nope'
+curl -s -X POST http://localhost:4321/api/waitlist   -d 'email=a@b.be&naam=Sam&leeftijd=12&consent=on&event=camp-basketball-edition-2027'
+```
+
+Expected: `200 {"ok":true,...}`, then `422` with the Dutch email error, then
+`200`.
+
+**These endpoints do not store anything.** They validate and return. `grep -c
+BREVO web/src/pages/api/*.ts` is `0` for both — the Payload write and the Brevo
+push are the two `TODO(17 Sep)` lines in `web/src/pages/api/waitlist.ts`. The
+live site's signups go through `netlify/functions/subscribe.mjs` instead, which
+does reach Brevo (§0d).
+
+### Two gaps to know before testing anything else
+
+**Guardian consent is not enforced here.** Posting to `/api/waitlist` **without**
+`consent` returns `200` and succeeds. The deployed
+`netlify/functions/subscribe.mjs` returns `422` and refuses. This form collects
+a child's name and age, so the server-side tick is not a nicety — the Astro
+route has to match the function's behaviour before it goes anywhere near
+production. Verified 8 Sep; see item 22 in `STATUS.md`.
+
+**Page parity is 6 of 20.** `over`, `samenwerken`, `social-impact`, `journal`,
+`media`, `contact` and `hosted-experiences` exist only as static HTML in
+`site/`, and there is no English routing built yet. Switching `netlify.toml` to
+publish `web/dist` today would ship a site missing most of its pages.
+
 ## 0b. Responsive audit
 
 ```bash
