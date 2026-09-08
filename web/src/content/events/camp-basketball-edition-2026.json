@@ -1,0 +1,27 @@
+{
+  "title": "IMPACT Camp — Basketball Edition 2026",
+  "format": "camps",
+  "editionYear": 2026,
+  "dateText": "Juli 2026",
+  "location": "Antwerpen",
+  "ageMin": 8,
+  "ageMax": 14,
+  "status": "past",
+  "standfirst": "Onze eerste editie. Basketbal was het medium, ontwikkeling was de missie.",
+  "intro": "Dertig jongeren, vijf dagen, zes fundamenten. Elf deelnemers namen deel via IMPACT FOR ALL.",
+  "heroImage": "assets/img/camp/court-169.jpg",
+  "gallery": [
+    {
+      "src": "assets/img/camp/group-32.jpg",
+      "alt": "Het camp in het veld"
+    },
+    {
+      "src": "assets/img/camp/grass-32.jpg",
+      "alt": "Verbinding op het gras"
+    }
+  ],
+  "seo": {
+    "title": "This was IMPACT Camp: Basketball Edition 2026",
+    "description": "De recap van onze eerste IMPACT Camp: dertig jongeren, vijf dagen, zes fundamenten."
+  }
+}

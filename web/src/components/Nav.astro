@@ -1,0 +1,95 @@
+---
+interface Props { current?: string }
+const { current = 'home' } = Astro.props;
+
+const main = [
+  { id: 'over', label: 'Over', href: '/over', items: [
+    ['Why we exist', '/over#why'], ['Founders', '/over#founders'],
+    ['Onze fundamenten', '/over#fundamenten'], ['Voor wie', '/over#voor-wie'],
+    ['Het systeem', '/over#systeem'], ['Team & experts', '/over#team'],
+  ] },
+  { id: 'events', label: 'Events', href: '/events', items: [
+    ['Upcoming Events', '/events#upcoming'], ['Camps', '/events#camps'],
+    ['Days', '/events#days'], ['Retreats', '/events#retreats'],
+    ['Hosted Experiences', '/hosted-experiences'], ['Alle events', '/events#alle'],
+  ] },
+  { id: 'samenwerken', label: 'Samenwerken', href: '/samenwerken', items: [
+    ['Partner worden', '/samenwerken#partner-worden'], ['Hosted Experiences', '/hosted-experiences'],
+    ['Experts & coaches', '/samenwerken#experts'], ['Voor bedrijven', '/samenwerken#bedrijven'],
+    ['Onze partners', '/samenwerken#partners'],
+  ] },
+  { id: 'social', label: 'Social Impact', href: '/social-impact', items: [
+    ['IMPACT FOR ALL', '/social-impact'], ['Onze aanpak', '/social-impact#aanpak'],
+    ['Onze impact', '/social-impact#impact'], ['Steun onze missie', '/social-impact#draag-bij'],
+  ] },
+];
+
+const utility: [string, string, string][] = [
+  ['Brochure', '/assets/impact-brochure.pdf', 'brochure'],
+  ['Media', '/media', 'media'],
+  ['Journal', '/journal', 'journal'],
+  ['Contact', '/contact', 'contact'],
+];
+---
+
+<div class="util">
+  <div class="wrap">
+    <ul>
+      {utility.map(([label, href, id]) => (
+        <li>
+          <a
+            href={href}
+            class={current === id ? 'is-active' : undefined}
+            target={href.endsWith('.pdf') ? '_blank' : undefined}
+            rel={href.endsWith('.pdf') ? 'noopener' : undefined}>{label}</a>
+        </li>
+      ))}
+    </ul>
+    <div class="right">
+      <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
+      <span class="divider"></span>
+      <span class="lang">NL</span>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="/" class="logo" aria-label="IMPACT — home">
+      <img src="/assets/brand/impact-logo.png" alt="IMPACT" width="647" height="145" />
+    </a>
+    <ul class="nav-main">
+      {main.map((item) => (
+        <li class={current === item.id ? 'is-current' : undefined}>
+          <a href={item.href} class="top">{item.label}</a>
+          <div class="dropdown">
+            {item.items.map(([label, href]) => <a href={href}>{label}</a>)}
+          </div>
+        </li>
+      ))}
+    </ul>
+    <a href="/events#upcoming" class="pill pill--primary pill--sm">UPCOMING EVENTS</a>
+    <button class="burger" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <div class="mm-top">
+    <a href="/" class="logo logo--invert">
+      <img src="/assets/brand/impact-logo.png" alt="IMPACT" width="647" height="145" />
+    </a>
+    <button class="close" aria-label="Menu sluiten">&times;</button>
+  </div>
+  {main.map((item) => (
+    <>
+      <a class="mm-item" href={item.href}>{item.label}</a>
+      <div class="mm-sub">{item.items.map(([label, href]) => <a href={href}>{label}</a>)}</div>
+    </>
+  ))}
+  <div class="mm-foot">
+    {utility.map(([label, href]) => <a href={href}>{label}</a>)}
+    <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+</div>
