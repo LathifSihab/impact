@@ -1,0 +1,98 @@
+[
+  {
+    "id": "self-knowledge",
+    "number": "01",
+    "name": "Self-knowledge",
+    "enOneLiner": "Understanding who you are, how you work and what you need.",
+    "nlBody": "Zelfkennis is voor ons één van de belangrijkste fundamenten voor persoonlijke groei. Hoe beter jongeren zichzelf begrijpen, hoe sterker ze leren omgaan met keuzes, emoties, energie, druk en uitdagingen.",
+    "workOn": [
+      "Hoe ze reageren onder druk",
+      "Wat hen energie geeft of net leegmaakt",
+      "Hoe hun lichaam en mindset samen werken",
+      "Wat hun sterktes, valkuilen en noden zijn",
+      "Beter leren luisteren naar zichzelf"
+    ],
+    "image": "assets/img/portrait-45.jpg",
+    "alt": "Jongere in gesprek"
+  },
+  {
+    "id": "healthy-habits",
+    "number": "02",
+    "name": "Healthy habits & lifestyle",
+    "enOneLiner": "Sleep, movement, nutrition, recovery and energy.",
+    "nlBody": "De manier waarop jongeren slapen, eten, bewegen en herstellen heeft een enorme impact op hoe ze zich voelen, functioneren en presteren.",
+    "workOn": [
+      "Beweging en lichaamsbewustzijn",
+      "Gezonde voeding",
+      "Slaap en herstel",
+      "Routines en structuur",
+      "Energiemanagement en duurzame gewoontes"
+    ],
+    "image": "assets/img/running-45.jpg",
+    "alt": "Beweging en warming-up"
+  },
+  {
+    "id": "resilience",
+    "number": "03",
+    "name": "Resilience",
+    "enOneLiner": "Handling pressure, setbacks and uncertainty with strength and awareness.",
+    "nlBody": "Opgroeien brengt druk, onzekerheid en uitdagingen met zich mee. Het doel is jongeren leren hoe ze zichzelf kunnen dragen in moeilijke momenten.",
+    "workOn": [
+      "Omgaan met druk en verwachtingen",
+      "Emotionele weerbaarheid",
+      "Vertrouwen opbouwen",
+      "Leren omgaan met falen en tegenslag",
+      "Flexibiliteit en aanpassingsvermogen"
+    ],
+    "image": "assets/img/cartwheel-45.jpg",
+    "alt": "Moment van inspanning"
+  },
+  {
+    "id": "ownership",
+    "number": "04",
+    "name": "Ownership",
+    "enOneLiner": "Taking responsibility for your growth, choices and direction.",
+    "nlBody": "Verantwoordelijkheid leren nemen voor jezelf, je keuzes, je energie en je groei vanuit bewustzijn en zelfstandigheid. We helpen jongeren beseffen dat groei niet iets is dat iemand anders voor hen doet.",
+    "workOn": [
+      "Initiatief nemen",
+      "Verantwoordelijkheid dragen",
+      "Discipline opbouwen",
+      "Bewust keuzes leren maken",
+      "Zelfstandig leren denken"
+    ],
+    "image": "assets/img/mountain-45.jpg",
+    "alt": "Jongere neemt initiatief"
+  },
+  {
+    "id": "human-connection",
+    "number": "05",
+    "name": "Human connection",
+    "enOneLiner": "Communicating, trusting and growing with others.",
+    "nlBody": "Mensen groeien niet alleen. In een wereld die steeds digitaler en individueler wordt, geloven wij sterk in de kracht van echte menselijke verbinding.",
+    "workOn": [
+      "Leren communiceren",
+      "Samenwerken en verbinden",
+      "Vertrouwen opbouwen",
+      "Zich gezien voelen en anderen zien",
+      "Offline connectie ervaren"
+    ],
+    "image": "assets/img/hands-45.jpg",
+    "alt": "Groep, echte interactie"
+  },
+  {
+    "id": "talent-passion",
+    "number": "06",
+    "name": "Talent & passion",
+    "enOneLiner": "Discovering what energizes you and what you want to build.",
+    "nlBody": "We creëren ruimte om talenten, interesses en passies te ontdekken — zonder de druk om al te weten wie je bent. Wanneer jongeren dichter komen bij wat hen écht energie geeft, ontstaat vanzelf meer richting en zelfvertrouwen.",
+    "workOn": [
+      "Waar ze energie van krijgen",
+      "Wat hen motiveert",
+      "Waar hun talenten liggen",
+      "Wat hen nieuwsgierig maakt",
+      "Wat ze verder willen ontwikkelen"
+    ],
+    "image": "assets/img/field-45.jpg",
+    "alt": "Talent in actie"
+  }
+]
