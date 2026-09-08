@@ -41,8 +41,11 @@ def tag_balance(html, name):
 def assets(html, page):
     problems = []
     base = page.parent
-    for m in re.finditer(r'(?:href|src|poster)="([^"#?]+)"', html):
-        ref = m.group(1)
+    for m in re.finditer(r'(?:href|src|poster)="([^"]+)"', html):
+        # drop the cache-busting query and any fragment before resolving
+        ref = m.group(1).split('#')[0].split('?')[0]
+        if not ref:
+            continue
         if ref.startswith(("http", "mailto:", "tel:", "data:", "//")):
             continue
         target = (SITE / ref.lstrip("/")) if ref.startswith("/") else (base / ref)

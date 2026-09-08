@@ -65,3 +65,13 @@ banner video master · the photo library · the September events with dates, pri
 capacity · FAQ answers · the 2027 day programme · expert portraits · testimonial
 consent · privacy policy and terms. Full list with owners and consequences in
 [ASKS.md](ASKS.md).
+
+## Rebuilding
+
+```bash
+python tools/build.py
+```
+
+inject → seo → fingerprint → i18n → check. Always this, never the individual
+tools: fingerprint has to run before i18n or the English pages keep the previous
+asset hash, and check is what catches a lost closing tag before it ships.

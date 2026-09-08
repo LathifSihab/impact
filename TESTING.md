@@ -34,6 +34,22 @@ scrolls normally, on purpose — a stuck column that does not fit puts its own
 bottom permanently out of reach. The sticky metabar carries the waitlist CTA at
 every viewport, so nothing is lost.
 
+## 0a. Rebuild after any edit to a page, the CSS or the JS
+
+```bash
+python tools/build.py
+```
+
+inject → seo → fingerprint → i18n → check, in that order. Run this rather than
+the individual tools.
+
+The step that matters here is **fingerprint**: `style.css` and the JS files are
+referenced with `?v=<content hash>`, so a browser cannot serve yesterday's copy
+after a fix goes out. Skip it and the assets keep their old stamp, which is
+exactly how "I pushed the fix and it is still broken" happens — because it is,
+in that browser. It has to run *before* i18n, or the English pages keep the
+previous hash while the Dutch ones are correct.
+
 ## 0b. Responsive audit
 
 ```bash
@@ -148,6 +164,25 @@ Things that should all end with the page visible and scrollable:
 The decision to run lives in an inline `<head>` script, not in `preloader.js`: by
 the time a deferred script executes, the page has already painted, so a black
 overlay applied there would flash the content first.
+
+### 1.1c-setup One-time Netlify step, without which every form 404s
+
+**Netlify form detection is off by default** for every site created since April
+2023, and `data-netlify="true"` in the markup does nothing on its own. Until it
+is switched on, a submission posts to `/` and gets a **404**:
+
+```bash
+curl -X POST https://demo-impact-c399e3.netlify.app/   -H "content-type: application/x-www-form-urlencoded"   --data "form-name=newsletter&email=test@example.be"
+# status=404  ← detection is off
+# status=200  ← detection is on and the form was found
+```
+
+To switch it on: **Netlify → your site → Forms → Usage and configuration →
+Form detection → Enable form detection**, then **trigger a new deploy** — the
+scan happens at deploy time, so enabling it alone does not retro-scan the deploy
+that is already live.
+
+Use the curl above to confirm before hunting for bugs in the JavaScript.
 
 ### 1.1c Signup capture and attribution
 
