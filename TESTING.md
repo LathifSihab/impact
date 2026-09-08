@@ -175,6 +175,33 @@ Two things to check that are easy to break:
   height on load, on resize, and when the padding transition ends — so no
   number needs keeping in sync when the nav's padding or logo changes.
 
+### 1.1d The scroll-to-expand stage (media page)
+
+`/media.html`, above the four clips. On a desktop it starts as a rounded card
+inset from both edges and opens to full width as you scroll through it, with a
+glass panel over the footage. Below 821px and under reduced motion it is simply
+a static full-width frame — the CSS default *is* the finished state, so a phone,
+a blocked CDN or a GSAP failure all leave it open rather than stuck half-way.
+
+The expansion is a `clip-path`, not a width: animating width would relayout the
+document on every scroll frame with a decoded video inside it. One custom
+property, `--expand`, is written once per frame and read by the `calc()`s in the
+stylesheet.
+
+To inspect a specific stage, set it by hand — ScrollTrigger will otherwise
+overwrite it from the real scroll position on the next frame, which is what makes
+it look like nothing is happening:
+
+```js
+document.querySelector('[data-cine]').style.setProperty('--expand', '0');
+```
+
+Expected at 1400px wide: `inset(5% 13% round 26px)` at 0, `inset(0%)` at 1.
+
+**The footage is still the generated placeholder**, so it is soft — that is the
+asset, not the treatment. It upgrades itself when a real landscape file lands at
+`assets/video/hero.*`.
+
 ### 1.1b The preloader
 
 It plays **once per browser session**, on the homepage. Any other page visited

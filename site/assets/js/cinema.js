@@ -254,3 +254,82 @@
     railMode();
   }
 })();
+
+/* Scroll-to-expand stage — the media page.
+ *
+ * A frame that opens from a rounded card to full width as it is scrolled
+ * through. The animation is one number: --expand, 0 to 1, written once per
+ * frame and read by the clip-path in the stylesheet. Nothing is tweened, no
+ * layout property is touched, and the CSS default is the finished state — so a
+ * phone, reduced motion, or a blocked CDN all get a static full-width frame
+ * rather than a card stuck half open.
+ */
+(function () {
+  'use strict';
+
+  var root = document.querySelector('[data-cine]');
+  if (!root) return;
+
+  var video = root.querySelector('.cine-video');
+  var sound = root.querySelector('[data-cine-sound]');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var saveData = !!(navigator.connection && navigator.connection.saveData);
+
+  if (video) {
+    video.muted = true;
+    video.setAttribute('muted', '');
+    if (sound) {
+      sound.addEventListener('click', function () {
+        video.muted = !video.muted;
+        root.classList.toggle('is-loud', !video.muted);
+        sound.setAttribute('aria-pressed', String(!video.muted));
+        if (video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      });
+    }
+
+    // load and run it only while it is actually on screen
+    if ('IntersectionObserver' in window) {
+      var watch = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            video.preload = 'auto';
+            if (!reduced && !saveData && video.paused) {
+              var p = video.play();
+              if (p && p.catch) p.catch(function () {});
+            }
+          } else if (!video.paused) {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.25 });
+      watch.observe(root);
+    } else {
+      video.preload = 'metadata';
+    }
+  }
+
+  // the expansion itself is desktop-only; below that the CSS default stands
+  if (!window.gsap || !window.ScrollTrigger || reduced) return;
+  if (!window.matchMedia('(min-width: 821px)').matches) return;
+
+  window.gsap.registerPlugin(window.ScrollTrigger);
+  var mm = window.gsap.matchMedia();
+  mm.add('(min-width: 821px) and (prefers-reduced-motion: no-preference)', function () {
+    var st = window.ScrollTrigger.create({
+      trigger: root,
+      start: 'top bottom-=10%',
+      end: 'center center',
+      scrub: true,
+      onUpdate: function (self) {
+        root.style.setProperty('--expand', self.progress.toFixed(3));
+      },
+      onRefresh: function (self) {
+        root.style.setProperty('--expand', self.progress.toFixed(3));
+      }
+    });
+    return function () {
+      st.kill();
+      root.style.removeProperty('--expand');   // back to the CSS default: open
+    };
+  });
+})();

@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=2d5e4e5d9c">
+<link rel="stylesheet" href="assets/css/style.css?v=249ba1a9ac">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -183,6 +183,29 @@
       <div><span class="running">Aftermovies</span><h2 class="d-l">Bewegend beeld</h2></div>
       <p class="body">Beelden uit Basketball Edition 2026. Elke afgelopen editie krijgt daarnaast een aftermovie, gekoppeld aan de recap in Journal.</p>
     </div>
+  </div>
+
+<!-- scroll-to-expand stage (cinema.js) -->
+<div class="cine" data-cine>
+  <div class="cine-frame">
+    <video class="cine-video" muted loop playsinline preload="none"
+           poster="assets/img/court-169.jpg"
+           aria-label="Beeld uit IMPACT Camp: Basketball Edition 2026">
+      <source src="assets/video/hero.webm" type="video/webm">
+      <source src="assets/video/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="cine-glass">
+    <span class="cine-kicker">Basketball Edition 2026</span>
+    <p class="cine-line">Het medium verandert. De fundamenten blijven.</p>
+    <span class="cine-note">Montagebeeld uit de editie &mdash; de volledige aftermovie volgt.</span>
+  </div>
+  <button class="cine-sound" type="button" data-cine-sound aria-pressed="false">
+    <span class="on">Geluid aan</span><span class="off">Geluid uit</span>
+  </button>
+</div>
+
+  <div class="wrap">
     <div class="vcards vcards--4">
       <figure class="vcard">
         <div class="vwrap">
@@ -401,5 +424,10 @@
 
 <script src="assets/js/consent.js?v=dd6ef93117"></script>
 <script src="assets/js/main.js?v=4be17547a6"></script>
+<!-- GSAP drives the scroll-to-expand stage above; both degrade to the static
+     CSS default if either file fails to arrive. -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script defer src="assets/js/cinema.js?v=bd8e9d25d2"></script>
 </body>
 </html>
