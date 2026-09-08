@@ -13,7 +13,7 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 
 | # | Item | Blocks | Why it is urgent |
 |---|---|---|---|
-| 1 | **Mollie account + KYC started** | selling anything | Days of lead time entirely outside our control. Not started as far as we know. Nothing else on this list can rescue a late KYC. |
+| 1 | **~~Mollie~~ → Stripe onboarding started** | selling anything | **Changed 8 Sep.** Ticket Tailor settles through Stripe, PayPal or Square — not Mollie — and Bancontact comes through Stripe. So the recommended stack does not need Mollie for tickets at all, and Stripe onboarding is the faster, better-trodden path. This was the worst blocker on the list; the fix was a research question, not a waiting game. See `PLAN.md` §4b |
 | 2 | **The 1–2 September events** — title, dates, location, age range, price, capacity | the CMS, the webshop, launch | Without them there is nothing to sell, and the event pages have structure but no real edition. |
 | 3 | **Parental consent for the minors on camera**, in writing, per clip | launch | All four clips are now on the homepage. This is the one item that can stop a launch outright. |
 | 4 | **Domain + DNS access**, and Wix account access | cutover, SEO carry-over | The Wix URL list must be exported *before* the subscription lapses or existing Google positions are lost. |
@@ -25,7 +25,7 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 
 | # | Item | Blocks | Note |
 |---|---|---|---|
-| 8 | **Backend: self-hosted Payload + Neon, or a ticketing platform** (Ticket Tailor / Eventix) | the CMS, the waitlist automation, payments, participants | Still open. The second option removes most of the September risk from our scope. Nothing built so far commits us either way. |
+| 8 | **Backend: self-hosted Payload + Neon, or a ticketing platform** | the CMS, the waitlist automation, payments, participants | **Evaluated 8 Sep — recommendation: split it.** Ticket Tailor for money, tickets, waitlists and participants (native per-event waitlist with a `WAITLIST_SIGNUP.CREATED` webhook, free for free tickets, Bancontact); Payload + SSR for pages and content, in October. Full comparison and reasoning in `PLAN.md` §4b. **Needs your sign-off, then it stops blocking 10, 11, 16, 17, 19, 20.** |
 
 ### Ours to do, no input needed
 

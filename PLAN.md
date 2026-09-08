@@ -89,6 +89,63 @@ This is the part the brief calls "a big one", so concretely:
 
 ---
 
+## 4b. Ticketing platform evaluation — recommendation: Ticket Tailor
+
+Researched 8 September 2026. This is the input the backend decision (item 8 in
+`STATUS.md`) was waiting on, and it changes the critical path.
+
+| | **Ticket Tailor** | **Eventix / Weeztix** |
+|---|---|---|
+| Per ticket | £0.22–0.60 (credits, never expire; volume discounts) | ~€0.25 for iDEAL/Bancontact |
+| Free tickets | **Free**, up to 5.000/year | booking fee applies |
+| Non-profit | **50% discount** for registered charities — worth checking if IMPACT is a vzw | — |
+| Bancontact | Yes (via Stripe) | Yes, native |
+| **Per-event waitlist** | **Native**, with new/notified tracking | not confirmed |
+| Waitlist → email | One click: "Create Broadcast" to that event's waitlist | — |
+| API + webhooks | Full API; webhooks for Order, Issued ticket, Event and **WAITLIST_SIGNUP.CREATED** | — |
+| Platform risk | Independent, stable | **Acquired by Weezevent, rebranding to Weeztix** |
+
+**Recommendation: Ticket Tailor.** The waitlist is not a workaround on top of a
+ticketing tool, it is a first-class object with its own webhook — which is the
+single hardest requirement in the brief, and the one we were otherwise going to
+build from scratch. Eventix is the more natively Belgian product, but it is
+mid-acquisition, and migrating a ticketing platform after launch is the one
+migration nobody wants.
+
+### The finding that matters most: this takes Mollie off the critical path
+
+Ticket Tailor settles through **Stripe, PayPal or Square — not Mollie** — and
+Bancontact and iDEAL come through Stripe. So for selling event tickets, Mollie
+is not required at all.
+
+That was our number one hard blocker, with days of KYC lead time we could not
+influence. It becomes: **start Stripe onboarding instead**, which is a faster and
+better-trodden path. Mollie stays relevant only if the webshop is later built on
+our own stack, and that is an October question, not a September one.
+
+This is the single biggest de-risking available to the 30 September date and it
+should be acted on before anything else on the list.
+
+### Honest caveat on "automatic, targeted email"
+
+The brief says the waitlist email should be **automatic**. Ticket Tailor's is
+**one click** — you open that event's waitlist and send a broadcast, and it then
+tracks who has and has not been notified.
+
+I would ship that for launch, and argue it is better: a fully automatic blast
+fires the moment a status flips, which is usually while someone is still editing
+the page. If they still want it hands-off afterwards, the `EVENT.UPDATED` webhook
+into Brevo makes it genuinely automatic and is perhaps a day's work — in October,
+not before launch.
+
+### What this makes the September plan
+
+1. Stripe onboarding started (client) — replaces Mollie on the critical path
+2. Ticket Tailor account, the 1–2 September events created, waitlists on
+3. Our event pages link into Ticket Tailor's checkout; `WAITLIST_SIGNUP.CREATED`
+   webhook mirrors signups into our own store so item 10 stays true
+4. Self-serve without a rebuild stays an **October** deliverable, and we say so
+
 ## 5. What is already done (this repo)
 
 Front-end foundations that don't depend on any of the decisions above:
