@@ -31,7 +31,7 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 
 | # | Item | Note |
 |---|---|---|
-| 9 | **Analytics** — Plausible, goals, UTM plumbing | **Zero analytics on the site today.** GA4/GTM (`G-7BPTJHC9RB` / `GT-M6JH3H9D`) was started and interrupted, never installed. |
+| 9 | ~~Analytics~~ → **set `PUBLIC_PLAUSIBLE_DOMAIN`** | 🟢 Built 8 Sep: gated behind the consent banner, with an event queue so conversions fired before someone answers the banner are not lost, plus `section_view` for the brief's "page/section engagement", which stock Plausible cannot answer. Inert until the variable is set — one build, no code change. GA4/GTM was dropped: it needs a consent banner and contradicts "privacy-friendly". |
 | 10 | ~~Store the signups~~ → **move them to the real sink** | 🟢 Interim done: all 22 forms now post to Netlify Forms with full attribution (`page`, `locale`, `landing_page`, `referrer`, `utm_*`, `gclid`, `fbclid`). Free tier is 100/month. What remains is pointing them at whatever wins item 8, and syncing to Brevo (item 20). |
 | 11 | **The automated "registration opened" email** | Marked `TODO(17 Sep)` at the exact two lines in `web/src/pages/api/waitlist.ts` where it lands. |
 | 12 | **Astro page parity** — 3 of 10 pages ported (`index`, `events`, `events/[slug]`) | over, samenwerken, social-impact, journal, media, contact, hosted-experiences still exist only as static HTML. |

@@ -33,6 +33,7 @@ TARGETS = [
     "assets/css/style.css",
     "assets/js/main.js",
     "assets/js/consent.js",
+    "assets/js/analytics.js",
     "assets/js/cinema.js",
     "assets/js/lightbox.js",
     "assets/js/preloader.js",

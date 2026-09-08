@@ -31,6 +31,13 @@ LOCALE = "nl_BE"
 # card gets cropped by every platform to a ratio it was not composed for.
 OG_IMAGE = "/assets/img/og-default.jpg"
 
+# Analytics is switched on by an environment variable at build time, not by
+# editing a page. Absent, the meta tags are omitted and analytics.js does
+# nothing — so the code can ship long before the account exists.
+PLAUSIBLE_DOMAIN = os.environ.get("PUBLIC_PLAUSIBLE_DOMAIN", "").strip()
+PLAUSIBLE_SRC = os.environ.get("PUBLIC_PLAUSIBLE_SRC", "").strip()
+NL = chr(10)
+
 ORG = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -138,6 +145,17 @@ PAGES = {
 }
 
 
+def analytics_meta():
+    """Emitted only when a domain is configured, so the tags simply are not
+    there until the account is."""
+    if not PLAUSIBLE_DOMAIN:
+        return ""
+    out = NL + '<meta name="plausible-domain" content="%s">' % PLAUSIBLE_DOMAIN
+    if PLAUSIBLE_SRC:
+        out += NL + '<meta name="plausible-src" content="%s">' % PLAUSIBLE_SRC
+    return out
+
+
 def head_for(name, title, desc, extra_ld):
     url = SITE_URL + "/" + ("" if name == "index.html" else name)
     ld = [json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in (extra_ld or [])]
@@ -148,6 +166,7 @@ def head_for(name, title, desc, extra_ld):
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
                 {"@type": "ListItem", "position": 2, "name": title.split(" — ")[0], "item": url},
             ]}, ensure_ascii=False, separators=(",", ":"))]
+    analytics = analytics_meta()
     scripts = "\n".join('<script type="application/ld+json">%s</script>' % x for x in ld)
     return f"""
 <title>{title}</title>
@@ -168,7 +187,7 @@ def head_for(name, title, desc, extra_ld):
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
 <meta name="twitter:image" content="{SITE_URL}{OG_IMAGE}">
-<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="robots" content="index,follow,max-image-preview:large">{analytics}
 {scripts}
 """
 
