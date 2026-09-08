@@ -27,7 +27,7 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 
 | # | Item | Blocks | Note |
 |---|---|---|---|
-| 8 | **Backend: self-hosted Payload + Neon, or a ticketing platform** | the CMS, the waitlist automation, payments, participants | **Evaluated 8 Sep — recommendation: split it.** Ticket Tailor for money, tickets, waitlists and participants (native per-event waitlist with a `WAITLIST_SIGNUP.CREATED` webhook, free for free tickets, Bancontact); Payload + SSR for pages and content, in October. Full comparison and reasoning in `PLAN.md` §4b. **Needs your sign-off, then it stops blocking 10, 11, 16, 17, 19, 20.** |
+| 8 | ~~Backend~~ → **decided 8 Sep: split it** | ~~the CMS, the waitlist automation, payments, participants~~ | ✅ **Signed off 8 Sep.** Ticket Tailor carries events, waitlists, registrations and participants **for September** — it has a real backoffice she can log into this week, with no build; `web/` keeps rendering the branded pages. Payload + Neon follows in **October** for journal, pages and the single unified view. The cost is two logins until then, knowingly accepted to protect the launch date. Original evaluation: Ticket Tailor for money, tickets, waitlists and participants (native per-event waitlist with a `WAITLIST_SIGNUP.CREATED` webhook, free for free tickets, Bancontact); Payload + SSR for pages and content, in October. Full comparison and reasoning in `PLAN.md` §4b. **Needs your sign-off, then it stops blocking 10, 11, 16, 17, 19, 20.** |
 
 ### Ours to do, no input needed
 
@@ -40,8 +40,8 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 | 13 | ~~`feat/astro-cms` has diverged~~ → **merged 8 Sep** | ✅ Merged to `main` (`6872e83`): 485 files, all under `web/`, no deletions. The divergence is gone. What remains is real: those commits predate the reel, preloader, sticky nav and every responsive fix, so the ported pages still need that craft pass — that is item 12, not a branch problem. |
 | 14 | A purpose-built 1200×630 OG share image | Currently reusing a content photo. |
 | 15 | The Wix 301 redirect map | Needs item 4 first. |
-| 16 | **On-demand rendering, so a new event does not need a rebuild** | The brief's own words: *"without needing a rebuild each time — this needs to be genuinely self-serve"*. The Astro app is `output: 'static'`; event pages come from `getStaticPaths()`. This is an architecture change (server or hybrid output, event routes `prerender = false`), not a content task, and it should be settled with item 8 rather than after it. |
-| 17 | **A CMS-driven page type** | The brief says "events/**pages**/waitlists". Only events are modelled. Without this she can add an event but not, say, a new landing page for a campaign. |
+| 16 | **On-demand rendering** — *reframed 8 Sep, no longer a launch blocker* | The brief's words are *"without needing a rebuild each time — genuinely self-serve"*. Under the item 8 decision **the platform solves this, not us**: events live in Ticket Tailor, so she adds one in their dashboard and the box office reflects it immediately, with no deploy. On-demand rendering is only needed for the *branded* event pages in `web/`, which is October work alongside Payload. This was the scariest item on the list and it came off the critical path by choosing where events live, not by writing code. |
+| 17 | **A managed page type** | The brief says "events/**pages**/waitlists". Only events are modelled, and even those are JSON files in the repo. Without this she can add an event but not, say, a new landing page for a campaign. Lands with Payload in October (item 8). |
 | 18 | **The rest of the SEO starter package** | Search Console + Bing verification and sitemap submission (needs item 4), target queries per page, a Google Business Profile for local search, and a content plan. The technical foundation is done; this is the other half. |
 | 19 | **Participant management** | The brief asks to manage *"registrations, events and participants"*. Waitlist entries and participants are different objects — a participant has attendance, a guardian, dietary and medical notes, a payment state. Not modelled anywhere yet. |
 | 20 | **Brevo ~~lists, tags~~ → the automation** | 🟡 **Segmentation done 8 Sep.** Lists live (3 Newsletter, 4 Waitlist), both branches verified end to end, and fourteen contact attributes created so every signup arrives already carrying locale, form, event and campaign — segmented on arrival, not untangled afterwards. **Tags do not work on this account**: Brevo accepts a `tags` array and silently discards it, so attributes carry it instead (`setup/03-brevo.md`). What is left is the *automation* — item 11. |
@@ -93,7 +93,7 @@ Six routes on the homepage, each one click from its next step, in both languages
 | Item | State | Note |
 |---|---|---|
 | Every event gets its own page | ✅ *(on `feat/astro-cms`)* | 4 event files generate 4 pages |
-| Self-serve **new pages**, not just events | ⛔ | The brief says "events/pages/waitlists". Only events are modelled — there is no CMS-driven page type at all (item 17) |
+| Self-serve **new pages**, not just events | ⛔ | The brief says "events/pages/waitlists". Only events are modelled — and as repo files, not through any interface (item 17) |
 | Separate waitlist per event, **where relevant** | 🟡 | `status` is modelled as waitlist / open / full / past and the page branches on it, so "where relevant" is right in principle. But the `open` branch has no purchase flow behind it, because there are no payments yet (item 1) |
 | Self-serve: add events **without a rebuild** | ⛔ | Overstated in the previous version of this file. `astro.config.mjs` is `output: 'static'` and `[slug].astro` uses `getStaticPaths()`, so **every new event needs a rebuild and redeploy** — the exact thing the brief rules out. Needs on-demand rendering (item 16) |
 | Automatic targeted email when registration opens | ⛔ | Item 11 |
@@ -160,6 +160,25 @@ Safe to share now. Signups are recorded in **Netlify → Forms** (four collectio
 newsletter, waitlist, contact, hosted-experience), each carrying the page and
 campaign that produced it. Until 8 September they were silently discarded — if
 the link was shared before then, anything submitted in that window is gone.
+
+## What "CMS" means here today — read this before promising it
+
+There is **no content management system yet**. `web/` is an Astro app that reads
+JSON and Markdown files from `web/src/content/`, validated by Zod schemas. That
+means:
+
+- Content changes are **file edits by someone with repo access**. Mirte cannot
+  add an event, a journal post or a page.
+- The schemas are real work and they carry forward — they mirror the Payload
+  models in `brief/docs/04-ARCHITECTURE.md` §2, so when Payload lands the
+  loaders swap to its REST API and the components do not change.
+- Earlier versions of this file and several commit messages called these pages
+  "CMS-driven". That was wrong, and it is corrected throughout.
+
+**September's answer is Ticket Tailor's own backoffice** — a real login, this
+week, for events, waitlists, registrations and participants. **October's answer
+is Payload**, which folds content and participants into one admin. Two logins
+in between, accepted deliberately (item 8).
 
 ## Verified live on 8 September — what actually works
 

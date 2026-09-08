@@ -5,7 +5,7 @@ Two things live in this repo and they are tested differently:
 | | What it is | How to run |
 |---|---|---|
 | `site/` | The static craft-pass site. What staging serves today, what the client reviews on 10 Sep. | Any static server |
-| `web/` | The Astro app that replaces it. CMS-driven event pages and real form endpoints. **Lives on the `feat/astro-cms` branch.** | `git checkout feat/astro-cms` then `npm run dev` |
+| `web/` | The Astro app that will replace it. Event pages rendered from git-based content collections, plus form endpoints. **Not a CMS — no admin UI, no database** (§0e). Merged to `main` 8 Sep; not deployed. | `cd web` then `npm run dev` |
 
 Work through part 1 or part 2 depending on what you want to check. Part 3 is the
 cross-cutting stuff (responsive, keyboard, reduced motion) and applies to both.
