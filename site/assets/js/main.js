@@ -769,6 +769,54 @@
     }
   }
 
+  /* ---- ?debug=overflow ----
+     A horizontal scrollbar reported from a phone is hard to chase from a
+     desktop: the layout measures clean here and still overflows there, because
+     of a property that browser does not support, a font that fell back wider, or
+     a viewport unit resolving differently. So let the phone answer. Add
+     ?debug=overflow to any URL and the page names, on screen, whichever element
+     is sticking out — screenshot it and there is nothing left to guess. */
+  if (location.search.indexOf('debug=overflow') > -1) {
+    var report = function () {
+      var de = document.documentElement;
+      var vw = de.clientWidth;
+      var over = de.scrollWidth - vw;
+      var out = ['viewport ' + vw + ' · document ' + de.scrollWidth +
+                 ' · overflow ' + over + 'px'];
+      if (over > 0) {
+        var worst = [];
+        Array.prototype.forEach.call(document.querySelectorAll('body *'), function (el) {
+          var st = getComputedStyle(el);
+          if (st.display === 'none' || st.visibility === 'hidden') return;
+          for (var n = el.parentElement; n; n = n.parentElement) {
+            var o = getComputedStyle(n).overflowX;
+            if (o === 'auto' || o === 'scroll' || o === 'hidden' || o === 'clip') return;
+          }
+          var b = el.getBoundingClientRect();
+          if (!b.width || b.right <= vw + 1) return;
+          worst.push({ el: el, px: Math.round(b.right - vw) });
+        });
+        worst.sort(function (a, b) { return b.px - a.px; });
+        worst.slice(0, 5).forEach(function (o) {
+          out.push('+' + o.px + 'px  ' + o.el.tagName.toLowerCase() +
+                   (o.el.id ? '#' + o.el.id : '') +
+                   (o.el.className ? '.' + String(o.el.className).trim().split(/\s+/).join('.') : ''));
+        });
+        if (!worst.length) out.push('nothing crosses the edge — try rotating, or zooming out');
+      }
+      var box = document.getElementById('overflow-report') || document.createElement('pre');
+      box.id = 'overflow-report';
+      box.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99999;margin:0;' +
+        'padding:10px 12px;background:#0F1015;color:#7CFF9B;font:11px/1.5 ui-monospace,monospace;' +
+        'white-space:pre-wrap;max-height:45vh;overflow:auto';
+      box.textContent = out.join(String.fromCharCode(10));
+      if (!box.parentNode) document.body.appendChild(box);
+    };
+    report();
+    window.addEventListener('resize', report);
+    window.addEventListener('orientationchange', function () { setTimeout(report, 300); });
+  }
+
   /* ---- mobile bottom action bar on the event page ---- */
   if (document.querySelector('.mobile-cta')) document.body.classList.add('has-mobile-cta');
 })();

@@ -1164,8 +1164,16 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
   border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
 .vhint:hover{background:var(--red)}
 @media (prefers-reduced-motion:reduce){.vwrap.is-live .vhint{display:none}}
-/* The whole block shares one ground; overflow:clip lives on the headline band
-   only, because an ancestor with clipped overflow cannot hold a pinned child. */
+/* The whole block shares one ground. The headline band clips, because it holds a
+   deliberately oversized word and a wide colour bloom — but the clip lives here
+   and not on an ancestor, because an ancestor with clipped overflow cannot hold
+   a pinned child.
+
+   overflow:hidden rather than overflow:clip: clip is unsupported before Safari
+   16, and an unsupported value is not a graceful degradation, it is a dropped
+   declaration. Nothing clipped it, and the page gained 94px of horizontal
+   scroll — measured, by simulating the drop. hidden behaves identically here and
+   every browser has understood it for twenty years. */
 .reel-sec{background:var(--burgundy);color:var(--white)}
 .reel-tail{background:var(--burgundy);color:var(--white)}
 
@@ -1174,11 +1182,12 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
    the section becomes the ground: full-bleed burgundy, a red bloom behind, and
    the headline set as a stage title with one oversized outlined word behind it.
    The band and the stage below it share the ground so they read as one piece. */
-.reel{position:relative;overflow:clip;background:var(--burgundy);color:var(--white);
+.reel{position:relative;overflow:hidden;background:var(--burgundy);color:var(--white);
   padding:clamp(78px,9vw,132px) 0 0}
-.reel::before{content:"";position:absolute;left:50%;top:-24%;width:min(1500px,150vw);
-  aspect-ratio:1/1;transform:translateX(-50%);pointer-events:none;
-  background:radial-gradient(closest-side,rgba(202,0,19,.5),rgba(202,0,19,0) 72%)}
+/* Painted inside the box rather than as a 150vw element hanging over both edges,
+   so the bloom cannot overflow the page even if the clip above fails. */
+.reel::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(72% 88% at 50% 4%,rgba(202,0,19,.5),rgba(202,0,19,0) 72%)}
 .reel > .wrap{position:relative;z-index:2}
 
 .reel-head{position:relative;padding-bottom:clamp(30px,4vw,52px)}

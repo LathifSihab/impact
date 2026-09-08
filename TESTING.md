@@ -100,10 +100,26 @@ root-absolute, which under `file://` resolves to the drive root: they load with
 no stylesheet and every number is then meaningless. That cost a full round of
 false findings.
 
-`docOverflowX=-15px` on a clean page is the reserved scrollbar gutter, not a
-problem. Known-intentional overflow (marquee track, cinema track, the oversized
-preloader word, `.sr-only`, the skip link) is filtered by the `ALLOW` list in the
-harness.
+The harness measures against `documentElement.clientWidth`, **not**
+`window.innerWidth`. innerWidth includes the reserved scrollbar gutter, so
+measuring against it hid up to 15px of real overflow and made every clean page
+report a comfortable-looking `-15px` — which was not slack, it was the gutter. A
+phone has overlay scrollbars and no gutter, so that hidden 15px is precisely what
+appears there as a horizontal scrollbar. A clean page now reports exactly `0px`.
+
+Known-intentional overflow (marquee track, cinema track, the oversized preloader
+word, `.sr-only`, the skip link) is filtered by the `ALLOW` list in the harness.
+
+### When it only happens on the phone
+
+Add `?debug=overflow` to any URL — `https://…/index.html?debug=overflow` — and
+the page reports, on screen, the viewport width, the document width, and which
+elements cross the right edge, biggest first. It updates on resize and rotation.
+
+That exists because a desktop browser can measure a page as clean and a phone can
+still overflow it: a property that browser does not support, a font that fell back
+wider, a viewport unit resolving differently. Screenshot the black bar at the
+bottom and there is nothing left to guess.
 
 ## 1. The static site (`site/`)
 
