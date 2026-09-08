@@ -114,6 +114,40 @@ Six routes on the homepage, each one click from its next step, in both languages
 
 ---
 
+## Building for a domain — read before the cutover
+
+`site/` is committed HTML and Netlify serves it as-is (`command = ""` in
+`netlify.toml`). So the domain is baked in **at local build time**, and the
+`PUBLIC_*` variables set in Netlify's UI have no effect on it.
+
+Two values are decided by the build command:
+
+| Variable | Staging | Production |
+|---|---|---|
+| `PUBLIC_SITE_URL` | `https://demo-impact-c399e3.netlify.app` | `https://www.wemakeimpact.be` |
+| `PUBLIC_PLAUSIBLE_DOMAIN` | `demo-impact-c399e3.netlify.app` | `www.wemakeimpact.be` |
+
+Staging is built with:
+
+```
+PUBLIC_SITE_URL=https://demo-impact-c399e3.netlify.app PUBLIC_PLAUSIBLE_DOMAIN=demo-impact-c399e3.netlify.app python tools/build.py
+```
+
+**The committed HTML currently carries the staging values.** Deploying this
+commit to the real domain without rebuilding puts a canonical pointing at the
+demo site on every page — a live site disowning itself, which de-indexes it.
+The cutover step is: rebuild with the production values, commit, then deploy.
+
+`PUBLIC_SITE_URL` defaults to the production domain when unset (`tools/seo.py`),
+so a bare `python tools/build.py` silently reverts staging to production values.
+Always pass it. Worth removing that fallback before launch so the build fails
+loudly instead of guessing — cheap, and it makes this note unnecessary.
+
+Analytics has no `<script>` tag in the HTML by design: the build writes
+`<meta name="plausible-domain">` and `assets/js/analytics.js` loads Plausible
+only after the consent banner grants the analytics category. No meta tag, no
+tracker. Domain access itself is open item 4.
+
 ## Sharing the staging link
 
 Safe to share now. Signups are recorded in **Netlify → Forms** (four collections:
@@ -129,8 +163,6 @@ architecture cannot satisfy, and it is cheaper to settle alongside the backend
 choice than to retrofit afterwards. Everything else here is work we can schedule
 ourselves — items 9–20 are ours and none of them are blocked. They are just not
 done.
-
-Step-by-step setup for the four services: `setup/README.md`.
 
 Full blocker list with owners and consequences, plus the Dutch message to send:
 `ASKS.md`. Content live on staging that still needs her yes: `SIGN-OFF.md`. How to
