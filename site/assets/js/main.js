@@ -232,6 +232,38 @@
   }
   var mail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  /* ---- the strings this file writes ----
+     i18n.py generates the English pages from the Dutch HTML, which means it
+     never sees anything written by JavaScript: every validation error, button
+     label and success message below was appearing in Dutch on /en/. Keyed by
+     the Dutch source string, exactly like i18n/en.json, so the two stay
+     recognisably the same job. */
+  var EN = {
+    'Even geduld…': 'One moment…',
+    'Versturen…': 'Sending…',
+    'Vul een geldig e-mailadres in.': 'Enter a valid email address.',
+    'Vul de voornaam van de deelnemer in.': "Enter the participant's first name.",
+    'Vul een leeftijd in.': 'Enter an age.',
+    'Dit veld is verplicht.': 'This field is required.',
+    'Vul de ontbrekende velden aan.': 'Please complete the missing fields.',
+    'Versturen lukte niet. Probeer het straks opnieuw.':
+      'That did not send. Please try again shortly.',
+    'Inschrijven lukte niet.': 'Sign-up did not go through.',
+    'Bedankt — je staat op de lijst.': "Thanks — you're on the list.",
+    'Bedankt — we nemen snel contact op.': 'Thanks — we will be in touch soon.',
+    'Bedankt — we nemen snel contact op. Je hoort doorgaans binnen twee werkdagen van ons.':
+      'Thanks — we will be in touch soon. You will usually hear from us within two working days.',
+    'Je staat op de wachtlijst': "You're on the waiting list",
+    'Deze editie is voor': 'This edition is for',
+    'jaar.': 'years.',
+    'We sturen een bevestiging naar': 'We are sending a confirmation to',
+    '. Zodra de datum van deze editie bevestigd is, krijg je als eerste bericht — nog zonder verplichting.':
+      '. As soon as this edition has a confirmed date you will be the first to know — still with no obligation.'
+  };
+  var isEN = (document.documentElement.lang || 'nl').slice(0, 2) === 'en';
+  function t(s) { return isEN ? (EN[s] || s) : s; }
+
+
   /* ---- campaign attribution ----
      The brief asks which campaign, page and waitlist drove each signup. Plausible
      can answer the first for a visit; it cannot answer it for a *row*. So the
@@ -282,6 +314,18 @@
     var action = form.getAttribute('action');
     if (!action) return null;
     var data = attribute(new FormData(form));
+    /* A local static server answers a POST with 501, and the browser logs that
+       as a failed request whatever we do with the promise. Nothing is listening
+       locally, so do not make the request at all — it only ever produced a red
+       console line that no one can act on. */
+    if (LOCAL) {
+      if (window.console && console.info) {
+        console.info('[form] ' + (data.get('form-name') || 'form') +
+                     ' not sent: capture is a deploy-time feature. Payload:',
+                     Object.fromEntries(data));
+      }
+      return Promise.resolve({ status: 200, body: { ok: true, local: true } });
+    }
     return fetch(action, {
       method: 'POST',
       headers: {
@@ -318,7 +362,7 @@
     if (!btn) return;
     btn.disabled = on;
     btn.dataset.label = btn.dataset.label || btn.textContent;
-    btn.textContent = on ? 'Even geduld…' : btn.dataset.label;
+    btn.textContent = on ? t('Even geduld…') : btn.dataset.label;
   }
 
   var waitlist = document.getElementById('waitlist-form');
@@ -329,10 +373,10 @@
     function waitlistSuccess(email, message) {
       var card = waitlist.closest('.wl-card');
       card.innerHTML =
-        '<h2>Je staat op de wachtlijst</h2><p class="body">' +
+        '<h2>' + t('Je staat op de wachtlijst') + '</h2><p class="body">' +
         (message ||
-          'We sturen een bevestiging naar ' + email.replace(/[<>&]/g, '') +
-          '. Zodra de datum van deze editie bevestigd is, krijg je als eerste bericht — nog zonder verplichting.') +
+          t('We sturen een bevestiging naar') + ' ' + email.replace(/[<>&]/g, '') +
+          t('. Zodra de datum van deze editie bevestigd is, krijg je als eerste bericht — nog zonder verplichting.')) +
         '</p>';
       card.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
       if (window.plausible) {
@@ -350,16 +394,16 @@
       var ok = true;
 
       if (naam.value.trim().length < 2) {
-        setError(naam.closest('.field'), 'Vul de voornaam van de deelnemer in.'); ok = false;
+        setError(naam.closest('.field'), t('Vul de voornaam van de deelnemer in.')); ok = false;
       }
       var age = Number(leeftijd.value);
       if (!leeftijd.value.trim() || Number.isNaN(age)) {
-        setError(leeftijd.closest('.field'), 'Vul een leeftijd in.'); ok = false;
+        setError(leeftijd.closest('.field'), t('Vul een leeftijd in.')); ok = false;
       } else if (age < min || age > max) {
-        setError(leeftijd.closest('.field'), 'Deze editie is voor ' + min + '–' + max + ' jaar.'); ok = false;
+        setError(leeftijd.closest('.field'), t('Deze editie is voor') + ' ' + min + '–' + max + ' ' + t('jaar.')); ok = false;
       }
       if (!mail.test(email.value.trim())) {
-        setError(email.closest('.field'), 'Vul een geldig e-mailadres in.'); ok = false;
+        setError(email.closest('.field'), t('Vul een geldig e-mailadres in.')); ok = false;
       }
       if (!ok) return;   // values are never cleared on error
 
@@ -386,7 +430,7 @@
         }
       }).catch(function () {
         busy(waitlist, false);
-        setError(email.closest('.field'), 'Versturen lukte niet. Probeer het straks opnieuw.');
+        setError(email.closest('.field'), t('Versturen lukte niet. Probeer het straks opnieuw.'));
       });
     });
   }
@@ -405,10 +449,10 @@
         msg.textContent = text;
       }
 
-      if (!mail.test(value)) { say('error', 'Vul een geldig e-mailadres in.'); return; }
+      if (!mail.test(value)) { say('error', t('Vul een geldig e-mailadres in.')); return; }
 
       function done(message) {
-        say('ok', message || 'Bedankt — je staat op de lijst.');
+        say('ok', message || t('Bedankt — je staat op de lijst.'));
         field.value = '';
         if (window.plausible) {
           window.plausible('newsletter_signup', { props: { source: document.title } });
@@ -419,14 +463,14 @@
       if (!sent) { done(); return; }
 
       busy(form, true);
-      say('', 'Versturen…');
+      say('', t('Versturen…'));
       sent.then(function (res) {
         busy(form, false);
         if (res.status === 200 && res.body.ok) done(res.body.message);
-        else say('error', (res.body.errors && res.body.errors.email) || 'Inschrijven lukte niet.');
+        else say('error', (res.body.errors && res.body.errors.email) || t('Inschrijven lukte niet.'));
       }).catch(function () {
         busy(form, false);
-        say('error', 'Versturen lukte niet. Probeer het straks opnieuw.');
+        say('error', t('Versturen lukte niet. Probeer het straks opnieuw.'));
       });
     });
   });
@@ -488,10 +532,10 @@
       var ok = true;
       var email = form.elements.email;
       form.querySelectorAll('input[type="text"]:not([name="bot-field"])').forEach(function (i) {
-        if (i.value.trim().length < 2) { setError(i.closest('.field'), 'Dit veld is verplicht.'); ok = false; }
+        if (i.value.trim().length < 2) { setError(i.closest('.field'), t('Dit veld is verplicht.')); ok = false; }
       });
       if (email && !mail.test(email.value.trim())) {
-        setError(email.closest('.field'), 'Vul een geldig e-mailadres in.'); ok = false;
+        setError(email.closest('.field'), t('Vul een geldig e-mailadres in.')); ok = false;
       }
       var msg = form.querySelector('.form-msg');
       function say(kind, text) {
@@ -499,25 +543,25 @@
         msg.className = 'form-msg ' + kind;
         msg.textContent = text;
       }
-      if (!ok) { say('error', 'Vul de ontbrekende velden aan.'); return; }
+      if (!ok) { say('error', t('Vul de ontbrekende velden aan.')); return; }
 
       var sent = postForm(form);
-      if (!sent) { say('ok', 'Bedankt — we nemen snel contact op.'); return; }
+      if (!sent) { say('ok', t('Bedankt — we nemen snel contact op.')); return; }
 
       busy(form, true);
-      say('', 'Versturen…');
+      say('', t('Versturen…'));
       sent.then(function (res) {
         busy(form, false);
         if (res.status === 200 && res.body.ok) {
-          say('ok', res.body.message || 'Bedankt — we nemen snel contact op. Je hoort doorgaans binnen twee werkdagen van ons.');
+          say('ok', res.body.message || t('Bedankt — we nemen snel contact op. Je hoort doorgaans binnen twee werkdagen van ons.'));
           form.reset();
         } else {
           applyServerErrors(form, res.body.errors);
-          say('error', 'Versturen lukte niet. Probeer het straks opnieuw.');
+          say('error', t('Versturen lukte niet. Probeer het straks opnieuw.'));
         }
       }).catch(function () {
         busy(form, false);
-        say('error', 'Versturen lukte niet. Probeer het straks opnieuw.');
+        say('error', t('Versturen lukte niet. Probeer het straks opnieuw.'));
       });
     });
   });

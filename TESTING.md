@@ -155,11 +155,20 @@ Every form now posts to Netlify Forms. Four collections, by `form-name`:
 `newsletter` (all 20 pages, band + section + dome), `waitlist`, `contact`,
 `hosted-experience`.
 
-**Capture only works on the deployed site.** A local static server answers a POST
-with 501, so `postForm` falls back to the optimistic success state on
-localhost/127.0.0.1/file: — deliberately, so local work does not show a failure
-nobody can act on. It never does that on a real host. To verify capture for real,
-submit on the Netlify URL and look in **Netlify → Forms**.
+**Capture only works on the deployed site.** On localhost/127.0.0.1/file: the
+request is not made at all — a local static server answers a POST with 501 and
+the browser logs that as a failed resource whatever the promise does, which is a
+red console line nobody can act on. Instead the form shows its success state and
+the payload is logged: open the console and look for `[form] newsletter not
+sent:` to see exactly what would have been submitted, attribution included. To
+verify capture for real, submit on the Netlify URL and look in
+**Netlify → Forms**.
+
+**Check both locales.** Every message the JavaScript writes — validation errors,
+button labels, success copy — lives in a string table at the top of `main.js`,
+because `i18n.py` generates the English pages from the Dutch HTML and cannot
+reach anything written by script. On `/en/` a bad address must say "Enter a valid
+email address.", not "Vul een geldig e-mailadres in."
 
 What each submission carries, beyond its own fields:
 
