@@ -12,13 +12,24 @@ SITE_URL must be the production domain before launch — Netlify preview URLs in
 canonical tag will keep the real domain out of the index.
 """
 import json
+import os
 import pathlib
 import re
 
-SITE_URL = "https://www.wemakeimpact.be"          # ← switch to the live domain at launch
+# The one value that must not be wrong. A canonical pointing at a domain the site
+# is not served from keeps the real domain out of the index — so it comes from the
+# environment, and the production domain is only the fallback for a local build.
+#
+#     PUBLIC_SITE_URL=https://demo-impact-c399e3.netlify.app python tools/build.py
+#
+# Set it per deploy context in Netlify → Site configuration → Environment
+# variables, and staging stops claiming to be production.
+SITE_URL = os.environ.get("PUBLIC_SITE_URL", "https://www.wemakeimpact.be").rstrip("/")
 SITE_NAME = "IMPACT"
 LOCALE = "nl_BE"
-OG_IMAGE = "/assets/img/court-169.jpg"            # ← replace with a 1200x630 share image
+# Purpose-built 1200x630 (tools/make_og.py). A content photo used as a share
+# card gets cropped by every platform to a ratio it was not composed for.
+OG_IMAGE = "/assets/img/og-default.jpg"
 
 ORG = {
     "@context": "https://schema.org",

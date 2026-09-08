@@ -13,3 +13,8 @@ _*.txt
 # The Astro app lives on feat/astro-cms until it reaches parity. Delete this line
 # when that branch merges, or the merged files will be ignored on main.
 /web/
+
+# secrets — .env.example carries the names, never the values
+.env
+.env.*
+!.env.example

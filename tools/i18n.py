@@ -13,6 +13,7 @@ Text nodes are translated, plus the attributes that are read aloud or shown:
 alt, title, aria-label, placeholder, content (meta description).
 """
 import json
+import os
 import pathlib
 import re
 import sys
@@ -21,6 +22,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 OUT = SITE / "en"
 STORE = ROOT / "i18n/en.json"
+# same source of truth as tools/seo.py, so the two can never disagree
+SITE_URL = os.environ.get("PUBLIC_SITE_URL", "https://www.wemakeimpact.be").rstrip("/")
 
 # data-label and data-tier-name are painted as visible text by
 # `content: attr(...)` in the responsive tier table, so they are copy, not
@@ -139,8 +142,8 @@ def localise_links(html: str) -> str:
 def localise_head(html: str, name: str) -> str:
     """An English page must be canonical to itself, or the two locales compete."""
     slug = "" if name == "index.html" else name
-    nl_url = "https://www.wemakeimpact.be/" + slug
-    en_url = "https://www.wemakeimpact.be/en/" + slug
+    nl_url = SITE_URL + "/" + slug
+    en_url = SITE_URL + "/en/" + slug
     html = html.replace('<link rel="canonical" href="%s">' % nl_url,
                         '<link rel="canonical" href="%s">' % en_url)
     html = html.replace('<meta property="og:url" content="%s">' % nl_url,
