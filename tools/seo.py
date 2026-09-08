@@ -114,6 +114,11 @@ PAGES = {
         "Fotografie, aftermovies, persinformatie en downloads van IMPACT. Voor journalisten, "
         "partners en hosts.",
         "0.5", "monthly", None),
+    "privacy.html": (
+        "Privacyverklaring — IMPACT",
+        "Hoe IMPACT omgaat met persoonsgegevens van deelnemers, ouders, partners en "
+        "bezoekers: welke gegevens, waarvoor, hoe lang, en je rechten.",
+        "0.3", "yearly", None),
     "contact.html": (
         "Contact — IMPACT",
         "Ouders, jongeren, scholen, clubs, bedrijven, experts en pers: contacteer IMPACT "

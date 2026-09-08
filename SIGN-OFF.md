@@ -90,6 +90,35 @@ Before the site goes to the live domain we need, in writing:
 
 If consent is not in hand, the section comes out again — it is one block to remove.
 
+## Privacy statement — scaffolded, not written
+
+`/privacy.html` now exists in both languages, linked from every footer and from
+under every form. **The text is a structure, not legal advice.** Everything in
+`[ square brackets ]` has to be replaced, and a red-bordered note at the top of
+the page says so in as many words so it cannot go live looking finished.
+
+What has to come from IMPACT, or their lawyer or accountant:
+
+- legal name, legal form (vzw or bv), registered office, company number
+- retention periods per category — a proposal is in the draft to react to
+- the list of processors, once hosting, email, ticketing and payments are settled
+- what happens to photography and video of minors, who consents, how it is withdrawn
+- the response time for a data request
+
+Until that is done, this page should not be published on the live domain. It is
+fine on staging, which is `noindex`.
+
+## Consent banner — built, dormant on purpose
+
+The site sets no advertising or analytics cookies, so there is nothing to consent
+to and no banner is shown. The mechanism is built and tested: adding a category
+to `USES` in `site/assets/js/consent.js` makes it appear on the next load, with
+per-category preferences and a footer link to change the choice.
+
+**The decision to record:** we are not showing a banner today. It would ask
+permission for nothing, and cookie banners cost signups. It switches on by
+itself the day analytics or a third-party checkout goes in.
+
 ## Removed rather than faked
 
 - **Written testimonials.** The deck has real parent messages, but they are private-message

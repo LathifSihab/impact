@@ -32,6 +32,7 @@ SITE = ROOT / "site"
 TARGETS = [
     "assets/css/style.css",
     "assets/js/main.js",
+    "assets/js/consent.js",
     "assets/js/cinema.js",
     "assets/js/preloader.js",
 ]

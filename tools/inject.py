@@ -182,6 +182,10 @@ FOOTER = """
     <div class="bottom">
       <span>hello@wemakeimpact.be · <a href="tel:+32495370044">+32 495 37 00 44</a> ·
         <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">@impact___collective</a></span>
+      <span class="legal">
+        <a href="privacy.html">Privacyverklaring</a>
+        <button type="button" class="linkish" data-consent-open hidden>Cookievoorkeuren</button>
+      </span>
       <span><span class="built">Built by <a href="https://drpbuildlab.com" target="_blank" rel="noopener">DRP BuildLab</a></span></span>
     </div>
   </div>

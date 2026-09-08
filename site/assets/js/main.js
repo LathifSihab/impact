@@ -244,6 +244,7 @@
     'Vul een geldig e-mailadres in.': 'Enter a valid email address.',
     'Vul de voornaam van de deelnemer in.': "Enter the participant's first name.",
     'Vul een leeftijd in.': 'Enter an age.',
+    'Bevestig dit om je in te schrijven.': 'Please confirm this to sign up.',
     'Dit veld is verplicht.': 'This field is required.',
     'Vul de ontbrekende velden aan.': 'Please complete the missing fields.',
     'Versturen lukte niet. Probeer het straks opnieuw.':
@@ -404,6 +405,13 @@
       }
       if (!mail.test(email.value.trim())) {
         setError(email.closest('.field'), t('Vul een geldig e-mailadres in.')); ok = false;
+      }
+      // this form collects a child's first name and age, so the guardian's
+      // consent is a hard requirement rather than a courtesy
+      var consent = waitlist.elements.consent;
+      if (consent && !consent.checked) {
+        setError(consent.closest('.field'),
+                 t('Bevestig dit om je in te schrijven.')); ok = false;
       }
       if (!ok) return;   // values are never cleared on error
 

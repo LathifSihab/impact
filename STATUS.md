@@ -17,7 +17,7 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 | 2 | **The 1–2 September events** — title, dates, location, age range, price, capacity | the CMS, the webshop, launch | Without them there is nothing to sell, and the event pages have structure but no real edition. |
 | 3 | **Parental consent for the minors on camera**, in writing, per clip | launch | All four clips are now on the homepage. This is the one item that can stop a launch outright. |
 | 4 | **Domain + DNS access**, and Wix account access | cutover, SEO carry-over | The Wix URL list must be exported *before* the subscription lapses or existing Google positions are lost. |
-| 5 | **Privacy policy + algemene voorwaarden** | the waitlist and newsletter collecting real data | Legally required. The footer links are currently removed because there is no text. |
+| 5 | **Privacy policy + algemene voorwaarden** — *the text* | the live domain | 🟢 Structure done 8 Sep: `/privacy.html` in both languages, linked from every footer and under every form, plus a required guardian-consent tick on the waitlist, which is where a child's name and age are collected. **What is still needed is her legal text** — everything in `[ brackets ]`. See `SIGN-OFF.md`. |
 | 6 | **Which accounting system**, and who owns the login | the accounting integration | We will not custom-build against a guess. |
 | 7 | Photo library as a Drive folder · **landscape 16:9 video** · logo + partner logos as SVG · expert portraits · FAQ answers · her own NL copy · transcripts for the clips | polish, and one photographic grade | Everything on staging is cropped out of the branddeck. The header video is still our generated placeholder — the four clips she sent are 480×848 portrait. |
 

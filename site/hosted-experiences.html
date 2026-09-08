@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=639085fd65">
+<link rel="stylesheet" href="assets/css/style.css?v=8d93b537ca">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -265,7 +265,8 @@
       <div class="field"><label for="idee">Wat hebben jullie in gedachten?</label><input id="idee" name="idee" type="text"><span class="err"></span></div>
       <button type="submit" class="pill pill--primary">Verstuur aanvraag</button>
       <p class="form-msg" role="status"></p>
-    </form>
+          <p class="form-privacy">We gebruiken je gegevens enkel om je vraag te beantwoorden. Meer daarover in onze <a href="privacy.html">privacyverklaring</a>.</p>
+      </form>
   </div>
 </section>
 
@@ -376,6 +377,10 @@
     <div class="bottom">
       <span>hello@wemakeimpact.be · <a href="tel:+32495370044">+32 495 37 00 44</a> ·
         <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">@impact___collective</a></span>
+      <span class="legal">
+        <a href="privacy.html">Privacyverklaring</a>
+        <button type="button" class="linkish" data-consent-open hidden>Cookievoorkeuren</button>
+      </span>
       <span><span class="built">Built by <a href="https://drpbuildlab.com" target="_blank" rel="noopener">DRP BuildLab</a></span></span>
     </div>
   </div>
@@ -395,11 +400,13 @@
         <input id="dome-email" name="email" type="email" placeholder="jouw e-mailadres" required>
         <button type="submit" class="pill pill--dark">Inschrijven</button>
         <p class="form-msg" role="status"></p>
+            <p class="form-privacy">Door je in te schrijven ga je akkoord met onze <a href="privacy.html">privacyverklaring</a>. Uitschrijven kan met &eacute;&eacute;n klik in elke mail.</p>
       </form>
     </div>
   </div>
 </div>
 
-<script src="assets/js/main.js?v=6434c90a2e"></script>
+<script src="assets/js/consent.js?v=dd6ef93117"></script>
+<script src="assets/js/main.js?v=77a254c8aa"></script>
 </body>
 </html>

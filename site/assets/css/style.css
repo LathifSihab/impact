@@ -1388,3 +1388,80 @@ html.is-preloading #preloader{display:block}
    320px screen the longest word needed 289px in a 265px box and was sliced. The
    cap is unchanged from 480px up. */
 .event-row h3{font-size:clamp(22px,6.6vw,30px)}
+
+/* ---------- legal ---------- */
+/* Unmissable on purpose: this text has not been through anyone's lawyer, and the
+   one failure mode that matters is it quietly going live looking finished. */
+.legal-draft{border-left:3px solid var(--red);background:var(--bone-card);
+  padding:18px 22px;font-size:14px;line-height:1.6;color:var(--grey-body)}
+.legal-draft strong{color:var(--ink)}
+.legal-draft code{font-family:var(--mono);font-size:12.5px;background:#fff;
+  border:1px solid var(--border);padding:1px 5px}
+.footer .bottom .legal{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+/* a button that has to read as a link, because opening a dialog is not navigation */
+.linkish{background:none;border:0;padding:0;cursor:pointer;color:inherit;
+  font:inherit;text-decoration:underline;text-underline-offset:3px}
+.linkish:hover{color:#fff}
+
+/* privacy note under a form: the one place a visitor is actually handing
+   something over, which is where the notice belongs rather than in a banner */
+.form-privacy{margin-top:14px;font-size:12px;line-height:1.55;color:var(--grey-warm)}
+.form-privacy a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.cta-card .form-privacy,.news-band--dark .form-privacy,.dome .form-privacy{
+  color:rgba(255,255,255,.6)}
+.cta-card .form-privacy a,.dome .form-privacy a{color:rgba(255,255,255,.85)}
+
+/* the consent checkbox on the waitlist, where a minor's data is collected */
+.field--check{display:flex;align-items:flex-start;gap:12px;margin-top:22px}
+.field--check input{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:var(--red)}
+.field--check label{font-size:13px;line-height:1.55;color:var(--grey-body);font-weight:400;
+  letter-spacing:0;text-transform:none}
+.field--check a{color:var(--red);font-weight:600}
+.field--check .err{display:block;flex-basis:100%}
+
+/* ---------- consent banner ----------
+   A bar, not a wall: no backdrop, no focus trap, no scroll lock. The page stays
+   readable and operable while the choice is pending, which is both kinder than
+   a blocking modal and what a regulator expects of a genuinely free choice.
+   Nothing here renders until consent.js has a category to ask about. */
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:300;
+  background:var(--ink);color:#fff;
+  box-shadow:0 -18px 44px -22px rgba(0,0,0,.6);
+  animation:consent-in 420ms var(--ease) both}
+@keyframes consent-in{from{transform:translateY(100%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.consent{animation:none}}
+
+.consent-inner{max-width:var(--maxw);margin:0 auto;padding:22px var(--margin);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:32px}
+.consent-text{max-width:62ch}
+.consent h2{font-family:var(--font-display);font-weight:400;font-size:17px;
+  line-height:1.25;letter-spacing:-.01em;margin:0 0 8px}
+.consent p{margin:0;font-size:13px;line-height:1.6;color:rgba(255,255,255,.72)}
+.consent a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+/* the per-category list is the preferences view, folded away until asked for */
+.consent-cats{display:none;margin-top:18px;padding-top:16px;
+  border-top:1px solid rgba(255,255,255,.14)}
+.consent--prefs .consent-cats{display:block}
+.consent-cat{display:flex;align-items:flex-start;gap:12px;padding:9px 0}
+.consent-cat input{width:19px;height:19px;flex:0 0 auto;margin-top:2px;accent-color:var(--red)}
+.consent-cat label{font-size:13px;line-height:1.5;color:rgba(255,255,255,.72)}
+.consent-cat b{display:block;color:#fff;font-weight:700;font-size:12.5px;margin-bottom:2px}
+
+.consent-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:0 0 auto}
+.consent-actions .linkish{color:rgba(255,255,255,.7);font-size:12px}
+.consent-actions .linkish:hover{color:#fff}
+.consent-actions .pill--ghost{border-color:rgba(255,255,255,.4);color:#fff}
+.consent-actions .pill--ghost:hover{background:rgba(255,255,255,.12)}
+/* accept/reject are the two-button view; save belongs to preferences */
+.consent-actions [data-save]{display:none}
+.consent--prefs .consent-actions [data-all],
+.consent--prefs .consent-actions [data-none],
+.consent--prefs .consent-actions [data-prefs]{display:none}
+.consent--prefs .consent-actions [data-save]{display:inline-flex}
+
+@media (max-width:900px){
+  .consent-inner{flex-direction:column;gap:18px;padding:20px var(--margin)}
+  .consent-actions{width:100%}
+  .consent-actions .pill{flex:1 1 auto;justify-content:center}
+}
