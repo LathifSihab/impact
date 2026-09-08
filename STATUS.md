@@ -69,7 +69,7 @@ Six routes on the homepage, each one click from its next step, in both languages
 |---|---|---|
 | Bilingual NL + EN | ✅ | 10 Dutch + 10 English pages, working switch in the utility bar *and* the mobile menu, per-locale canonicals, both locales in the sitemap. **English is our translation, not her voice — she should review `i18n/en.json`** |
 | Their own photography | ✅ | 18 crops harvested from the branddeck plus the brochure shoot. Her full library is item 7 🔒 |
-| Their own video | 🟡 | All four participant clips live in a scroll-driven cinema reel, autoplaying muted, one at a time. The **landscape 16:9 header video is still a placeholder** we generated 🔒 |
+| Their own video | ✅ | All four participant clips live in a scroll-driven cinema reel, autoplaying muted, one at a time. Signed off 8 Sep — the reel is the video direction, and the landscape header no longer waits on new footage |
 | Horizontal image strips | ✅ | Fundamentals strip, partner marquee, media archive grid |
 | Partner / collaboration page | ✅ | Tiers €2.000–€7.000, reach figures, nine partner logos as a 3×3, five ways to work together, three closing CTA cards |
 | DRP BuildLab credit | ✅ | Hyperlinked in the footer of all 20 pages, in the homepage marquee, and as its own row under the partner grid |
