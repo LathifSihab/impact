@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=249ba1a9ac">
+<link rel="stylesheet" href="/assets/css/style.css?v=bc7c2d78cd">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -268,14 +268,33 @@
       <div><span class="running">Photography</span><h2 class="d-l align-right">Image archive</h2></div>
       <p class="body">Warm grade, lightly desaturated, open blacks. People in action or in conversation — no posed group shots. Portraits of minors only with consent.</p>
     </div>
-    <div class="photo-grid">
-      <picture><source type="image/avif" srcset="/assets/img/camp/court-45-420.avif 420w, /assets/img/camp/court-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/court-45-420.webp 420w, /assets/img/camp/court-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/court-45.jpg" alt="Basketball Edition 2026" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="/assets/img/camp/group-45-420.avif 420w, /assets/img/camp/group-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/group-45-420.webp 420w, /assets/img/camp/group-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/group-45.jpg" alt="The camp out in the field" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="/assets/img/camp/socks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/socks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/socks-45.jpg" alt="A participant in motion" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="/assets/img/camp/grass-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/grass-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/grass-45.jpg" alt="Connection on the grass" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="/assets/img/camp/drinks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/drinks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/drinks-45.jpg" alt="Healthy snacks" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="/assets/img/camp/boots-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/boots-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/boots-45.jpg" alt="Out in the field" loading="lazy"></picture>
+    <div class="mosaic" data-gallery>
+      <button class="shot-open" type="button" data-shot-open aria-label="Basketball Edition 2026 — the court — enlarge">
+        <picture><source type="image/avif" srcset="/assets/img/camp/court-45-420.avif 420w, /assets/img/camp/court-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/court-45-420.webp 420w, /assets/img/camp/court-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/court-45.jpg" alt="Basketball Edition 2026" loading="lazy"></picture>
+        <figcaption class="shot-cap">Basketball Edition 2026 — the court</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="The camp out in the field — enlarge">
+        <picture><source type="image/avif" srcset="/assets/img/camp/group-45-420.avif 420w, /assets/img/camp/group-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/group-45-420.webp 420w, /assets/img/camp/group-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/group-45.jpg" alt="The camp out in the field" loading="lazy"></picture>
+        <figcaption class="shot-cap">The camp out in the field</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="A participant in motion — enlarge">
+        <picture><source type="image/avif" srcset="/assets/img/camp/socks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/socks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/socks-45.jpg" alt="A participant in motion" loading="lazy"></picture>
+        <figcaption class="shot-cap">A participant in motion</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Connection on the grass — enlarge">
+        <picture><source type="image/avif" srcset="/assets/img/camp/grass-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/grass-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/grass-45.jpg" alt="Connection on the grass" loading="lazy"></picture>
+        <figcaption class="shot-cap">Connection on the grass</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Healthy snacks — enlarge">
+        <picture><source type="image/avif" srcset="/assets/img/camp/drinks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/drinks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/drinks-45.jpg" alt="Healthy snacks" loading="lazy"></picture>
+        <figcaption class="shot-cap">Healthy snacks</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Out in the field — enlarge">
+        <picture><source type="image/avif" srcset="/assets/img/camp/boots-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="/assets/img/camp/boots-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="/assets/img/camp/boots-45.jpg" alt="Out in the field" loading="lazy"></picture>
+        <figcaption class="shot-cap">Out in the field</figcaption>
+      </button>
     </div>
+    <p class="meta" style="margin-top:22px">Click an image to view it larger. High-resolution press imagery on request.</p>
   </div>
 </section>
 
@@ -424,6 +443,7 @@
 
 <script src="/assets/js/consent.js?v=dd6ef93117"></script>
 <script src="/assets/js/main.js?v=4be17547a6"></script>
+<script defer src="/assets/js/lightbox.js?v=9228e0ed9c"></script>
 <!-- GSAP drives the scroll-to-expand stage above; both degrade to the static
      CSS default if either file fails to arrive. -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>

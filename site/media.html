@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=249ba1a9ac">
+<link rel="stylesheet" href="assets/css/style.css?v=bc7c2d78cd">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -268,14 +268,33 @@
       <div><span class="running">Fotografie</span><h2 class="d-l align-right">Beeldarchief</h2></div>
       <p class="body">Warme grade, licht ontzadigd, open zwarten. Mensen in actie of in gesprek — geen geposeerde groepsfoto's. Portretten van minderjarigen enkel met toestemming.</p>
     </div>
-    <div class="photo-grid">
-      <picture><source type="image/avif" srcset="assets/img/camp/court-45-420.avif 420w, assets/img/camp/court-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/court-45-420.webp 420w, assets/img/camp/court-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/court-45.jpg" alt="Basketball Edition 2026" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="assets/img/camp/group-45-420.avif 420w, assets/img/camp/group-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/group-45-420.webp 420w, assets/img/camp/group-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/group-45.jpg" alt="Het camp in het veld" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="assets/img/camp/socks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/socks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/socks-45.jpg" alt="Deelnemer in beweging" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="assets/img/camp/grass-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/grass-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/grass-45.jpg" alt="Verbinding op het gras" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="assets/img/camp/drinks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/drinks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/drinks-45.jpg" alt="Gezonde tussendoortjes" loading="lazy"></picture>
-      <picture><source type="image/avif" srcset="assets/img/camp/boots-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/boots-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/boots-45.jpg" alt="Onderweg in het veld" loading="lazy"></picture>
+    <div class="mosaic" data-gallery>
+      <button class="shot-open" type="button" data-shot-open aria-label="Basketball Edition 2026 — het veld — vergroot">
+        <picture><source type="image/avif" srcset="assets/img/camp/court-45-420.avif 420w, assets/img/camp/court-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/court-45-420.webp 420w, assets/img/camp/court-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/court-45.jpg" alt="Basketball Edition 2026" loading="lazy"></picture>
+        <figcaption class="shot-cap">Basketball Edition 2026 — het veld</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Het camp in het veld — vergroot">
+        <picture><source type="image/avif" srcset="assets/img/camp/group-45-420.avif 420w, assets/img/camp/group-45-720.avif 720w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/group-45-420.webp 420w, assets/img/camp/group-45-720.webp 720w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/group-45.jpg" alt="Het camp in het veld" loading="lazy"></picture>
+        <figcaption class="shot-cap">Het camp in het veld</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Deelnemer in beweging — vergroot">
+        <picture><source type="image/avif" srcset="assets/img/camp/socks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/socks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/socks-45.jpg" alt="Deelnemer in beweging" loading="lazy"></picture>
+        <figcaption class="shot-cap">Deelnemer in beweging</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Verbinding op het gras — vergroot">
+        <picture><source type="image/avif" srcset="assets/img/camp/grass-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/grass-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/grass-45.jpg" alt="Verbinding op het gras" loading="lazy"></picture>
+        <figcaption class="shot-cap">Verbinding op het gras</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Gezonde tussendoortjes — vergroot">
+        <picture><source type="image/avif" srcset="assets/img/camp/drinks-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/drinks-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/drinks-45.jpg" alt="Gezonde tussendoortjes" loading="lazy"></picture>
+        <figcaption class="shot-cap">Gezonde tussendoortjes</figcaption>
+      </button>
+      <button class="shot-open" type="button" data-shot-open aria-label="Onderweg in het veld — vergroot">
+        <picture><source type="image/avif" srcset="assets/img/camp/boots-45-420.avif 420w" sizes="(max-width: 820px) 92vw, 400px"><source type="image/webp" srcset="assets/img/camp/boots-45-420.webp 420w" sizes="(max-width: 820px) 92vw, 400px"><img src="assets/img/camp/boots-45.jpg" alt="Onderweg in het veld" loading="lazy"></picture>
+        <figcaption class="shot-cap">Onderweg in het veld</figcaption>
+      </button>
     </div>
+    <p class="meta" style="margin-top:22px">Klik een beeld om het groter te bekijken. Persbeeld in hoge resolutie op aanvraag.</p>
   </div>
 </section>
 
@@ -424,6 +443,7 @@
 
 <script src="assets/js/consent.js?v=dd6ef93117"></script>
 <script src="assets/js/main.js?v=4be17547a6"></script>
+<script defer src="assets/js/lightbox.js?v=9228e0ed9c"></script>
 <!-- GSAP drives the scroll-to-expand stage above; both degrade to the static
      CSS default if either file fails to arrive. -->
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>

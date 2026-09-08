@@ -175,6 +175,30 @@ Two things to check that are easy to break:
   height on load, on resize, and when the padding transition ends — so no
   number needs keeping in sync when the nav's padding or logo changes.
 
+### 1.1e Beeldarchief mosaic and lightbox (media page)
+
+The archive is one lead image at double height, two beside it, three beneath —
+twelve columns, no orphan row. Hovering an image reveals its caption; clicking
+opens it large.
+
+| Check | Expected |
+|---|---|
+| Click any image | Opens centred, with caption and `n / 6` counter |
+| `←` `→` | Moves through, wrapping at both ends |
+| `Esc`, the ✕, or the backdrop | Closes and returns focus to the thumbnail |
+| `Tab` while open | Stays inside the dialog |
+| Swipe on a phone | Moves through; the arrows are hidden below 640px |
+| Page scroll while open | Locked, and restored on close |
+
+**It opens the widest file in the srcset, not the thumbnail.** `court-45` opens
+its 720w file rather than the 420w one the grid is using. Where only a 420w
+variant exists the lightbox opens that — the asset has nothing better, which is
+what the high-resolution press library in `ASKS.md` item 7 is for.
+
+With JavaScript blocked the images are still there, still legible and still
+keyboard-reachable; only the enlargement goes. A press page whose pictures depend
+on JavaScript fails the one visitor it exists for.
+
 ### 1.1d The scroll-to-expand stage (media page)
 
 `/media.html`, above the four clips. On a desktop it starts as a rounded card
