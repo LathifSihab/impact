@@ -9,6 +9,10 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 
 ---
 
+> **9 Sep: the timeline collapsed to two days.** `TWO-DAYS.md` is what actually
+> fits before launch and what is explicitly deferred. This file stays the full
+> picture; read that one first for anything inside the next 48 hours.
+
 ## Open items — the whole list, most urgent first
 
 ### Blocked on the client (we cannot start these)
