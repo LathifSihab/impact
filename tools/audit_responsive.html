@@ -123,6 +123,25 @@ f.addEventListener('load', function () {
             ' parent=' + label(img.parentElement) + ' pw=' + Math.round(p.width));
       }
     });
+    // A display heading whose longest word is wider than its own box must be
+    // breaking that word mid-token — overflow-wrap:break-word turns it into
+    // "FUNDAMENT / EN" rather than letting it overflow.
+    Array.prototype.forEach.call(
+      d.querySelectorAll('h1,h2,h3,.d-xl,.d-l,.d-m'), function (h) {
+        var st = w.getComputedStyle(h);
+        if (st.overflowWrap !== 'break-word' && st.wordWrap !== 'break-word') return;
+        var box = h.clientWidth;
+        if (!box) return;
+        var prev = h.style.width;
+        h.style.width = 'min-content';
+        var mc = h.getBoundingClientRect().width;
+        h.style.width = prev;
+        if (mc > box + 1) {
+          log('  WORDBREAK word needs ' + Math.round(mc) + 'px in a ' + Math.round(box) +
+              'px box  ' + label(h) + ' "' + el2text(h) + '"');
+        }
+      });
+
     // what inside the offender sets its min-content floor
     var t0 = outermost(wide).sort(function (a, b) { return b.px - a.px; })[0];
     if (t0) {

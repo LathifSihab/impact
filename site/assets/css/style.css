@@ -232,9 +232,10 @@ ul{margin:0;padding:0;list-style:none}
 /* ---------- 04 events ---------- */
 /* Two targets, not a nested anchor: the row is one link, the waitlist pill is
    another. Same visual grid as before, split across two elements. */
-.event-row{display:grid;grid-template-columns:1fr 230px;gap:32px;align-items:center;
+.event-row{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:32px;align-items:center;
   padding:30px 0;border-top:1px solid var(--border);transition:background var(--dur-fast) var(--ease)}
-.event-row-main{display:grid;grid-template-columns:200px 1fr 220px 150px;gap:32px;align-items:center}
+.event-row-main{display:grid;grid-template-columns:150px minmax(0,1fr) 145px 95px;
+  gap:22px;align-items:center}
 .tag--dim{color:var(--grey-warm);margin-left:12px}
 .event-row:hover{background:var(--sand-card)}
 .event-row img{width:100%;object-fit:cover;aspect-ratio:16/9}
@@ -440,8 +441,8 @@ ul{margin:0;padding:0;list-style:none}
   :root{--margin:40px;--pad:72px}
   .d-xl{font-size:56px}.d-l{font-size:40px}.hero{height:640px}
   .hero--event h1{font-size:54px}
-  .event-row{grid-template-columns:1fr}
-  .event-row-main{grid-template-columns:160px 1fr 180px}
+  .event-row{grid-template-columns:minmax(0,1fr)}
+  .event-row-main{grid-template-columns:160px minmax(0,1fr) 180px}
   .event-row .age{display:none}
   .event-row .cta{text-align:left}
   .format-row{grid-template-columns:50px minmax(0,1fr) 40px}
@@ -475,7 +476,7 @@ ul{margin:0;padding:0;list-style:none}
   .two-col--media > picture,.two-col--media > img{position:static;height:auto}
   .two-col--media > picture > img,.two-col--media > img{height:auto;aspect-ratio:4/3}
   .who-card img{aspect-ratio:16/9;height:auto}
-  .event-row,.event-row-main{grid-template-columns:1fr;gap:14px}
+  .event-row,.event-row-main{grid-template-columns:minmax(0,1fr);gap:14px}
   .event-row .cta .pill{width:100%}
   .format-row{grid-template-columns:40px minmax(0,1fr)}
   .format-row .name{font-size:clamp(20px,6.4vw,30px)}
@@ -1318,3 +1319,32 @@ html.is-preloading #preloader{display:block}
   html.is-preloading #preloader{display:none}
   html.is-preloading,html.is-preloading body{overflow:visible}
 }
+
+/* Section heads and the newsletter band set their h2 in a column roughly 60% of
+   the content width, and Dutch compounds are long — "mogelijkheden",
+   "samenwerken", "vermenigvuldigen", "Beeldarchief". At the full display size
+   the longest word does not fit its own column, and because display type is
+   overflow-wrap:break-word it was sliced mid-word rather than overflowing:
+   FUNDAMENT / EN, MOGELIJKHED / EN. Hyphenation is not the answer here — that
+   is what hyphens:manual settled, after auto broke "vermenig-vuldigen" at the
+   wrong seam — so the type in these two places is sized to the column it
+   actually occupies. Standalone display type and the hero are untouched. */
+.sec-head h2,.news-band h2,.two-col--story h2{font-size:clamp(28px,4.4vw,74px)}
+/* "vermenigvuldigen" is 16 characters, the longest word on the site, and the
+   story column is narrower still just above the 820px stack point. The selector
+   has to be `.two-col--story .d-l` rather than `... h2`: an existing
+   `.two-col .d-l` rule is two classes deep and would otherwise win. */
+@media (min-width:821px) and (max-width:1000px){
+  .two-col--story .d-l{font-size:clamp(26px,3.7vw,44px)}
+  /* just above the 820px stack point the section-head column is at its
+     narrowest — 307px at 830px wide — while the type is still display size */
+  .sec-head h2,.news-band h2{font-size:clamp(26px,3.6vw,40px)}
+}
+@media (max-width:420px){
+  .two-col--story .d-l{font-size:clamp(22px,6.8vw,30px)}
+}
+
+/* "Entrepreneurs" is 13 characters and the event titles are set at 30px, so on a
+   320px screen the longest word needed 289px in a 265px box and was sliced. The
+   cap is unchanged from 480px up. */
+.event-row h3{font-size:clamp(22px,6.6vw,30px)}
