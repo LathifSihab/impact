@@ -115,7 +115,7 @@ Six routes on the homepage, each one click from its next step, in both languages
 | Accounting | ⛔ 🔒 | Item 6 |
 | **Technically solid SEO foundation** | ✅ | Titles, descriptions, canonicals, hreflang, OG/Twitter, JSON-LD, sitemap, robots, staging noindex |
 | **Full SEO starter package** | 🟡 | Marked done in the previous version of this file, which was wrong. The technical foundation is one half of it. Still missing: Search Console + Bing verification and sitemap submission, target queries per page, a Google Business Profile for local search, and a content plan (item 18) |
-| Webshop + events live by end of September | ⛔ 🔒 | Needs items 1, 2 and 8. Ticket Tailor's API is verified working and answering — it returns an empty event list because **no events have been entered**, which is item 2 and the single thing holding this date |
+| Webshop + events live by end of September | 🟡 🔒 | Needs items 1, 2 and 8. The box office is now wired into `/events` from `PUBLIC_TICKET_TAILOR_BOX_OFFICE`, with a link that works without JavaScript and a widget behind marketing consent. Ticket Tailor's API is verified answering and returns an empty event list because **no events have been entered** — item 2, and now the single thing holding this date |
 | Email — newsletter + waitlist delivery | 🟡 | Endpoints verified live 8 Sep: both list branches, server-side validation, and the Ticket Tailor webhook refusing unsigned messages. Blocked only by the sender address, item 21 |
 
 ---

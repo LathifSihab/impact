@@ -138,5 +138,6 @@ so without it the correct `401` and `422` look like crashes.
 
 Ticket Tailor has **no events**. The API answers correctly and returns an empty
 list, so nothing about ticketing can be finished until the September event
-details arrive — item 2 in `ASKS.md`. Separately, the box office is not linked
-from any page yet; that is unbuilt work, not a fault.
+details arrive — item 2 in `ASKS.md`. The box office **is** now linked from
+`/events`, read from `PUBLIC_TICKET_TAILOR_BOX_OFFICE` at build time, so the day
+those events are entered they appear there with no code change.
