@@ -108,3 +108,28 @@ directly to IMPACT and never through us.
 - [ ] Box office address noted
 - [ ] Stripe connected, Bancontact on
 - [ ] Events created — **waiting on IMPACT**
+
+## The widget on the site — do not paste Ticket Tailor's snippet
+
+Ticket Tailor gives you an embed snippet with the box office slug and an account
+ref written into it. **Do not paste it into a page.** It would put an account id
+in twenty HTML files, and handover would become a code change instead of editing
+one box.
+
+The site already carries the box office, on `/events`, built the same way as the
+analytics domain:
+
+1. `PUBLIC_TICKET_TAILOR_BOX_OFFICE` holds the address.
+2. `tools/build.py` writes `<meta name="tt-box-office">` — and writes nothing at
+   all when the variable is empty.
+3. `assets/js/boxoffice.js` points the link at it and mounts the widget **after
+   marketing consent**, because the widget is a third-party script that sets its
+   own cookies.
+
+A plain link to the box office is always in the page underneath. It works with
+no JavaScript, before consent, and if Ticket Tailor's CDN is unreachable — the
+widget is an enhancement on top of a link that already does the job.
+
+Remember it is a **build-time** value: `site/` is committed HTML, so setting the
+variable in Netlify alone changes nothing. Rebuild with it set (see the cutover
+section in `STATUS.md`) and commit.

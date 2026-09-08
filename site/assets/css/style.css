@@ -1637,3 +1637,13 @@ html.is-preloading #preloader{display:block}
   .lb-figure{max-width:94vw}
 }
 @media (prefers-reduced-motion:reduce){.lb{animation:none}}
+
+/* box office — the fallback link is the baseline; .tt-widget is Ticket Tailor's
+   own container, appended by boxoffice.js only after marketing consent */
+.box-office{margin-top:42px;padding:32px var(--margin);background:var(--sand);
+  border-radius:2px;text-align:center}
+.box-office .body{max-width:52ch;margin:0 auto 20px}
+.box-office .tt-widget{margin-top:28px;text-align:left}
+.box-office[data-box-office="live"] > .body,
+.box-office[data-box-office="live"] > .pill{display:none}
+@media (max-width:640px){.box-office{padding:26px 18px}}

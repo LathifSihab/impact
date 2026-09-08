@@ -24,6 +24,7 @@
 <meta name="twitter:image" content="https://demo-impact-c399e3.netlify.app/assets/img/og-default.jpg">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="plausible-domain" content="demo-impact-c399e3.netlify.app">
+<meta name="tt-box-office" content="https://buytickets.at/drpbuildlab">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://demo-impact-c399e3.netlify.app/"},{"@type":"ListItem","position":2,"name":"Events","item":"https://demo-impact-c399e3.netlify.app/events.html"}]}</script>
 <!--/SEO-->
 <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
@@ -32,7 +33,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=f67dc2d4e3">
+<link rel="stylesheet" href="assets/css/style.css?v=80217e91b1">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -250,6 +251,16 @@
     </div>
 
     <p class="note body">Deze events staan nog niet vast: of een editie doorgaat, hangt af van het aantal inschrijvingen op de wachtlijst. De definitieve lijst wordt aangeleverd door IMPACT.</p>
+
+    <!-- Box office. The link is the page; the widget is an enhancement on top of
+         it. assets/js/boxoffice.js fills in the href from the environment and
+         mounts the Ticket Tailor widget once marketing consent is given, so
+         with no JavaScript, no consent, or no account configured this still
+         reaches the tickets. -->
+    <div class="box-office" data-box-office>
+      <p class="body">Tickets en inschrijvingen lopen via ons box office. Daar staan alle edities met hun actuele status.</p>
+      <a class="pill pill--primary" data-box-office-link href="https://www.tickettailor.com/" target="_blank" rel="noopener">Bekijk alle tickets</a>
+    </div>
   </div>
 </section>
 
@@ -484,6 +495,7 @@
 
 <script src="assets/js/consent.js?v=887c3c6c8b"></script>
 <script defer src="assets/js/analytics.js?v=0799d23e0c"></script>
+<script defer src="assets/js/boxoffice.js?v=cae9103087"></script>
 <script src="assets/js/main.js?v=4be17547a6"></script>
 </body>
 </html>

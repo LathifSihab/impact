@@ -36,6 +36,12 @@ OG_IMAGE = "/assets/img/og-default.jpg"
 # nothing — so the code can ship long before the account exists.
 PLAUSIBLE_DOMAIN = os.environ.get("PUBLIC_PLAUSIBLE_DOMAIN", "").strip()
 PLAUSIBLE_SRC = os.environ.get("PUBLIC_PLAUSIBLE_SRC", "").strip()
+
+# The Ticket Tailor box office address. Emitted as a meta tag and read by
+# assets/js/boxoffice.js, for the same reason as the Plausible domain: the
+# account must not be written into twenty HTML files, or handover becomes a code
+# change instead of editing one box in Netlify. Unset means no widget at all.
+TICKET_TAILOR_BOX_OFFICE = os.environ.get("PUBLIC_TICKET_TAILOR_BOX_OFFICE", "").strip()
 NL = chr(10)
 
 ORG = {
@@ -156,6 +162,14 @@ def analytics_meta():
     return out
 
 
+def box_office_meta():
+    """Same contract as the analytics tags: absent unless configured, so an
+    unset box office leaves no third-party script and nothing to explain."""
+    if not TICKET_TAILOR_BOX_OFFICE:
+        return ""
+    return NL + '<meta name="tt-box-office" content="%s">' % TICKET_TAILOR_BOX_OFFICE
+
+
 def head_for(name, title, desc, extra_ld):
     url = SITE_URL + "/" + ("" if name == "index.html" else name)
     ld = [json.dumps(x, ensure_ascii=False, separators=(",", ":")) for x in (extra_ld or [])]
@@ -166,7 +180,7 @@ def head_for(name, title, desc, extra_ld):
                 {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
                 {"@type": "ListItem", "position": 2, "name": title.split(" — ")[0], "item": url},
             ]}, ensure_ascii=False, separators=(",", ":"))]
-    analytics = analytics_meta()
+    analytics = analytics_meta() + box_office_meta()
     scripts = "\n".join('<script type="application/ld+json">%s</script>' % x for x in ld)
     return f"""
 <title>{title}</title>
