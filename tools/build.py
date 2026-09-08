@@ -10,7 +10,9 @@ The order is not arbitrary and getting it wrong fails quietly:
                   serve yesterday's file
   4. i18n       — generates the English pages *from* the Dutch ones, so it must
                   come last or /en/ misses whatever the earlier steps changed
-  5. check      — tag balance and local references across all 20 pages
+  5. check      — tag balance and local references across every page
+  6. i18n-check — no empty translations, and no "English" value that is still
+                  Dutch, which is how "[bedrijven]" reached the English site
 
 Run this rather than the individual tools. The one that bites is 3 before 4:
 forget it and the English pages keep the previous hash, so /en/ silently serves
@@ -27,6 +29,7 @@ STEPS = [
     ("fingerprint", ["fingerprint.py"]),
     ("i18n", ["i18n.py"]),
     ("check", ["check_html.py"]),
+    ("i18n-check", ["check_i18n.py"]),
 ]
 
 
