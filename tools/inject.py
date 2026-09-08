@@ -108,6 +108,11 @@ NAV = """
     <a href="social-impact.html#aanpak">Onze aanpak</a><a href="social-impact.html#impact">Onze impact</a>
     <a href="social-impact.html#draag-bij">Steun onze missie</a>
   </div>
+  <div class="mm-lang">
+    <span>Taal</span>
+    <a href="/{page_nl}" class="lang is-active" hreflang="nl">NL</a>
+    <a href="/en/{page_en}" class="lang" hreflang="en">EN</a>
+  </div>
   <div class="mm-foot">
     <a href="assets/impact-brochure.pdf" target="_blank" rel="noopener">Brochure</a>
     <a href="media.html">Media</a><a href="journal.html">Journal</a><a href="contact.html">Contact</a>

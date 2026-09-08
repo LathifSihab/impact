@@ -143,14 +143,36 @@ ul{margin:0;padding:0;list-style:none}
 .burger span::before{top:-7px}.burger span::after{top:7px}
 
 .mobile-menu{position:fixed;inset:0;background:var(--black);color:#fff;z-index:100;
-  padding:24px 20px 40px;overflow-y:auto;display:none}
+  padding:0 20px 40px;overflow-y:auto;display:none}
 .mobile-menu.is-open{display:block}
-.mobile-menu .mm-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
-.mobile-menu .close{background:none;border:0;color:#fff;font-size:30px;cursor:pointer;line-height:1}
+/* The menu is ~1450px tall on a phone against an 844px viewport, so it scrolls
+   internally — and with a static header row the close button scrolled off the
+   top: once you were far enough down to reach Social Impact, there was no way
+   out of the menu except tapping a link. The row is sticky now, and the button
+   is a 44px target instead of a 33x32 glyph. */
+.mobile-menu .mm-top{position:sticky;top:0;z-index:2;
+  display:flex;justify-content:space-between;align-items:center;
+  margin:0 -20px 28px;padding:24px 20px 16px;background:var(--black);
+  border-bottom:1px solid rgba(255,255,255,.1)}
+.mobile-menu .close{width:44px;height:44px;margin-right:-10px;flex:0 0 auto;
+  display:grid;place-items:center;
+  background:none;border:0;color:#fff;font-size:30px;cursor:pointer;line-height:1}
+
+/* The language switch lives in the utility bar, which is hidden below 820px, so
+   on a phone there was no way to reach the English site at all. */
+.mm-lang{display:flex;align-items:center;gap:14px;margin-top:34px;
+  padding-top:24px;border-top:1px solid rgba(255,255,255,.14)}
+.mm-lang > span{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.45)}
+.mm-lang .lang{min-width:58px;padding:13px 0;text-align:center;
+  border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.72);
+  font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  border-radius:999px}
+.mm-lang .lang.is-active{background:var(--red);border-color:var(--red);color:#fff}
 .mobile-menu .mm-item{font-size:34px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;
   display:block;padding:10px 0}
 .mobile-menu .mm-sub a{display:block;padding:6px 0 6px 16px;font-size:14px;color:rgba(255,255,255,.62)}
-.mobile-menu .mm-foot{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);
+.mobile-menu .mm-foot{margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);
   display:flex;flex-wrap:wrap;gap:18px}
 .mobile-menu .mm-foot a{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
   color:rgba(255,255,255,.7)}
