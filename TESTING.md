@@ -76,6 +76,30 @@ Three things, because each one caught a different bug the others missed:
 If it flags something, either translate it or — if the English really is the same
 as the Dutch — add the exact key to `i18n/identical-reviewed.txt`.
 
+## 0d. Serverless endpoints
+
+```bash
+node tools/test-functions.mjs      # 14 checks, no network, no Netlify
+```
+
+They are plain handlers taking a Request and returning a Response, so they run
+directly under Node. `BREVO_API_KEY` is left unset on purpose — that is the path
+the site is on until the account is wired, and the one that has to keep working.
+
+| Endpoint | Purpose |
+|---|---|
+| `/.netlify/functions/subscribe` | Newsletter + waitlist → Brevo, tagged |
+| `/.netlify/functions/tt-webhook` | Ticket Tailor `WAITLIST_SIGNUP.CREATED` → Brevo + log |
+
+**Point the Ticket Tailor webhook at the function, never at a page.** A page
+returns HTML with a 200, so Ticket Tailor records a successful delivery and every
+signup is discarded silently — no error, no retry, nothing to notice.
+
+The signature test is the one worth keeping: an endpoint that rejects everything
+looks identical from outside to one that is simply never called. The suite proves
+a correctly signed request is accepted, that an unsigned one is not, and that a
+valid signature from ten minutes ago is refused as a replay.
+
 ## 0b. Responsive audit
 
 ```bash

@@ -10,6 +10,15 @@
   publish = "site"
   command = ""
 
+# Serverless endpoints. Netlify picks these up with no build step, which is why
+# they live on the static site rather than waiting for the Astro app:
+#   /.netlify/functions/subscribe   newsletter + waitlist  -> Brevo
+#   /.netlify/functions/tt-webhook  Ticket Tailor          -> Brevo + log
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+
 # style.css and the JS bundles carry a ?v=<content hash> (tools/fingerprint.py),
 # so their URL changes whenever their bytes do and they can be cached forever.
 # Before this they shared the blanket /assets/* rule below, which meant a
