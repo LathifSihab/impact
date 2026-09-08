@@ -22,7 +22,11 @@ SITE = ROOT / "site"
 OUT = SITE / "en"
 STORE = ROOT / "i18n/en.json"
 
-TRANSLATABLE_ATTRS = ("alt", "title", "aria-label", "placeholder")
+# data-label and data-tier-name are painted as visible text by
+# `content: attr(...)` in the responsive tier table, so they are copy, not
+# metadata — they were the one kind of visible string this file never saw.
+TRANSLATABLE_ATTRS = ("alt", "title", "aria-label", "placeholder",
+                      "data-label", "data-tier-name")
 SKIP_TAGS = ("script", "style")
 
 # strings that carry no language: brand marks, numerals, punctuation
@@ -67,9 +71,16 @@ def collect(html: str) -> set:
 
 
 def body_of(html: str) -> str:
-    """Only the page's own content — the shared chrome is translated by inject.py."""
-    if "<!--/NAV-->" in html and "<!--FOOTER-->" in html:
-        return html[html.index("<!--/NAV-->"):html.index("<!--FOOTER-->")]
+    """The whole document, chrome included.
+
+    This used to return only the slice between the nav and footer markers, on
+    the belief that the shared chrome was handled elsewhere. It is not: the
+    chrome is translated by `translate_html`, which can only translate a string
+    that is already a key — so nav and footer copy was translated purely by
+    coincidence, wherever the same words happened to appear in some page's body
+    as well. "[ Nieuwsbrief ]" is what that looks like when the coincidence does
+    not happen: a Dutch heading sitting on every English page.
+    """
     return html
 
 

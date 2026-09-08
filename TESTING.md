@@ -50,6 +50,32 @@ exactly how "I pushed the fix and it is still broken" happens — because it is,
 in that browser. It has to run *before* i18n, or the English pages keep the
 previous hash while the Dutch ones are correct.
 
+## 0c. Translation check
+
+Runs as the last step of `tools/build.py`, or on its own:
+
+```bash
+python tools/check_i18n.py
+```
+
+Three things, because each one caught a different bug the others missed:
+
+1. **Empty translations** — the obvious case, reported by the extractor too.
+2. **Identical pairs that nobody reviewed.** An English value equal to its Dutch
+   key is often correct (`IMPACT`, `[Camps]`, `Talenco Group`) and sometimes a
+   string that was never translated. A word list cannot tell them apart — it did
+   not know `Voordeel` — so every identical pair must be listed in
+   `i18n/identical-reviewed.txt`. Adding a line there is a claim that you looked.
+3. **Dutch found on a generated English page.** The map can be perfect and the
+   page still wrong, because a string only gets translated if it was *extracted*
+   — and extraction sees text nodes plus a fixed list of attributes. `data-label`
+   was not on that list, so the tier table shipped with `data-label="Investering"`
+   under a row heading that said "Investment". Reading the built pages catches
+   that whatever the cause.
+
+If it flags something, either translate it or — if the English really is the same
+as the Dutch — add the exact key to `i18n/identical-reviewed.txt`.
+
 ## 0b. Responsive audit
 
 ```bash

@@ -1,0 +1,216 @@
+# Strings whose English is deliberately the same as the Dutch: brand names,
+# proper nouns, format names, numbers, and copy that was already written in
+# English. Reviewed by hand on 8 September 2026.
+#
+# check_i18n.py flags any identical pair that is NOT listed here, so a string
+# can never again be quietly left in Dutch by giving it its own key as the
+# translation — which is how "[bedrijven]", "Voordeel" and forty-four others
+# reached the English site.
+#
+# Adding a line here is a claim that you looked at the string and it is right.
+&#8592;
+&#8594;
+&amp;
+&lsaquo;
+&rsaquo;
+&times;
++32 495 37 00 44 (Mirte Rens)
+14–18
+18–25
+8–14
+@impact___collective
+Access is where impact starts.
+Aftermovie still
+Aftermovies
+An intentional team
+And so this happened.
+Aug 2027
+Basketball Edition
+Basketball Edition 2026
+Basketball Edition 2027
+Because young people deserve better tools.
+Boilerplate
+Boshi
+Brand guidelines
+Brochure
+Build with us.
+Building foundations for life.
+Built by
+Built for every stage of growth
+Camp
+Camps
+Case
+City Pirates
+City Pirates × IMPACT
+Clubs &amp; hosts
+Communicating, trusting and growing with others.
+Community
+Contact
+Contact — IMPACT
+Content &amp; media
+DRP BuildLab
+DRP BuildLab — website &amp; tech partner
+Day
+Days
+Decathlon
+Discovering what energizes you and what you want to build.
+Discovering what energizes you.
+Don't take our word for it.
+Download brochure
+Downloads
+E-mail
+EN
+EXPERIENCES
+Employee &amp; community activations
+Event
+Events
+Events — upcoming IMPACT events, Camps, Days & Retreats
+Experiences
+Expert content
+Experts
+Experts & coaches
+Experts &amp; coaches
+Flourish by Magnolia
+Foodmaker
+Format
+Format 01
+Format 02
+Format 03
+Format 04
+Founder
+Founders
+Growth
+Handling pressure, setbacks and uncertainty with strength and awareness.
+Handling pressure, setbacks and uncertainty.
+Healthy habits &amp; lifestyle
+Hosted
+Hosted Experience
+Hosted Experiences
+Hosted experience
+Human connection
+IMPACT
+IMPACT Camp — Basketball Edition 2026
+IMPACT Camp — Basketball Edition 2027
+IMPACT Day Brussels
+IMPACT Day — Brussels
+IMPACT Day — Schools Edition
+IMPACT FOR ALL
+IMPACT FOR ALL — Talent is everywhere. Opportunity isn't.
+IMPACT Retreat
+IMPACT Retreat — Student Entrepreneurs
+IMPACT brochure
+IMPACT — Building foundations for life
+IMPACT — Building foundations for the new generation
+IMPACT — home
+Info
+Insight
+Insights
+Instagram
+Instagram followers
+Interview
+Jean-Marc Mwema
+Join the IMPACT community
+Journal
+Julie Dingemans
+Legacy
+Les Plumes
+Let's talk.
+Media
+Media &amp; press
+Meet the founders
+Mirte Rens
+More than a logo.
+Movement &amp; body awareness
+Movement, performance &amp; body awareness
+NL
+News
+Newsletter sign-ups
+ODTH First Class Logistics
+Olivier Goetgeluck
+Ondernemerschap · brand &amp; strategie · jongerencoach
+Ownership
+PDF
+Participants
+Partner
+Partners &amp; hosts
+Partnership opportunities
+Partnerships
+Past event
+Past events
+Recap
+Resilience
+Retreat
+Retreats
+SNM Event Agency
+Second Sense
+Self-knowledge
+Self-knowledge · Healthy habits &amp; lifestyle · Resilience · Ownership · Human connection · Talent &amp; passion
+Six foundations. One methodology.
+Six foundations. One stronger generation.
+Sleep, movement, nutrition, recovery and energy.
+Social Impact
+Social impact
+Sponsoring
+Sponsors
+Sport · mindset &amp; performance
+Status
+Stories
+Story
+Support
+TaPas City Crew
+Taking responsibility for your growth and choices.
+Taking responsibility for your growth, choices and direction.
+Talenco Group
+Talent &amp; passion
+Talent is everywhere. Opportunity isn't.
+Team
+Team & experts
+Team &amp; experts
+The feedback
+The foundations
+This was Basketball Edition 2026
+This was IMPACT Camp: Basketball Edition 2026
+Two worlds. One mission.
+UPCOMING EVENTS
+Understanding who you are and what you need.
+Understanding who you are, how you work and what you need.
+Upcoming
+Upcoming Events
+Upcoming IMPACT events
+Upcoming events
+Update
+Visie · strategie · brand &amp; partnerships
+We don't build programs. We build foundations.
+Website visitors
+What can you experience?
+What we lived, learned and built.
+Why we exist
+Youth development through experiences, connection and growth.
+[ Contact ]
+[ Events ]
+[ Journal ]
+[ Media ]
+[&amp; coaches]
+[01] Self-knowledge
+[01] Self-knowledge &nbsp; [03] Resilience
+[02] Healthy habits
+[02] Healthy habits &amp; lifestyle
+[03] Resilience
+[04] Ownership
+[05] Human connection
+[06] Talent &amp; passion
+[Camp]
+[Camps]
+[Community]
+[Days]
+[Experiences]
+[FOR ALL]
+[Hosted]
+[Retreats]
+for all
+gegevensbeschermingsautoriteit.be
+hello@wemakeimpact.be
+hello@wemakeimpact.be ·
+x Jean-Marc
+x Mirte
+Één Pot Nat
