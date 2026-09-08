@@ -116,3 +116,23 @@ The site changes its own success message accordingly — no code change needed.
 - [ ] Sender address verified
 - [ ] Four variables in Netlify, site redeployed
 - [ ] Decided about double opt-in
+
+## Contact attributes — create them before a form sends them
+
+Brevo silently discards anything it does not recognise. Send it a `tags` array
+and it answers `201` and stores nothing; send an attribute that is not defined
+on the account and it does exactly the same. Nothing errors, and the data is
+simply gone.
+
+Tags were the original plan and do not work on this account, verified against
+the live API. So the segmentation is carried as attributes, which do persist.
+
+These exist already, created 8 September 2026:
+
+`LOCALE` · `FORM` · `EVENT` · `GEMEENTE` · `LEEFTIJD` · `LANDING_PAGE` ·
+`REFERRER` · `UTM_SOURCE` · `UTM_MEDIUM` · `UTM_CAMPAIGN` · `UTM_CONTENT` ·
+`UTM_TERM` · `GCLID` · `FBCLID`
+
+**If a new field is ever added to a form, create the attribute first** — Brevo →
+**Contacts → Settings → Attributes**, type *text*. Otherwise the form will look
+like it works and that field will never arrive.

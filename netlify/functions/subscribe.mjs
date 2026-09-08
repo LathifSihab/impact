@@ -100,12 +100,22 @@ async function toBrevo(d) {
     ? process.env.BREVO_LIST_WAITLIST
     : process.env.BREVO_LIST_NEWSLETTER;
 
+  // Brevo accepts a `tags` array and silently discards it — verified against the
+  // live account: POST returns 201 and PUT returns 204, and the contact comes
+  // back with tags: [] either way. So the segmentation this file was designed
+  // around (locale, form, event, campaign) is carried as attributes instead.
+  // Same information, and it is what the backoffice has to join on to answer
+  // "which campaign drove this signup". The attributes must exist on the
+  // account or Brevo drops them just as quietly — see setup/03-brevo.md.
   const attributes = {
     FIRSTNAME: d.naam || undefined,
     GEMEENTE: d.gemeente || undefined,
     LEEFTIJD: d.leeftijd || undefined,
     LANDING_PAGE: d.landingPage || undefined,
     REFERRER: d.referrer || undefined,
+    LOCALE: d.locale || undefined,
+    FORM: d.formName || undefined,
+    EVENT: d.event || undefined,
     ...Object.fromEntries(
       Object.entries(d.campaign).map(([k, v]) => [k.toUpperCase(), v]),
     ),
