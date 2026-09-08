@@ -14,6 +14,7 @@ step 2 is where every key from steps 3–5 ends up, so do it before them.
 | 4 | [04-ticket-tailor.md](04-ticket-tailor.md) | Ticketing — events, waitlists, the webhook | 20 min |
 | 5 | [05-plausible.md](05-plausible.md) | Analytics — visitors, sources, conversions | 10 min |
 | 6 | [06-verify.md](06-verify.md) | Prove each one actually works | 15 min |
+| 7 | [07-what-is-broken-now.md](07-what-is-broken-now.md) | **Start here today** — the four things currently failing, in order | 25 min |
 
 ---
 
