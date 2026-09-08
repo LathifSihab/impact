@@ -22,7 +22,7 @@
   --font:var(--font-text);
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
 
-  --t-hero:clamp(44px,8.2vw,124px);
+  --t-hero:clamp(32px,10vw,124px);
   --t-display:clamp(30px,7vw,96px);
   --t-head:clamp(20px,2.4vw,30px);
   --t-body:16px;
@@ -245,7 +245,8 @@ ul{margin:0;padding:0;list-style:none}
 .note{margin-top:40px;max-width:640px}
 
 /* ---------- 05 formats ---------- */
-.format-row{display:grid;grid-template-columns:70px 340px 1fr 150px 40px;gap:32px;align-items:center;
+.format-row{display:grid;grid-template-columns:70px 340px minmax(0,1fr) 150px 40px;
+  gap:32px;align-items:center;
   padding:34px 0;border-top:1px solid rgba(255,255,255,.14);
   transition:padding-left var(--dur-fast) var(--ease)}
 .format-row:hover{padding-left:12px}
@@ -301,7 +302,8 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ---------- 08 newsletter ---------- */
 .field-row{display:flex;align-items:center;gap:16px;border-bottom:2px solid var(--black);padding-bottom:12px}
-.field-row input{flex:1;border:0;background:none;font-size:17px;padding:10px 0;outline:none}
+.field-row input{flex:1;min-width:0;border:0;background:none;font-size:17px;
+  padding:10px 0;outline:none}
 .field-row input::placeholder{color:var(--grey-muted)}
 .form-msg{font-size:12px;margin-top:10px;min-height:18px}
 .form-msg.error{color:var(--red)}
@@ -442,7 +444,7 @@ ul{margin:0;padding:0;list-style:none}
   .event-row-main{grid-template-columns:160px 1fr 180px}
   .event-row .age{display:none}
   .event-row .cta{text-align:left}
-  .format-row{grid-template-columns:50px 1fr 40px}
+  .format-row{grid-template-columns:50px minmax(0,1fr) 40px}
   .format-row .desc,.format-row .m{display:none}
   .cards-4{grid-template-columns:1fr 1fr}
   .event-body{grid-template-columns:1fr;gap:48px}
@@ -475,7 +477,8 @@ ul{margin:0;padding:0;list-style:none}
   .who-card img{aspect-ratio:16/9;height:auto}
   .event-row,.event-row-main{grid-template-columns:1fr;gap:14px}
   .event-row .cta .pill{width:100%}
-  .format-row{grid-template-columns:40px 1fr}
+  .format-row{grid-template-columns:40px minmax(0,1fr)}
+  .format-row .name{font-size:clamp(20px,6.4vw,30px)}
   .format-row .arrow{display:none}
   .counters{grid-template-columns:1fr 1fr}
   .counters--big .n{font-size:48px}
@@ -783,7 +786,9 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 
 /* ---------- newsletter band above every footer ---------- */
 .news-band{background:var(--sand);border-top:1px solid var(--border-sand);padding:72px 0}
-.news-band .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:end}
+.news-band .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:64px;align-items:end}
+.news-band .wrap > *{min-width:0}
 .news-band .news-form{padding-bottom:6px}
 
 /* hero video layer */
@@ -799,7 +804,7 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 
 @media (max-width:1180px){
   .routes{grid-template-columns:1fr 1fr}
-  .news-band .wrap{grid-template-columns:1fr;gap:32px;align-items:start}
+  .news-band .wrap{grid-template-columns:minmax(0,1fr);gap:32px;align-items:start}
 }
 @media (max-width:820px){
   .routes{grid-template-columns:1fr}
@@ -926,7 +931,7 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 @media (max-width:820px){.dome-panel{border-radius:38px 38px 0 0;padding:56px 24px 40px}}
 
 /* three colour-blocked closing cards (Foodmaker) */
-.cta-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.cta-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
 .cta-card{padding:44px 36px;display:flex;flex-direction:column;gap:14px;color:#fff}
 .cta-card--ink{background:var(--ink)}
 .cta-card--red{background:var(--red)}
@@ -955,7 +960,7 @@ a.dl-row:hover .arrow{color:var(--red);transform:translateX(4px)}
 
 @media (max-width:1180px){
   .stats,.stats--3{grid-template-columns:1fr 1fr}
-  .cta-cards{grid-template-columns:1fr}
+  .cta-cards{grid-template-columns:minmax(0,1fr)}
   .expert-grid{grid-template-columns:1fr 1fr}
   .measure-2{columns:1}
 }

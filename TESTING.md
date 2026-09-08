@@ -34,6 +34,35 @@ scrolls normally, on purpose — a stuck column that does not fit puts its own
 bottom permanently out of reach. The sticky metabar carries the waitlist CTA at
 every viewport, so nothing is lost.
 
+## 0b. Responsive audit
+
+```bash
+cp tools/audit_responsive.html site/_audit.html
+python -m http.server 8099 -d site &
+for w in 320 360 390 768; do for p in index over events event samenwerken     social-impact hosted-experiences journal media contact; do
+  for loc in "" "en/"; do
+    chrome --headless=new --disable-gpu --dump-dom       "http://localhost:8099/_audit.html?p=$loc$p.html&w=$w" | grep -o "AUDIT .*"
+  done
+done; done
+rm site/_audit.html
+```
+
+It loads each page inside an iframe of a given CSS width — headless Chrome
+clamps its own window to about 500px, so measuring the top-level viewport can
+never reach phone sizes — and reports document overflow, the outermost elements
+crossing the viewport edge, content clipped by a non-scrolling box, buttons whose
+label does not fit, and images wider than their container.
+
+**Serve it over HTTP, not `file://`.** The English pages reference `/assets/...`
+root-absolute, which under `file://` resolves to the drive root: they load with
+no stylesheet and every number is then meaningless. That cost a full round of
+false findings.
+
+`docOverflowX=-15px` on a clean page is the reserved scrollbar gutter, not a
+problem. Known-intentional overflow (marquee track, cinema track, the oversized
+preloader word, `.sr-only`, the skip link) is filtered by the `ALLOW` list in the
+harness.
+
 ## 1. The static site (`site/`)
 
 ```bash

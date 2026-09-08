@@ -1,0 +1,157 @@
+<!doctype html><meta charset="utf-8">
+<title>responsive audit</title>
+<!--
+  Loads one page inside an iframe of a given CSS width, so the media queries
+  evaluate at that width — headless Chrome clamps its own window to ~500px, so
+  measuring the top-level viewport cannot reach phone sizes.
+
+      # copy next to the pages, because it loads them by relative path
+      cp tools/audit_responsive.html site/_audit.html
+      python -m http.server 8099 -d site &
+      chrome --headless=new --dump-dom         "http://localhost:8099/_audit.html?p=en/index.html&w=320"
+
+  Serve it over HTTP, not file://. The English pages reference /assets/...
+  root-absolute, which under file:// resolves to the drive root — they load with
+  no stylesheet at all, and every measurement is then meaningless.
+
+  Reports, for that page at that width: document overflow, the outermost
+  elements crossing the viewport edge, content clipped by a non-scrolling box,
+  and buttons whose label does not fit.
+-->
+<style>html,body{margin:0}iframe{border:0;display:block;height:900px}</style>
+<iframe id="f"></iframe>
+<pre id="out">running</pre>
+<script>
+var q = new URLSearchParams(location.search);
+var page = q.get('p') || 'index.html';
+var width = parseInt(q.get('w') || '390', 10);
+var f = document.getElementById('f');
+f.style.width = width + 'px';
+
+/* Intentionally wider than the viewport: animated tracks, off-screen skip link,
+   and the horizontal rails the design scrolls on purpose. */
+var ALLOW = ['skip-link', 'mq-track', 'mq-set', 'cinema-track', 'fund-track',
+             'pre-word', 'sr-only', 'marquee', 'reel', 'cinema'];
+
+function isAllowed(el) {
+  for (var n = el; n && n.nodeType === 1; n = n.parentElement) {
+    var c = ' ' + (n.className || '') + ' ';
+    for (var i = 0; i < ALLOW.length; i++) if (c.indexOf(' ' + ALLOW[i] + ' ') > -1) return true;
+  }
+  return false;
+}
+
+function inScroller(el, w) {
+  for (var n = el.parentElement; n && n.nodeType === 1; n = n.parentElement) {
+    var o = w.getComputedStyle(n).overflowX;
+    if (o === 'auto' || o === 'scroll' || o === 'hidden' || o === 'clip') return true;
+  }
+  return false;
+}
+
+function label(el) {
+  return el.tagName.toLowerCase() +
+         (el.id ? '#' + el.id : '') +
+         (el.className && typeof el.className === 'string'
+            ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '');
+}
+
+f.addEventListener('load', function () {
+  var w = f.contentWindow, d = f.contentDocument, out = [];
+  function log(s) { out.push('AUDIT ' + s); }
+  try {
+    var vw = w.innerWidth;
+    var over = d.documentElement.scrollWidth - vw;
+    log(page + ' @' + width + ' innerWidth=' + vw + ' docOverflowX=' + over + 'px');
+
+    var all = d.querySelectorAll('body *');
+    var wide = [], clipped = [], tight = [];
+
+    Array.prototype.forEach.call(all, function (el) {
+      var st = w.getComputedStyle(el);
+      if (st.display === 'none' || st.visibility === 'hidden') return;
+      var b = el.getBoundingClientRect();
+      if (!b.width && !b.height) return;
+
+      // crosses the viewport edge, and no ancestor already explains it
+      if (!isAllowed(el) && !inScroller(el, w) && (b.right > vw + 1 || b.left < -1)) {
+        wide.push({ el: el, px: Math.round(Math.max(b.right - vw, -b.left)) });
+      }
+
+      // content wider than its own non-scrolling box: something is cut off
+      var ox = st.overflowX;
+      if ((ox === 'hidden' || ox === 'clip') && el.scrollWidth > el.clientWidth + 2 &&
+          !isAllowed(el)) {
+        clipped.push({ el: el, px: el.scrollWidth - el.clientWidth });
+      }
+
+      // a button or pill whose label does not fit
+      if (/(^|\s)(pill|btn|close|shot-sound|vhint)(\s|$)/.test(el.className || '') &&
+          el.scrollWidth > el.clientWidth + 1) {
+        tight.push({ el: el, px: el.scrollWidth - el.clientWidth });
+      }
+    });
+
+    // keep only the outermost offender of each nested chain
+    function outermost(list) {
+      return list.filter(function (a) {
+        return !list.some(function (b) { return b.el !== a.el && b.el.contains(a.el); });
+      });
+    }
+
+    outermost(wide).sort(function (a, b) { return b.px - a.px; }).slice(0, 8)
+      .forEach(function (o) { log('  OVERFLOW +' + o.px + 'px  ' + label(o.el)); });
+    outermost(clipped).sort(function (a, b) { return b.px - a.px; }).slice(0, 8)
+      .forEach(function (o) { log('  CLIPPED  +' + o.px + 'px  ' + label(o.el) +
+                                  ' "' + el2text(o.el) + '"'); });
+    tight.sort(function (a, b) { return b.px - a.px; }).slice(0, 6)
+      .forEach(function (o) { log('  TIGHT    +' + o.px + 'px  ' + label(o.el) +
+                                  ' "' + el2text(o.el) + '"'); });
+
+    function el2text(e) { return (e.textContent || '').trim().slice(0, 26); }
+
+    // images rendered wider than their container
+    Array.prototype.forEach.call(d.images, function (img) {
+      var b = img.getBoundingClientRect();
+      var p = img.parentElement.getBoundingClientRect();
+      var ip = w.getComputedStyle(img).position;
+      if (ip === 'absolute' || ip === 'fixed') return;
+      if (b.width > p.width + 1 && !isAllowed(img)) {
+        log('  IMG      +' + Math.round(b.width - p.width) + 'px past parent  ' +
+            label(img) + ' src=' + (img.getAttribute('src') || '').split('/').pop() +
+            ' rendered=' + Math.round(b.width) + 'x' + Math.round(b.height) +
+            ' parent=' + label(img.parentElement) + ' pw=' + Math.round(p.width));
+      }
+    });
+    // what inside the offender sets its min-content floor
+    var t0 = outermost(wide).sort(function (a, b) { return b.px - a.px; })[0];
+    if (t0) {
+      var kids = [];
+      Array.prototype.forEach.call(t0.el.querySelectorAll('*'), function (k) {
+        var prev = k.style.width;
+        k.style.width = 'min-content';
+        var mc = k.getBoundingClientRect().width;
+        k.style.width = prev;
+        kids.push({ el: k, mc: Math.round(mc) });
+      });
+      kids.sort(function (a, b) { return b.mc - a.mc; }).slice(0, 6).forEach(function (k) {
+        log('  MINCONTENT ' + k.mc + 'px  ' + label(k.el) + ' "' + el2text(k.el) + '"');
+      });
+    }
+
+    // ancestor chain for the widest offender, which is what actually explains it
+    var top = outermost(wide).sort(function (a, b) { return b.px - a.px; })[0];
+    if (top) {
+      for (var n = top.el; n && n.tagName !== 'HTML'; n = n.parentElement) {
+        var b = n.getBoundingClientRect(), st = w.getComputedStyle(n);
+        log('  CHAIN ' + label(n) + ' ' + Math.round(b.left) + '..' + Math.round(b.right) +
+            ' w=' + Math.round(b.width) + ' pad=' + st.paddingLeft + '/' + st.paddingRight +
+            ' box=' + st.boxSizing + ' maxw=' + st.maxWidth + ' cols=' + st.gridTemplateColumns);
+      }
+    }
+  } catch (e) { log('ERROR ' + e.message); }
+  document.getElementById('out').textContent = out.join('\n');
+});
+
+f.src = page;
+</script>
