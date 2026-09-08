@@ -730,6 +730,37 @@
     }
   }
 
+  /* ---- run the marquee only while it is on screen ----
+     A 3200px transform layer animating forever, in a section that is usually
+     below the fold, is work for nothing — and on iOS a long-lived layer that
+     wide is where the duplicated-logo repaint comes from. */
+  var marquees = document.querySelectorAll('.marquee');
+  if (marquees.length) {
+    /* Pin the loop distance to one set's measured width rather than to -50% of
+       the track, so a browser that mis-resolves the track's max-content width
+       cannot also break the seam. */
+    var measureMarquee = function (m) {
+      var set = m.querySelector('.mq-set');
+      var track = m.querySelector('.mq-track');
+      if (!set || !track || !set.offsetWidth) return;
+      track.style.setProperty('--mq-end', '-' + set.offsetWidth + 'px');
+    };
+    Array.prototype.forEach.call(marquees, measureMarquee);
+    window.addEventListener('resize', function () {
+      Array.prototype.forEach.call(marquees, measureMarquee);
+    });
+
+    if ('IntersectionObserver' in window) {
+      var mqWatch = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          // pause is opt-in: with no JS the marquee simply runs, as before
+          e.target.classList.toggle('is-offscreen', !e.isIntersecting);
+        });
+      }, { rootMargin: '120px' });
+      Array.prototype.forEach.call(marquees, function (m) { mqWatch.observe(m); });
+    }
+  }
+
   /* ---- mobile bottom action bar on the event page ---- */
   if (document.querySelector('.mobile-cta')) document.body.classList.add('has-mobile-cta');
 })();

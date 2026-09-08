@@ -345,8 +345,24 @@ html.is-scrolled .nav .logo img{height:21px}
 .marquee .mq-head{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
   padding:0 var(--margin) 20px}
 .marquee .mq-note{font-size:11.5px;color:var(--grey-muted)}
-.mq-track{display:flex;width:max-content;animation:mq var(--mq-dur) linear infinite;will-change:transform}
-.mq-set{display:flex}
+/* The track is one long composited layer — ten cells duplicated, ~3200px wide.
+   A permanent will-change:transform pins that layer for the life of the page,
+   and on iOS Safari a pinned layer that wide is tiled and can repaint a stale
+   tile, which draws the end of the strip on top of its start. So: no permanent
+   layer hint, translate3d in the keyframes so compositing is at least explicit
+   and consistent, and the animation is paused outright while the marquee is off
+   screen (main.js), which is both the real fix for stale tiles and the reason a
+   phone is not compositing a 3200px layer for a section nobody is looking at. */
+.mq-track{display:flex;width:max-content;animation:mq var(--mq-dur) linear infinite}
+/* flex:0 0 auto is load-bearing. Without it the two sets keep the default
+   flex-shrink:1, and if `width:max-content` on a flex container resolves to the
+   available width instead of the intrinsic one — which Safari has a history of
+   — both sets shrink to half the viewport while the cells inside them refuse to
+   (flex:0 0 <cell>). The second set then starts a few hundred pixels in and its
+   logos are drawn straight on top of the first set's, which is exactly the
+   overlap reported on iOS. */
+.mq-set{display:flex;flex:0 0 auto}
+.marquee.is-offscreen .mq-track{animation-play-state:paused}
 .marquee:hover .mq-track{animation-play-state:paused}
 .mq-track .cell{flex:0 0 var(--mq-cell);margin-right:var(--mq-gap);
   display:flex;align-items:center;justify-content:center}
@@ -356,7 +372,11 @@ html.is-scrolled .nav .logo img{height:21px}
     transform var(--dur-fast) var(--ease)}
 .mq-track .slot img{max-width:100%;max-height:38px;width:auto;object-fit:contain}
 .mq-track a.slot:hover{filter:none;opacity:1;transform:translateY(-2px)}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* --mq-end is one set's measured width, written by main.js. The -50%
+   fallback is the same distance whenever max-content resolves correctly, so
+   the marquee still loops seamlessly with no JS at all. */
+@keyframes mq{from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(var(--mq-end,-50%),0,0)}}
 .marquee--sand{background:var(--sand)}
 .marquee--sand .mq-track .slot{opacity:.55}
 
