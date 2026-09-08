@@ -75,3 +75,10 @@ python tools/build.py
 inject → seo → fingerprint → i18n → check. Always this, never the individual
 tools: fingerprint has to run before i18n or the English pages keep the previous
 asset hash, and check is what catches a lost closing tag before it ships.
+
+## Connecting the services
+
+Step-by-step, written for someone who has not done this before:
+[`setup/README.md`](setup/README.md) — key rotation, Netlify environment
+variables, Brevo, Ticket Tailor, Plausible, and how to prove each one actually
+works rather than merely looks configured.

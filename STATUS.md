@@ -130,6 +130,8 @@ choice than to retrofit afterwards. Everything else here is work we can schedule
 ourselves — items 9–20 are ours and none of them are blocked. They are just not
 done.
 
+Step-by-step setup for the four services: `setup/README.md`.
+
 Full blocker list with owners and consequences, plus the Dutch message to send:
 `ASKS.md`. Content live on staging that still needs her yes: `SIGN-OFF.md`. How to
 test any of it: `TESTING.md`.
