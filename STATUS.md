@@ -32,7 +32,7 @@ Staging: https://demo-impact-c399e3.netlify.app (carries `noindex` until cutover
 | # | Item | Note |
 |---|---|---|
 | 9 | **Analytics** — Plausible, goals, UTM plumbing | **Zero analytics on the site today.** GA4/GTM (`G-7BPTJHC9RB` / `GT-M6JH3H9D`) was started and interrupted, never installed. |
-| 10 | **Store the signups** | The endpoints validate and capture `event`, `locale`, `source`, `utm_*` — nothing is written anywhere yet. |
+| 10 | ~~Store the signups~~ → **move them to the real sink** | 🟢 Interim done: all 22 forms now post to Netlify Forms with full attribution (`page`, `locale`, `landing_page`, `referrer`, `utm_*`, `gclid`, `fbclid`). Free tier is 100/month. What remains is pointing them at whatever wins item 8, and syncing to Brevo (item 20). |
 | 11 | **The automated "registration opened" email** | Marked `TODO(17 Sep)` at the exact two lines in `web/src/pages/api/waitlist.ts` where it lands. |
 | 12 | **Astro page parity** — 3 of 10 pages ported (`index`, `events`, `events/[slug]`) | over, samenwerken, social-impact, journal, media, contact, hosted-experiences still exist only as static HTML. |
 | 13 | **`feat/astro-cms` has diverged** — 14 commits behind main, 16 ahead | The reel, preloader, sticky nav, mobile-nav fixes and every responsive fix are on `main` only. Rebase before doing more Astro work, or the branch will need the whole craft pass again. |
@@ -98,7 +98,7 @@ Six routes on the homepage, each one click from its next step, in both languages
 |---|---|---|
 | Wix decision — *"that call is entirely yours"* | ✅ | **Build no backend on Wix.** It is a closed platform: its data layer cannot be queried by our stack, its automations cannot be triggered from our forms, and anything built there has to be rebuilt when the subscription ends. Since the year is already paid, keep it running as the 301 redirect source until it lapses — that is the one thing it is genuinely useful for. Reasoning in `PLAN.md` §2 |
 | Privacy-friendly analytics | ⛔ | Item 9. The brief lists seven things by name; five are stock Plausible (visits, unique visitors, traffic source, actions, signup conversion). Two are not: **page/section engagement** needs custom events fired per section, and **which campaign/page/waitlist drove each signup** has to be stored *on the signup record* and joined in the backoffice — analytics alone cannot answer it, so items 9 and 10 have to be built as one thing |
-| All signups in one place | ⛔ | Item 10, and worse than "partly": on staging today **no form has an `action`, so a submission shows the success message and is discarded**. Fine for a demo, a landmine the moment the link is shared — see the warning below. The branch endpoints validate and capture the attribution fields, then `console.info` them |
+| All signups in one place | 🟡 | Interim sink live: all 22 forms post to Netlify Forms, in four collections, each submission carrying the campaign and page that produced it. Not yet the permanent home (item 8) and not yet segmented into Brevo (item 20) |
 | CMS / backoffice — *"a big priority... from day one"* | ⛔ | Items 8, 17, 19. Content models are written and mirrored to the Payload schema, so the modelling work is not lost whichever backend wins. Nothing is deployed |
 
 ## Integrations
@@ -113,14 +113,12 @@ Six routes on the homepage, each one click from its next step, in both languages
 
 ---
 
-## ⚠ Before sharing the staging link with anyone
+## Sharing the staging link
 
-No form on staging posts anywhere. Submit the waitlist or the newsletter and you
-get "Je staat op de wachtlijst" — and nothing is recorded. It was built that way
-deliberately, so the demo could be clicked through before a backend existed, but
-anyone who signs up in good faith is being told something untrue. Either say so
-when sharing the link, or let us point the forms at a temporary sink (a Netlify
-Form is 10 minutes) so real interest is not lost. Item 10.
+Safe to share now. Signups are recorded in **Netlify → Forms** (four collections:
+newsletter, waitlist, contact, hosted-experience), each carrying the page and
+campaign that produced it. Until 8 September they were silently discarded — if
+the link was shared before then, anything submitted in that window is gone.
 
 ## If you read one thing
 

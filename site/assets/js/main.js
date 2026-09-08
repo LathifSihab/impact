@@ -232,15 +232,77 @@
   }
   var mail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  /* Post a form to its endpoint and hand back the parsed JSON.
-     Returns null when the form has no action — then the caller shows the
-     local success state instead. */
+  /* ---- campaign attribution ----
+     The brief asks which campaign, page and waitlist drove each signup. Plausible
+     can answer the first for a visit; it cannot answer it for a *row*. So the
+     answer has to travel with the submission: the campaign is read off the
+     landing URL once and kept for the session, because a visitor who arrives on
+     a campaign link and signs up three pages later still came from that
+     campaign. */
+  var CAMPAIGN_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content',
+                       'utm_term', 'gclid', 'fbclid'];
+  (function rememberArrival() {
+    try {
+      var q = new URLSearchParams(location.search), found = {};
+      CAMPAIGN_KEYS.forEach(function (k) { if (q.get(k)) found[k] = q.get(k); });
+      if (Object.keys(found).length) {
+        sessionStorage.setItem('impact.campaign', JSON.stringify(found));
+      }
+      if (!sessionStorage.getItem('impact.landing')) {
+        sessionStorage.setItem('impact.landing', location.pathname);
+        sessionStorage.setItem('impact.referrer', document.referrer || '');
+      }
+    } catch (e) { /* storage blocked: the signup still goes through, unattributed */ }
+  })();
+
+  function attribute(data) {
+    data.set('page', location.pathname);
+    data.set('locale', document.documentElement.lang || 'nl');
+    try {
+      data.set('landing_page', sessionStorage.getItem('impact.landing') || location.pathname);
+      data.set('referrer', sessionStorage.getItem('impact.referrer') || '');
+      var c = JSON.parse(sessionStorage.getItem('impact.campaign') || '{}');
+      Object.keys(c).forEach(function (k) { data.set(k, c[k]); });
+    } catch (e) { /* as above */ }
+    return data;
+  }
+
+  /* Post a form to its endpoint and hand back a normalised result.
+     Returns null when the form has no action — then the caller shows the local
+     success state instead.
+
+     Two shapes of endpoint have to work here without branching on the host:
+     Netlify Forms wants urlencoded and answers with an HTML page, and the Astro
+     API routes answer with JSON. So parse JSON when it is JSON and fall back to
+     the status code when it is not. */
+  var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) ||
+              location.protocol === 'file:';
+
   function postForm(form) {
     var action = form.getAttribute('action');
     if (!action) return null;
-    var data = new FormData(form);
-    return fetch(action, { method: 'POST', body: data, headers: { accept: 'application/json' } })
-      .then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); });
+    var data = attribute(new FormData(form));
+    return fetch(action, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        accept: 'application/json'
+      },
+      body: new URLSearchParams(data).toString()
+    }).then(function (r) {
+      return r.text().then(function (text) {
+        var body;
+        try { body = JSON.parse(text); } catch (e) { body = { ok: r.ok }; }
+        if (!r.ok && LOCAL) return { status: 200, body: { ok: true, local: true } };
+        return { status: r.ok ? 200 : r.status, body: body };
+      });
+    }).catch(function (err) {
+      // Form capture is a deploy-time feature: nothing is listening on a local
+      // static server, so behave like the pre-backend demo instead of showing a
+      // failure the developer cannot act on. Never on a real host.
+      if (LOCAL) return { status: 200, body: { ok: true, local: true } };
+      throw err;
+    });
   }
 
   function applyServerErrors(form, errors) {
@@ -425,15 +487,38 @@
       form.querySelectorAll('.field').forEach(function (f) { setError(f, ''); });
       var ok = true;
       var email = form.elements.email;
-      form.querySelectorAll('input[type="text"]').forEach(function (i) {
+      form.querySelectorAll('input[type="text"]:not([name="bot-field"])').forEach(function (i) {
         if (i.value.trim().length < 2) { setError(i.closest('.field'), 'Dit veld is verplicht.'); ok = false; }
       });
       if (email && !mail.test(email.value.trim())) {
         setError(email.closest('.field'), 'Vul een geldig e-mailadres in.'); ok = false;
       }
       var msg = form.querySelector('.form-msg');
-      if (!ok) { if (msg) { msg.className = 'form-msg error'; msg.textContent = 'Vul de ontbrekende velden aan.'; } return; }
-      if (msg) { msg.className = 'form-msg ok'; msg.textContent = 'Bedankt — je bericht is klaar om verzonden te worden. ()'; }
+      function say(kind, text) {
+        if (!msg) return;
+        msg.className = 'form-msg ' + kind;
+        msg.textContent = text;
+      }
+      if (!ok) { say('error', 'Vul de ontbrekende velden aan.'); return; }
+
+      var sent = postForm(form);
+      if (!sent) { say('ok', 'Bedankt — we nemen snel contact op.'); return; }
+
+      busy(form, true);
+      say('', 'Versturen…');
+      sent.then(function (res) {
+        busy(form, false);
+        if (res.status === 200 && res.body.ok) {
+          say('ok', res.body.message || 'Bedankt — we nemen snel contact op. Je hoort doorgaans binnen twee werkdagen van ons.');
+          form.reset();
+        } else {
+          applyServerErrors(form, res.body.errors);
+          say('error', 'Versturen lukte niet. Probeer het straks opnieuw.');
+        }
+      }).catch(function () {
+        busy(form, false);
+        say('error', 'Versturen lukte niet. Probeer het straks opnieuw.');
+      });
     });
   });
 

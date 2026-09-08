@@ -149,6 +149,45 @@ The decision to run lives in an inline `<head>` script, not in `preloader.js`: b
 the time a deferred script executes, the page has already painted, so a black
 overlay applied there would flash the content first.
 
+### 1.1c Signup capture and attribution
+
+Every form now posts to Netlify Forms. Four collections, by `form-name`:
+`newsletter` (all 20 pages, band + section + dome), `waitlist`, `contact`,
+`hosted-experience`.
+
+**Capture only works on the deployed site.** A local static server answers a POST
+with 501, so `postForm` falls back to the optimistic success state on
+localhost/127.0.0.1/file: — deliberately, so local work does not show a failure
+nobody can act on. It never does that on a real host. To verify capture for real,
+submit on the Netlify URL and look in **Netlify → Forms**.
+
+What each submission carries, beyond its own fields:
+
+| Field | From |
+|---|---|
+| `page` | the page submitted from |
+| `locale` | `<html lang>` |
+| `landing_page` | the first page of the session |
+| `referrer` | `document.referrer` on arrival |
+| `utm_*`, `gclid`, `fbclid` | the landing URL, kept for the session |
+
+That last row is the brief's *"which campaign/page/waitlist drove each signup"*.
+It has to travel with the row, because analytics can attribute a **visit** but not
+a **record**. To test the session persistence: open
+`/?utm_source=instagram&utm_campaign=test`, click through to another page, sign up
+there, and the campaign should still be on the submission.
+
+Verified body of a newsletter signup:
+
+```
+form-name=newsletter&bot-field=&email=ouder@example.be&page=/&locale=nl
+&landing_page=/&referrer=&utm_source=instagram&utm_medium=story
+&utm_campaign=camp-basketball-2027
+```
+
+Note the free Netlify tier is **100 submissions/month**. Fine for staging; the
+real sink is whatever wins the backend decision.
+
 ### 1.2 The newsletter dome (the modal the client asked for)
 
 ```bash

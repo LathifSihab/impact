@@ -129,7 +129,8 @@ FOOTER = """
       <h2 class="d-l d-l--40" style="margin:16px 0 12px">Join the IMPACT community</h2>
       <p class="body">Nieuwe events, verhalen en partnerships — één mail per maand.</p>
     </div>
-    <form class="news-form" data-newsletter novalidate>
+    <form class="news-form" data-newsletter novalidate name="newsletter" action="/"
+          data-netlify="true" netlify-honeypot="bot-field"><input type="hidden" name="form-name" value="newsletter"><input type="hidden" name="bot-field">
       <div class="field-row">
         <input type="email" name="email" placeholder="jouw e-mailadres" aria-label="Jouw e-mailadres" required>
         <button type="submit" class="pill pill--primary">Inschrijven</button>
