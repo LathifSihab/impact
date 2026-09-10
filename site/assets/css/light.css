@@ -181,9 +181,23 @@ body.is-light .hero video{position:absolute;inset:0;width:100%;height:100%;objec
    hero read as heavy; this darkens the bottom third and leaves the rest clean. */
 body.is-light .hero::after{
   background:linear-gradient(to top,
-    rgba(20,18,16,.62) 0%,
-    rgba(20,18,16,.20) 42%,
-    rgba(20,18,16,0)   72%);
+    rgba(20,18,16,.66) 0%,
+    rgba(20,18,16,.34) 38%,
+    rgba(20,18,16,.10) 62%,
+    rgba(20,18,16,0)   80%);
+}
+/* A second, much lighter veil across the top strip. The aftermovie is shot in
+   daylight — grass, sky, sand — so a bright frame can leave the white nav and
+   the white logo sitting on near-white video with no contrast at all. This is
+   the smallest band that guarantees the header reads on any frame, and it is
+   invisible over a dark one. */
+body.is-light .hero::before{
+  content:"";position:absolute;inset:0 0 auto;height:190px;z-index:2;
+  pointer-events:none;
+  background:linear-gradient(to bottom,
+    rgba(20,18,16,.46) 0%,
+    rgba(20,18,16,.18) 55%,
+    rgba(20,18,16,0)   100%);
 }
 body.is-light .hero-content{
   justify-content:flex-end;
@@ -408,3 +422,144 @@ body.is-light .cinema-count{color:var(--muted)}
 body.is-light .cinema-count b{color:var(--ink-l)}
 body.is-light .reel-note{color:var(--muted)}
 body.is-light .reel-note a{color:var(--ink-l)}
+
+/* ======================================================================
+   INNER-PAGE HEROES
+   ======================================================================
+   .hero--page and .hero--event carry far more copy than the homepage hero —
+   a heading, a standfirst, sometimes an anchor nav — and style.css made them
+   legible with a flat .84 scrim across the whole frame. That single rule is
+   what made every inner page open on a near-black wall.
+
+   The replacement keeps the image but stops treating it as a ground: a shorter
+   band, the same graded scrim as the homepage, and the copy sitting at the
+   bottom of it. The heavy lifting on these pages now happens below the fold,
+   on paper. */
+
+body.is-light .hero--page,
+body.is-light .hero--event{
+  height:auto;
+  min-height:clamp(460px,62svh,620px);
+  background:var(--recess);
+}
+body.is-light .hero--page .hero-content,
+body.is-light .hero--event .hero-content{
+  justify-content:flex-end;
+  padding-top:calc(var(--nav-h,84px) + clamp(56px,9vh,110px));
+  padding-bottom:clamp(48px,6vh,76px);
+}
+
+/* the flat scrim becomes the homepage gradient — dark only where type sits */
+body.is-light .hero--page::after,
+body.is-light .hero--event::after{
+  background:linear-gradient(to top,
+    rgba(20,18,16,.70) 0%,
+    rgba(20,18,16,.38) 40%,
+    rgba(20,18,16,.12) 66%,
+    rgba(20,18,16,0)   84%);
+}
+
+body.is-light .hero--page .label{color:rgba(255,255,255,.78)}
+body.is-light .hero--page .intro,
+body.is-light .hero--event .stand{color:rgba(255,255,255,.94);max-width:58ch}
+body.is-light .hero--page h1,
+body.is-light .hero--event h1,
+body.is-light .hero--page .d-m,
+body.is-light .hero--event .kicker{color:#fff}
+
+/* the anchor nav is the page's table of contents; it reads as chips on glass */
+body.is-light .hero--page .anchor-nav a{
+  border-color:rgba(255,255,255,.5);color:#fff;
+  background:rgba(20,18,16,.22)}
+body.is-light .hero--page .anchor-nav a:hover{
+  background:#fff;border-color:#fff;color:var(--ink-l)}
+
+/* over.html's three age-group panels are long-form copy and do not belong on
+   an image — the markup moves them below the hero, and they are a light band */
+body.is-light .overlay-meta{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+  background:var(--paper)}
+body.is-light .overlay-meta .item{
+  padding:clamp(28px,3vw,40px) clamp(24px,2.6vw,36px);
+  border:1px solid var(--line);margin:-0.5px;background:var(--raised)}
+body.is-light .overlay-meta .item h3{
+  font-size:20px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;
+  color:var(--ink-l);margin-bottom:10px}
+body.is-light .overlay-meta .item p{color:var(--muted);font-size:15px;line-height:1.65}
+@media (max-width:820px){
+  body.is-light .overlay-meta{grid-template-columns:1fr}
+}
+
+/* hero--overlaid split the hero into two columns to fit the panels on the
+   image; with the panels gone it is a single column like every other hero */
+body.is-light .hero--overlaid .hero-content > div{display:block}
+
+/* ======================================================================
+   THE REMAINING DARK COMPONENTS — inner pages
+   ====================================================================== */
+
+/* .band is the ink call-to-action strip that closes six of the ten pages.
+   A hairline-framed recess band does the same job of interrupting the flow. */
+body.is-light .band{background:var(--recess);color:var(--ink-l);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:var(--sp-5) 0}
+body.is-light .band .body,
+body.is-light .band p{color:var(--muted)}
+
+/* .metabar sticks under the nav on the event pages and was a second dark bar
+   directly below the first. Paper, with a hairline to separate it from the nav. */
+body.is-light .metabar{background:var(--paper);color:var(--ink-l);
+  border-bottom:1px solid var(--line)}
+body.is-light .metabar .k{color:var(--faint)}
+body.is-light .metabar .v{color:var(--ink-l)}
+
+/* The three-card CTA row was ink / red / burgundy — three saturated grounds in
+   a row. One red card carries it; the other two become paper cards with a
+   hairline, so the red is a highlight rather than one third of a dark block. */
+body.is-light .cta-card--ink,
+body.is-light .cta-card--burgundy{background:var(--raised);color:var(--ink-l);
+  border:1px solid var(--line);margin:-0.5px}
+body.is-light .cta-card--ink h3,
+body.is-light .cta-card--burgundy h3{color:var(--ink-l)}
+body.is-light .cta-card--ink p,
+body.is-light .cta-card--burgundy p{color:var(--muted)}
+body.is-light .cta-card--ink .pill--ghost,
+body.is-light .cta-card--burgundy .pill--ghost{border-color:var(--ink-l);color:var(--ink-l)}
+body.is-light .cta-card--ink .pill--ghost:hover,
+body.is-light .cta-card--burgundy .pill--ghost:hover{background:var(--ink-l);color:var(--paper)}
+body.is-light .cta-card--ink .field-row,
+body.is-light .cta-card--burgundy .field-row{border-bottom-color:var(--line)}
+body.is-light .cta-card--ink .field-row input,
+body.is-light .cta-card--burgundy .field-row input{color:var(--ink-l)}
+body.is-light .cta-card--ink .field-row input::placeholder,
+body.is-light .cta-card--burgundy .field-row input::placeholder{color:var(--faint)}
+body.is-light .cta-card--ink .form-privacy,
+body.is-light .cta-card--burgundy .form-privacy{color:var(--faint)}
+body.is-light .cta-card--ink .form-privacy a,
+body.is-light .cta-card--burgundy .form-privacy a{color:var(--muted)}
+
+/* Stat cards sat on the burgundy section ground that is now recess, so their
+   white numerals had nothing to sit on. The figure keeps the brand red — these
+   are the proof numbers and they should still be the loudest thing in the block. */
+body.is-light .stat{background:var(--raised);border:1px solid var(--line)}
+body.is-light .stat .n{color:var(--red)}
+body.is-light .stat .k{color:var(--ink-l)}
+body.is-light .stat .e{color:var(--muted)}
+body.is-light .stat-note{color:var(--faint)}
+
+/* .vwrap and .cine-frame hold video and carry captions over the footage, so
+   they stay dark for the same reason the hero scrim does — but they are warmed
+   off burgundy onto the page's own ink so they read as one family. */
+body.is-light .vwrap,
+body.is-light .cine-frame{background:#2C0710}
+
+/* The active nav item is red, which is legible on paper but disappears into a
+   dark or busy video frame. Over the hero it is white with a rule under it —
+   the same "you are here" signal, carried by weight instead of hue — and it
+   goes back to red once the bar lands on paper. */
+body.is-light .nav-main li.is-current > a.top{
+  color:#fff;position:relative}
+body.is-light .nav-main li.is-current > a.top::after{
+  content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;background:#fff}
+html.is-past-hero body.is-light .nav-main li.is-current > a.top{color:var(--red)}
+html.is-past-hero body.is-light .nav-main li.is-current > a.top::after{background:var(--red)}

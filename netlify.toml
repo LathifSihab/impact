@@ -3,9 +3,8 @@
 # tools/ and the design reference files live outside the publish dir and are
 # therefore never deployed.
 
-# The static site in site/ is what staging serves today. The Astro app in web/
-# takes over once every page is ported and reviewed — at that point swap to:
-#   base = "web"  /  command = "npm run build"  /  publish = "web/dist"
+# The static site in site/ is the whole site. The Astro app that used to live in
+# web/ has been removed — this is a front-end-only repository now.
 [build]
   publish = "site"
   command = ""

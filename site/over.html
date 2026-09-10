@@ -23,8 +23,6 @@
 <meta name="twitter:description" content="Waarom IMPACT bestaat, wie de founders zijn, de zes fundamenten achter elke activatie, voor welke leeftijdsgroepen we bouwen en welke experts onze programma's dragen.">
 <meta name="twitter:image" content="https://demo-impact-c399e3.netlify.app/assets/img/og-default.jpg">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="plausible-domain" content="demo-impact-c399e3.netlify.app">
-<meta name="tt-box-office" content="https://buytickets.at/drpbuildlab">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://demo-impact-c399e3.netlify.app/"},{"@type":"ListItem","position":2,"name":"Over IMPACT","item":"https://demo-impact-c399e3.netlify.app/over.html"}]}</script>
 <!--/SEO-->
 <link rel="icon" href="assets/brand/favicon.ico" sizes="any">
@@ -34,6 +32,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css?v=80217e91b1">
+<!-- light direction overlay: loads after style.css and overrides it -->
+<link rel="stylesheet" href="assets/css/light.css?v=31e4f858d5">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -46,27 +46,10 @@
 })(document);
 </script>
 </head>
-<body data-nav="over">
+<body data-nav="over" class="is-light">
 
 <a class="skip-link" href="#main">Naar de inhoud</a>
 <!--NAV-->
-<!-- utility bar -->
-<div class="util">
-  <div class="wrap">
-    <ul>
-      <li><a href="assets/impact-brochure.pdf" target="_blank" rel="noopener">Brochure</a></li>
-      <li><a href="media.html">Media</a></li>
-      <li><a href="journal.html">Journal</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-    <div class="right">
-      <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
-      <span class="divider"></span>
-      <a href="/over.html" class="lang is-active" hreflang="nl">NL</a>
-      <a href="/en/over.html" class="lang" hreflang="en">EN</a>
-    </div>
-  </div>
-</div>
 
 <!-- main nav -->
 <nav class="nav">
@@ -113,6 +96,11 @@
         </div>
       </li>
     </ul>
+    <div class="nav-lang">
+      <a href="/over.html" class="lang is-active" hreflang="nl">NL</a>
+      <span class="divider"></span>
+      <a href="/en/over.html" class="lang" hreflang="en">EN</a>
+    </div>
     <a href="events.html#upcoming" class="pill pill--primary pill--sm">UPCOMING EVENTS</a>
     <button class="burger" aria-label="Menu openen"><span></span></button>
   </div>
@@ -179,23 +167,31 @@
           <a href="#team">Team &amp; experts</a>
         </nav>
       </div>
-      <div class="overlay-meta reveal">
-        <div class="item">
-          <h3>8–14 jaar</h3>
-          <p>Focus op de fundering van zelfvertrouwen, beweging, sociale verbinding, plezier en bewustwording.</p>
-        </div>
-        <div class="item">
-          <h3>14–18 jaar</h3>
-          <p>Focus op mindset, identiteit, weerbaarheid, ambitie, gezonde gewoontes en persoonlijke verantwoordelijkheid.</p>
-        </div>
-        <div class="item">
-          <h3>18–25 jaar</h3>
-          <p>Focus op ownership, ondernemerschap, leiderschap en het omzetten van talenten en passies in iets tastbaars.</p>
-        </div>
-      </div>
     </div>
   </div>
 </header>
+
+<!-- The three age groups were overlaid on the hero image, which is where a
+     third of this page's copy used to sit on a dark scrim. They are their own
+     light band now, directly under the hero. -->
+<section class="section" id="leeftijden">
+  <div class="wrap">
+    <div class="overlay-meta" data-reveal>
+      <div class="item">
+        <h3>8–14 jaar</h3>
+        <p>Focus op de fundering van zelfvertrouwen, beweging, sociale verbinding, plezier en bewustwording.</p>
+      </div>
+      <div class="item">
+        <h3>14–18 jaar</h3>
+        <p>Focus op mindset, identiteit, weerbaarheid, ambitie, gezonde gewoontes en persoonlijke verantwoordelijkheid.</p>
+      </div>
+      <div class="item">
+        <h3>18–25 jaar</h3>
+        <p>Focus op ownership, ondernemerschap, leiderschap en het omzetten van talenten en passies in iets tastbaars.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- why we exist -->
 <section class="section" id="why">
@@ -640,5 +636,6 @@
 <script src="assets/js/consent.js?v=887c3c6c8b"></script>
 <script defer src="assets/js/analytics.js?v=0799d23e0c"></script>
 <script src="assets/js/main.js?v=4be17547a6"></script>
+<script src="assets/js/light-nav.js?v=a5fbe9f047"></script>
 </body>
 </html>

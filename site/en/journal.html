@@ -6,7 +6,7 @@
 <!--SEO-->
 <title>Journal — recaps, stories and insights from IMPACT</title>
 <meta name="description" content="The living archive of IMPACT: recaps of past events, participants' stories, insights around our foundations, partner stories and news.">
-<link rel="canonical" href="https://demo-impact-c399e3.netlify.app/en/journal.html">
+<link rel="canonical" href="https://demo-impact-c399e3.netlify.app/journal.html">
 <link rel="alternate" hreflang="nl-BE" href="https://demo-impact-c399e3.netlify.app/journal.html">
 <link rel="alternate" hreflang="en" href="https://demo-impact-c399e3.netlify.app/en/journal.html">
 <link rel="alternate" hreflang="x-default" href="https://demo-impact-c399e3.netlify.app/journal.html">
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:title" content="Journal — recaps, verhalen en insights van IMPACT">
 <meta property="og:description" content="The living archive of IMPACT: recaps of past events, participants' stories, insights around our foundations, partner stories and news.">
-<meta property="og:url" content="https://demo-impact-c399e3.netlify.app/en/journal.html">
+<meta property="og:url" content="https://demo-impact-c399e3.netlify.app/journal.html">
 <meta property="og:image" content="https://demo-impact-c399e3.netlify.app/assets/img/og-default.jpg">
 <meta property="og:image:alt" content="Jongeren in actie tijdens een IMPACT-activatie">
 <meta name="twitter:card" content="summary_large_image">
@@ -23,8 +23,6 @@
 <meta name="twitter:description" content="The living archive of IMPACT: recaps of past events, participants' stories, insights around our foundations, partner stories and news.">
 <meta name="twitter:image" content="https://demo-impact-c399e3.netlify.app/assets/img/og-default.jpg">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="plausible-domain" content="demo-impact-c399e3.netlify.app">
-<meta name="tt-box-office" content="https://buytickets.at/drpbuildlab">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://demo-impact-c399e3.netlify.app/"},{"@type":"ListItem","position":2,"name":"Journal","item":"https://demo-impact-c399e3.netlify.app/journal.html"}]}</script>
 <!--/SEO-->
 <link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
@@ -34,6 +32,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css?v=80217e91b1">
+<!-- light direction overlay: loads after style.css and overrides it -->
+<link rel="stylesheet" href="/assets/css/light.css?v=31e4f858d5">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -46,27 +46,10 @@
 })(document);
 </script>
 </head>
-<body data-nav="journal">
+<body data-nav="journal" class="is-light">
 
 <a class="skip-link" href="#main">Skip to content</a>
 <!--NAV-->
-<!-- utility bar -->
-<div class="util">
-  <div class="wrap">
-    <ul>
-      <li><a href="/assets/impact-brochure.pdf" target="_blank" rel="noopener">Brochure</a></li>
-      <li><a href="/en/media.html">Media</a></li>
-      <li><a href="/en/journal.html" class="is-active">Journal</a></li>
-      <li><a href="/en/contact.html">Contact</a></li>
-    </ul>
-    <div class="right">
-      <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
-      <span class="divider"></span>
-      <a href="/journal.html" class="lang" hreflang="nl">NL</a>
-      <a href="/en/journal.html" class="lang is-active" hreflang="en">EN</a>
-    </div>
-  </div>
-</div>
 
 <!-- main nav -->
 <nav class="nav">
@@ -113,6 +96,11 @@
         </div>
       </li>
     </ul>
+    <div class="nav-lang">
+      <a href="/journal.html" class="lang" hreflang="nl">NL</a>
+      <span class="divider"></span>
+      <a href="/en/journal.html" class="lang is-active" hreflang="en">EN</a>
+    </div>
     <a href="/en/events.html#upcoming" class="pill pill--primary pill--sm">UPCOMING EVENTS</a>
     <button class="burger" aria-label="Open menu"><span></span></button>
   </div>
@@ -310,5 +298,6 @@
 <script src="/assets/js/consent.js?v=887c3c6c8b"></script>
 <script defer src="/assets/js/analytics.js?v=0799d23e0c"></script>
 <script src="/assets/js/main.js?v=4be17547a6"></script>
+<script src="/assets/js/light-nav.js?v=a5fbe9f047"></script>
 </body>
 </html>

@@ -31,7 +31,9 @@ SITE = ROOT / "site"
 # own (shorter) cache window in netlify.toml instead
 TARGETS = [
     "assets/css/style.css",
+    "assets/css/light.css",
     "assets/js/main.js",
+    "assets/js/light-nav.js",
     "assets/js/consent.js",
     "assets/js/analytics.js",
     "assets/js/boxoffice.js",

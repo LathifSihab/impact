@@ -1,4 +1,4 @@
-"""Injects the shared utility bar + nav + mobile menu and the footer into every page
+"""Injects the shared nav + mobile menu and the footer into every page
 in site/, between the <!--NAV--> / <!--/NAV--> and <!--FOOTER--> / <!--/FOOTER--> markers.
 
 Run after editing the templates below:  python tools/inject.py
@@ -10,23 +10,6 @@ import re
 SITE = pathlib.Path(__file__).resolve().parent.parent / "site"
 
 NAV = """
-<!-- utility bar -->
-<div class="util">
-  <div class="wrap">
-    <ul>
-      <li><a href="assets/impact-brochure.pdf" target="_blank" rel="noopener">Brochure</a></li>
-      <li><a href="media.html"{a_media}>Media</a></li>
-      <li><a href="journal.html"{a_journal}>Journal</a></li>
-      <li><a href="contact.html"{a_contact}>Contact</a></li>
-    </ul>
-    <div class="right">
-      <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
-      <span class="divider"></span>
-      <a href="/{page_nl}" class="lang is-active" hreflang="nl">NL</a>
-      <a href="/en/{page_en}" class="lang" hreflang="en">EN</a>
-    </div>
-  </div>
-</div>
 
 <!-- main nav -->
 <nav class="nav">
@@ -73,6 +56,11 @@ NAV = """
         </div>
       </li>
     </ul>
+    <div class="nav-lang">
+      <a href="/{page_nl}" class="lang is-active" hreflang="nl">NL</a>
+      <span class="divider"></span>
+      <a href="/en/{page_en}" class="lang" hreflang="en">EN</a>
+    </div>
     <a href="events.html#upcoming" class="pill pill--primary pill--sm">UPCOMING EVENTS</a>
     <button class="burger" aria-label="Menu openen"><span></span></button>
   </div>
@@ -196,8 +184,7 @@ ACTIVE = ' class="is-active"'
 
 
 def nav_for(page, filename="index.html"):
-    fields = {k: "" for k in ("c_over", "c_events", "c_samenwerken", "c_social",
-                              "a_media", "a_journal", "a_contact")}
+    fields = {k: "" for k in ("c_over", "c_events", "c_samenwerken", "c_social")}
     # the switch points at this page's counterpart in the other language
     fields["page_nl"] = "" if filename == "index.html" else filename
     fields["page_en"] = "" if filename == "index.html" else filename
@@ -205,9 +192,6 @@ def nav_for(page, filename="index.html"):
             "social": "c_social"}.get(page)
     if main:
         fields[main] = ' class="is-current"'
-    util = {"media": "a_media", "journal": "a_journal", "contact": "a_contact"}.get(page)
-    if util:
-        fields[util] = ACTIVE
     return NAV.format(**fields)
 
 
@@ -226,9 +210,9 @@ def footer_for(page, html=""):
 
 def inject(path):
     html = path.read_text(encoding="utf8")
-    # A page can opt out of the shared chrome with data-inject="off". The light
-    # direction variant does: it retires the utility bar and moves the language
-    # switch into the nav, so re-injecting the template would silently revert it.
+    # A page can opt out of the shared chrome with data-inject="off", for a
+    # one-off that needs a hand-built nav. No page uses it today — the light
+    # direction lives in the template above, so every page gets it from here.
     if re.search(r'<body[^>]*data-inject="off"', html):
         return 0
     page = re.search(r'<body[^>]*data-nav="([^"]*)"', html)
