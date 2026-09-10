@@ -12,14 +12,19 @@
 
 body.is-light{
   /* --- 1. palette ------------------------------------------------------- */
-  --paper:#FBFAF7;      /* default page ground */
-  --raised:#FFFFFF;     /* cards, panels, dropdowns — white is now the LIFT */
-  --recess:#F1EEE7;     /* alternating bands, footer */
-  --ink-l:#1D1B18;      /* type only, never a ground */
-  --muted:#6E6A62;
-  --faint:#938E85;
-  --line:#E5E1D8;
-  --line-soft:#EFECE4;
+  /* Sampled from the client's own site, which uses no black type at all:
+     a warm bone ground, burgundy display type, red for accents and card
+     titles. The earlier #1D1B18 ink was the "black lettering" to remove —
+     burgundy replaces it everywhere, including the few places the token is
+     used as a ground (button fills, the skip link). */
+  --paper:#F4F1EA;      /* warm bone — the ground on their existing site */
+  --raised:#FBF9F4;     /* cards and panels, one step up from the ground */
+  --recess:#EAE5DA;     /* alternating bands, footer */
+  --ink-l:#560216;      /* brand burgundy: display type, was black */
+  --muted:#6B4A4F;      /* body copy — warm, reads as part of the burgundy family */
+  --faint:#7A6357;      /* labels, meta, captions */
+  --line:#E0D9CC;
+  --line-soft:#EBE5D9;
 
   /* the brand reds are untouched — with nothing dark competing they carry
      all of the emphasis on their own */
@@ -596,3 +601,50 @@ html.is-past-hero body.is-light .nav .util .divider{background:var(--line)}
    the reader is into the page — the links are still in the footer and,
    below 820px, in the mobile menu */
 html.is-past-hero body.is-light .nav .util .wrap{padding-top:7px;padding-bottom:7px}
+
+/* ======================================================================
+   TYPE HIERARCHY — burgundy display, red card titles
+   ======================================================================
+   The reference site splits its type two ways: the big display headings are
+   burgundy, and the smaller card titles are red. That split is what keeps a
+   page of red from shouting — the red lands on the short strings only. */
+
+body.is-light h1,
+body.is-light h2,
+body.is-light .d-xl,
+body.is-light .d-l,
+body.is-light .d-m,
+body.is-light .pull-quote{color:var(--ink-l)}
+
+/* card titles take the red */
+body.is-light .route h3,
+body.is-light .format-row .name,
+body.is-light .overlay-meta .item h3,
+body.is-light .cta-card--ink h3,
+body.is-light .cta-card--burgundy h3,
+body.is-light .stat .k{color:var(--red)}
+
+/* anything sitting on the red or over video keeps its own colours */
+body.is-light .section--red h1,
+body.is-light .section--red h2,
+body.is-light .section--red .d-l,
+body.is-light .section--red .d-m,
+body.is-light .hero h1,
+body.is-light .hero--page h1,
+body.is-light .hero--event h1,
+body.is-light .hero--page .d-m,
+body.is-light .glass h3,
+body.is-light .shot h3{color:#fff}
+body.is-light .section--red .running,
+body.is-light .section--red .label{color:rgba(255,255,255,.72)}
+
+/* the nav follows the same rule: burgundy marks, red for the current page */
+html.is-past-hero body.is-light .nav a,
+html.is-past-hero body.is-light .nav .top{color:var(--ink-l)}
+html.is-past-hero body.is-light .nav .util a{color:var(--muted)}
+
+/* hairline-framed cards on bone rather than white-on-white */
+body.is-light .route,
+body.is-light .format-row,
+body.is-light .overlay-meta .item,
+body.is-light .stat{background:var(--raised);border-color:var(--line)}
