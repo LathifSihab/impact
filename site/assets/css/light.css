@@ -563,3 +563,36 @@ body.is-light .nav-main li.is-current > a.top::after{
   content:"";position:absolute;left:0;right:0;bottom:8px;height:2px;background:#fff}
 html.is-past-hero body.is-light .nav-main li.is-current > a.top{color:var(--red)}
 html.is-past-hero body.is-light .nav-main li.is-current > a.top::after{background:var(--red)}
+
+
+/* ======================================================================
+   THE UTILITY ROW
+   ======================================================================
+   Retiring this bar to kill the black band also removed Brochure, Media,
+   Journal and Contact from the header — four destinations that were one click
+   away and became footer-only. The bar is back, inside <nav>, so it inherits
+   both header states: white marks over the video, ink on the paper bar. It is
+   the ground that was the problem, never the row.
+
+   Instagram and the utility links share the row; the language switch stays in
+   the main row beside the CTA, where it is easier to hit. */
+
+body.is-light .nav .util{background:transparent;color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.16)}
+body.is-light .nav .util .wrap{padding-top:9px;padding-bottom:9px}
+body.is-light .nav .util a{color:rgba(255,255,255,.8)}
+body.is-light .nav .util a:hover,
+body.is-light .nav .util a.is-active{color:#fff}
+body.is-light .nav .util .divider{background:rgba(255,255,255,.3)}
+
+html.is-past-hero body.is-light .nav .util{background:transparent;
+  border-bottom-color:var(--line)}
+html.is-past-hero body.is-light .nav .util a{color:var(--muted)}
+html.is-past-hero body.is-light .nav .util a:hover{color:var(--ink-l)}
+html.is-past-hero body.is-light .nav .util a.is-active{color:var(--red)}
+html.is-past-hero body.is-light .nav .util .divider{background:var(--line)}
+
+/* the compacted bar drops the utility row so the header stays shallow once
+   the reader is into the page — the links are still in the footer and,
+   below 820px, in the mobile menu */
+html.is-past-hero body.is-light .nav .util .wrap{padding-top:7px;padding-bottom:7px}

@@ -33,7 +33,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css?v=80217e91b1">
 <!-- light direction overlay: loads after style.css and overrides it -->
-<link rel="stylesheet" href="assets/css/light.css?v=31e4f858d5">
+<link rel="stylesheet" href="assets/css/light.css?v=3af420eed1">
 <!-- boot: runs before first paint. Marks the document as scripted, so the
      scroll-reveal start state never applies to a page that cannot animate. Also
      consumes the preloader flag: whichever page a visitor lands on first is the
@@ -51,8 +51,24 @@
 <a class="skip-link" href="#main">Naar de inhoud</a>
 <!--NAV-->
 
-<!-- main nav -->
+<!-- main nav. The utility row lives INSIDE <nav> rather than above it, so the
+     whole header is one overlaying unit: transparent over the hero video and a
+     paper bar past it. As a sibling it would have sat in normal flow and put a
+     band back on top of the video. -->
 <nav class="nav">
+  <div class="util">
+    <div class="wrap">
+      <ul>
+        <li><a href="assets/impact-brochure.pdf" target="_blank" rel="noopener">Brochure</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li><a href="journal.html" class="is-active">Journal</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="right">
+        <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
   <div class="wrap">
     <a href="index.html" class="logo" aria-label="IMPACT — home">
       <img src="assets/brand/impact-logo.png" alt="IMPACT" width="647" height="145">

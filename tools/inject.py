@@ -1,4 +1,4 @@
-"""Injects the shared nav + mobile menu and the footer into every page
+"""Injects the shared nav (utility row + main row) + mobile menu and the footer into every page
 in site/, between the <!--NAV--> / <!--/NAV--> and <!--FOOTER--> / <!--/FOOTER--> markers.
 
 Run after editing the templates below:  python tools/inject.py
@@ -11,8 +11,24 @@ SITE = pathlib.Path(__file__).resolve().parent.parent / "site"
 
 NAV = """
 
-<!-- main nav -->
+<!-- main nav. The utility row lives INSIDE <nav> rather than above it, so the
+     whole header is one overlaying unit: transparent over the hero video and a
+     paper bar past it. As a sibling it would have sat in normal flow and put a
+     band back on top of the video. -->
 <nav class="nav">
+  <div class="util">
+    <div class="wrap">
+      <ul>
+        <li><a href="assets/impact-brochure.pdf" target="_blank" rel="noopener">Brochure</a></li>
+        <li><a href="media.html"{a_media}>Media</a></li>
+        <li><a href="journal.html"{a_journal}>Journal</a></li>
+        <li><a href="contact.html"{a_contact}>Contact</a></li>
+      </ul>
+      <div class="right">
+        <a href="https://www.instagram.com/impact___collective/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
   <div class="wrap">
     <a href="index.html" class="logo" aria-label="IMPACT — home">
       <img src="assets/brand/impact-logo.png" alt="IMPACT" width="647" height="145">
@@ -184,7 +200,8 @@ ACTIVE = ' class="is-active"'
 
 
 def nav_for(page, filename="index.html"):
-    fields = {k: "" for k in ("c_over", "c_events", "c_samenwerken", "c_social")}
+    fields = {k: "" for k in ("c_over", "c_events", "c_samenwerken", "c_social",
+                              "a_media", "a_journal", "a_contact")}
     # the switch points at this page's counterpart in the other language
     fields["page_nl"] = "" if filename == "index.html" else filename
     fields["page_en"] = "" if filename == "index.html" else filename
@@ -192,6 +209,9 @@ def nav_for(page, filename="index.html"):
             "social": "c_social"}.get(page)
     if main:
         fields[main] = ' class="is-current"'
+    util = {"media": "a_media", "journal": "a_journal", "contact": "a_contact"}.get(page)
+    if util:
+        fields[util] = ACTIVE
     return NAV.format(**fields)
 
 
