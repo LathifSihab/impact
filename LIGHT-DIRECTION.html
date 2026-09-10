@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}</style>
+<title>IMPACT Light Direction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Figtree:wght@400;500;600;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FBFAF7;
+  --raised:#FFFFFF;
+  --recess:#F1EEE7;
+  --ink:#1D1B18;
+  --muted:#6E6A62;
+  --faint:#938E85;
+  --line:#E5E1D8;
+  --line-soft:#EFECE4;
+  --accent:#CA0013;
+  --accent-soft:#FBEDEE;
+  --ok:#3F6B4A;
+  --shadow:0 18px 44px -30px rgba(29,27,24,.45);
+  --display:'Archivo Black','Arial Black',system-ui,sans-serif;
+  --text:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+  --gut:clamp(20px,5vw,64px);
+  --measure:66ch;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#151412; --raised:#1D1C19; --recess:#100F0E;
+    --ink:#F2EFE9; --muted:#A8A297; --faint:#847E74;
+    --line:#302E2A; --line-soft:#26241F;
+    --accent:#FF5C5C; --accent-soft:#2A1A1A;
+    --ok:#8FBF9C;
+    --shadow:0 18px 44px -30px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151412; --raised:#1D1C19; --recess:#100F0E;
+  --ink:#F2EFE9; --muted:#A8A297; --faint:#847E74;
+  --line:#302E2A; --line-soft:#26241F;
+  --accent:#FF5C5C; --accent-soft:#2A1A1A;
+  --ok:#8FBF9C;
+  --shadow:0 18px 44px -30px rgba(0,0,0,.8);
+}
+
+body{background:var(--paper);color:var(--ink);font-family:var(--text);
+  font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+.page{max-width:1080px;margin:0 auto;padding:0 var(--gut) 140px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent)}
+code,.mono{font-family:var(--mono);font-size:.86em}
+
+.eyebrow{font-family:var(--text);font-weight:800;font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--faint)}
+
+/* masthead */
+.mast{padding:clamp(72px,11vw,132px) 0 clamp(56px,7vw,84px);
+  border-bottom:1px solid var(--line)}
+.mast h1{font-family:var(--display);font-size:clamp(38px,7.4vw,84px);line-height:.94;
+  letter-spacing:-.025em;text-transform:uppercase;margin:22px 0 0;max-width:14ch}
+.mast h1 em{font-style:normal;color:var(--accent)}
+.mast .stand{margin-top:28px;max-width:56ch;font-size:clamp(17px,2vw,20px);
+  line-height:1.6;color:var(--muted)}
+.mast .facts{display:flex;flex-wrap:wrap;gap:0;margin-top:44px;
+  border-top:1px solid var(--line-soft)}
+.mast .facts div{flex:1 1 190px;padding:18px 22px 18px 0;border-right:1px solid var(--line-soft)}
+.mast .facts div:last-child{border-right:0}
+.mast .facts dt{font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:7px}
+.mast .facts dd{margin:0;font-size:14.5px;color:var(--ink)}
+
+/* sections */
+section.blk{padding:clamp(64px,9vw,112px) 0;border-bottom:1px solid var(--line)}
+section.blk:last-of-type{border-bottom:0}
+.hd{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-bottom:44px}
+.hd h2{font-family:var(--display);font-size:clamp(24px,3.4vw,40px);line-height:1.02;
+  letter-spacing:-.02em;text-transform:uppercase}
+.hd p{max-width:var(--measure);color:var(--muted)}
+.n{color:var(--accent);font-family:var(--mono);font-size:.42em;vertical-align:.9em;
+  letter-spacing:0;margin-right:.7em}
+
+.prose p+p{margin-top:18px}
+.prose{max-width:var(--measure)}
+
+/* diagnosis list */
+.diag{display:grid;gap:0;border-top:1px solid var(--line-soft)}
+.diag div{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(16px,3vw,44px);
+  padding:20px 0;border-bottom:1px solid var(--line-soft);align-items:start}
+.diag b{font-weight:600;font-size:15.5px}
+.diag b code{color:var(--accent);background:var(--accent-soft);padding:1px 5px}
+.diag span{color:var(--muted);font-size:15px}
+@media (max-width:640px){.diag div{grid-template-columns:1fr;gap:6px}}
+
+/* rhythm scale */
+.scale{display:grid;gap:9px;margin-top:8px}
+.scale .row{display:grid;grid-template-columns:96px 74px minmax(0,1fr);gap:16px;align-items:center;
+  font-size:14px}
+.scale .bar{height:9px;background:var(--accent);opacity:.16}
+.scale .row.key .bar{opacity:.85}
+.scale .tok{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+.scale .val{font-family:var(--mono);font-size:12.5px;color:var(--faint);
+  font-variant-numeric:tabular-nums}
+.scale .use{color:var(--muted);font-size:13.5px;grid-column:3}
+@media (max-width:640px){.scale .row{grid-template-columns:88px 62px}.scale .bar{display:none}}
+
+/* section-by-section table */
+.tblwrap{overflow-x:auto;border:1px solid var(--line);background:var(--raised)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px}
+th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);background:var(--recess);border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+td code{color:var(--muted)}
+td .was{color:var(--faint);text-decoration:line-through}
+td .now{color:var(--ink);font-weight:600}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;padding:3px 8px;border:1px solid var(--line);color:var(--muted)}
+.tag.hot{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+
+/* swatches */
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line)}
+.sw article{background:var(--raised);padding:0}
+.sw .chip{height:96px;border-bottom:1px solid var(--line)}
+.sw .meta{padding:14px 16px 18px}
+.sw h4{margin:0 0 4px;font-size:13.5px;font-weight:700}
+.sw .hex{font-family:var(--mono);font-size:12px;color:var(--faint);
+  font-variant-numeric:tabular-nums}
+.sw .role{margin-top:9px;font-size:13px;color:var(--muted);line-height:1.5}
+
+/* code */
+pre{margin:0;overflow-x:auto;background:var(--raised);border:1px solid var(--line);
+  padding:20px 22px;font-family:var(--mono);font-size:13px;line-height:1.72;
+  color:var(--ink)}
+pre .c{color:var(--faint)}
+pre .p{color:var(--accent)}
+.codecap{font-size:12.5px;color:var(--faint);margin:10px 0 0;max-width:var(--measure)}
+.stack{display:grid;gap:34px}
+
+/* callout */
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:18px 22px;max-width:var(--measure)}
+.note p{font-size:15px;color:var(--ink)}
+.note .eyebrow{color:var(--accent);display:block;margin-bottom:7px}
+
+/* keep/kill */
+.kk{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(20px,3vw,36px)}
+.kk section{border-top:2px solid var(--ink);padding-top:16px}
+.kk section.kill{border-top-color:var(--accent)}
+.kk h4{margin:0 0 12px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.kk ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.kk li{font-size:14.5px;color:var(--muted);padding-left:18px;position:relative;line-height:1.55}
+.kk li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:1px;background:var(--faint)}
+.kk li b{color:var(--ink);font-weight:600}
+
+footer.end{padding-top:56px;color:var(--faint);font-size:13.5px;max-width:var(--measure)}
+</style>
+
+</head>
+<body>
+<div class="page">
+
+<header class="mast">
+  <div class="eyebrow">Design direction · site/ · September 2026</div>
+  <h1>Let the page <em>breathe</em></h1>
+  <p class="stand">A light, spacious rebuild of the IMPACT demo site — same content, same nine sections, none of the black grounds. Every number below is a delta against what is in <code>site/assets/css/style.css</code> today.</p>
+  <dl class="facts">
+    <div><dt>Benchmark</dt><dd>mirterens.com — airy grid, full-bleed video header</dd></div>
+    <div><dt>Content cut</dt><dd>None. Density is solved with space, not deletion</dd></div>
+    <div><dt>Black grounds today</dt><dd>7 across 5 pages, plus the utility bar and footer</dd></div>
+    <div><dt>Touched files</dt><dd>style.css tokens, main.js nav observer, each page shell</dd></div>
+  </dl>
+</header>
+
+<section class="blk">
+  <div class="hd">
+    <h2><span class="n">01</span>What is actually making it feel heavy</h2>
+    <p>Worth naming precisely, because three of the four causes are single-token fixes rather than a redesign. The pages are not over-written — they are under-spaced and over-contrasted.</p>
+  </div>
+  <div class="diag">
+    <div><b>Sections are 120px tall on the inside, and alternate ground colour every single time</b><span><code>--pad:120px</code> with <code>.section--sand</code> on nearly every other block. The eye reads each colour flip as a hard edge, so nine sections feel like nine separate pages stacked up.</span></div>
+    <div><b>Section heads sit 56px from their content</b><span><code>.sec-head{margin-bottom:56px}</code> — barely more than a paragraph gap, so headline and grid read as one dense mass instead of a title and its contents.</span></div>
+    <div><b>Dark grounds carry long-form copy</b><span><code>.section--black</code> on the homepage formats block, over.html, events.html and samenwerken.html. Body text at <code>rgba(255,255,255,.62)</code> on <code>#0F1015</code> is the single biggest source of the "intense" read.</span></div>
+    <div><b>The page opens on a black utility bar</b><span><code>.util</code> is <code>var(--black)</code> and sits above the nav, so the first 40px of every page is a dark band before the hero has even started.</span></div>
+    <div><b>The hero is a fixed 760px box under an opaque white nav</b><span><code>.hero{height:760px}</code> with <code>.nav{background:var(--white);position:sticky}</code>. The video never reaches the top of the screen, and the nav is a permanent white bar cutting across it.</span></div>
+  </div>
+</section>
+
+<section class="blk">
+  <div class="hd">
+    <h2><span class="n">02</span>One vertical rhythm, six steps</h2>
+    <p>mirterens holds a very small set of spacing values and uses the biggest one far more often than feels comfortable. Replace the ad-hoc margins in style.css with these six tokens and use nothing in between.</p>
+  </div>
+  <div class="scale">
+    <div class="row"><span class="tok">--sp-1</span><span class="val">8px</span><span class="bar" style="width:4%"></span></div>
+    <div class="row"><span class="use">label to the thing it labels · icon gaps</span></div>
+    <div class="row"><span class="tok">--sp-2</span><span class="val">20px</span><span class="bar" style="width:9%"></span></div>
+    <div class="row"><span class="use">paragraph to paragraph · list items</span></div>
+    <div class="row"><span class="tok">--sp-3</span><span class="val">40px</span><span class="bar" style="width:18%"></span></div>
+    <div class="row"><span class="use">grid gap — up from the current 24–32px</span></div>
+    <div class="row key"><span class="tok">--sp-4</span><span class="val">88px</span><span class="bar" style="width:40%"></span></div>
+    <div class="row"><span class="use">section head to section content — replaces <code>.sec-head</code>'s 56px</span></div>
+    <div class="row key"><span class="tok">--sp-5</span><span class="val">clamp(96px, 13vw, 176px)</span><span class="bar" style="width:72%"></span></div>
+    <div class="row"><span class="use">the new <code>--pad</code>. Section top and bottom, every section</span></div>
+    <div class="row key"><span class="tok">--sp-6</span><span class="val">clamp(140px, 18vw, 240px)</span><span class="bar" style="width:100%"></span></div>
+    <div class="row"><span class="use">before and after a full-bleed moment — the reel, the newsletter dome, the footer</span></div>
+  </div>
+  <div class="note" style="margin-top:38px">
+    <span class="eyebrow">The rule that does the most work</span>
+    <p>Where two sections share the same ground colour, the padding does <em>not</em> double — collapse to a single <code>--sp-5</code> between them. That is what stops an airy page from turning into an endless one.</p>
+  </div>
+</section>
+
+<section class="blk">
+  <div class="hd">
+    <h2><span class="n">03</span>Hierarchy: three widths, not one</h2>
+    <p>Right now almost everything runs to the full <code>--maxw:1296px</code>. Giving each kind of content its own width is what reads as "considered" without changing a single word.</p>
+  </div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Role</th><th>Width</th><th>Where it applies</th></tr></thead>
+      <tbody>
+        <tr><td><span class="now">Full bleed</span></td><td><code>100vw</code></td><td>Hero video, the feedback reel, image bands. Edge to edge, no gutter.</td></tr>
+        <tr><td><span class="now">Grid</span></td><td><code>1296px</code></td><td>Event cards, format cards, team, partners — unchanged.</td></tr>
+        <tr><td><span class="now">Reading</span></td><td><code>62–66ch</code></td><td>Every <code>.intro</code> and <code>.body</code> paragraph. Currently these stretch to 1296px and are the hardest thing on the page to read.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="codecap">Also: raise the section-head margin from 56px to <code>--sp-4</code>, and move <code>.sec-head p</code> off <code>text-align:right</code> — the ragged right edge against a right-aligned block is a second thing for the eye to resolve.</p>
+</section>
+
+<section class="blk">
+  <div class="hd">
+    <h2><span class="n">04</span>Section by section — homepage</h2>
+    <p>Applied to <code>site/index.html</code> as it stands. The same substitutions carry to the inner pages; the only per-page decision is which single block keeps a tinted ground.</p>
+  </div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>#</th><th>Section</th><th>Ground: now → new</th><th>Spacing note</th></tr></thead>
+      <tbody>
+        <tr><td>01</td><td>Hero</td><td><span class="was">#0F1015</span> → <span class="now">video, full-viewport</span></td><td>Nav overlays it. See §06.</td></tr>
+        <tr><td>02</td><td>Voor jou <code>#voor-jou</code></td><td><span class="was">--sand</span> → <span class="now">--paper</span></td><td>First block after the hero gets <code>--sp-6</code> on top — the landing beat.</td></tr>
+        <tr><td>03</td><td>Fundamenten</td><td><span class="now">--accent, kept</span> <span class="tag hot">the one bold ground</span></td><td>Red stays. It is the brand and it is a short block. Everything else goes light so this lands.</td></tr>
+        <tr><td>04</td><td>Voor wie</td><td><span class="was">--sand</span> → <span class="now">--paper</span></td><td>No colour change from 02 — collapse the boundary padding.</td></tr>
+        <tr><td>05</td><td>Upcoming events <code>#events</code></td><td><span class="now">--recess</span></td><td>The only recessed band above the fold-and-a-half. Grid gap to <code>--sp-3</code>.</td></tr>
+        <tr><td>06</td><td>Formats</td><td><span class="was">--black</span> → <span class="now">--raised cards on --paper</span></td><td>The big one. Cards get a hairline and a shadow instead of a black ground.</td></tr>
+        <tr><td>07</td><td>Social impact</td><td><span class="now">--paper</span></td><td>Reading width on the copy column.</td></tr>
+        <tr><td>08</td><td>Feedback reel <code>#feedback</code></td><td><span class="now">--recess, full bleed</span></td><td><code>--sp-6</code> above and below.</td></tr>
+        <tr><td>09</td><td>Journal</td><td><span class="was">--sand</span> → <span class="now">--paper</span></td><td>Cards carry the separation, not the ground.</td></tr>
+        <tr><td>10</td><td>Nieuwsbrief</td><td><span class="now">--recess</span></td><td>Closing recess sets up the footer.</td></tr>
+        <tr><td>11</td><td>Footer</td><td><span class="was">--black</span> → <span class="now">--recess, ink type</span></td><td>A hairline top border replaces the colour change.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="codecap">Net effect: two ground colours plus one red block, instead of five alternating flips and two black walls.</p>
+</section>
+
+<section class="blk">
+  <div class="hd">
+    <h2><span class="n">05</span>The light palette</h2>
+    <p>Drop-in replacements for the <code>:root</code> block in style.css. The reds are untouched — they are the brand and they carry all the emphasis now that nothing else is dark.</p>
+  </div>
+  <div class="sw">
+    <article><div class="chip" style="background:#FBFAF7"></div><div class="meta"><h4>Paper</h4><div class="hex">#FBFAF7 · --paper</div><p class="role">Default page ground. Warmer and two steps lighter than the current <code>--bone</code>.</p></div></article>
+    <article><div class="chip" style="background:#FFFFFF;border-bottom-color:#E5E1D8"></div><div class="meta"><h4>Raised</h4><div class="hex">#FFFFFF · --raised</div><p class="role">Cards, the waitlist panel, dropdowns. White is now the <em>lifted</em> surface, not the ground.</p></div></article>
+    <article><div class="chip" style="background:#F1EEE7"></div><div class="meta"><h4>Recess</h4><div class="hex">#F1EEE7 · --recess</div><p class="role">Alternating bands and the footer. Replaces every <code>--sand</code> and every <code>--black</code> ground.</p></div></article>
+    <article><div class="chip" style="background:#1D1B18"></div><div class="meta"><h4>Ink</h4><div class="hex">#1D1B18 · --ink</div><p class="role">Type only — never a ground. Warmed off the current <code>#0F1015</code> so it sits on paper without ringing.</p></div></article>
+    <article><div class="chip" style="background:#6E6A62"></div><div class="meta"><h4>Muted</h4><div class="hex">#6E6A62 · --muted</div><p class="role">Body copy and standfirsts. 6.1:1 on paper.</p></div></article>
+    <article><div class="chip" style="background:#E5E1D8"></div><div class="meta"><h4>Hairline</h4><div class="hex">#E5E1D8 · --line</div><p class="role">Does the work the black grounds used to do: separates without shouting.</p></div></article>
+    <article><div class="chip" style="background:#CA0013"></div><div class="meta"><h4>Red</h4><div class="hex">#CA0013 · --red</div><p class="role">Unchanged. Primary CTA, the fundamenten ground, and nothing else.</p></div></article>
+    <article><div class="chip" style="background:#560216"></div><div class="meta"><h4>Burgundy</h4><div class="hex">#560216 · --burgundy</div><p class="role">Demote to CTA cards only. Retire it as a full-section ground on social-impact and samenwerken.</p></div></article>
+  </div>
+  <div class="kk" style="margin-top:44px">
+    <section>
+      <h4>Keep</h4>
+      <ul>
+        <li><b>Archivo Black uppercase display.</b> On a light ground it reads as confident rather than aggressive — it needs the space more than it needs the dark.</li>
+        <li><b>Round pills, square everything else.</b> The existing rule is good and distinctive; don't add radius elsewhere.</li>
+        <li><b>The red.</b> With no black competing, one accent carries the whole page.</li>
+      </ul>
+    </section>
+    <section class="kill">
+      <h4>Retire</h4>
+      <ul>
+        <li><b><code>.section--black</code> entirely.</b> Delete the class rather than leaving it available.</li>
+        <li><b>The black utility bar.</b> Fold Brochure / Media / Journal / Contact into the nav overlay and the footer; the language switch moves into the nav.</li>
+        <li><b>The black mobile menu.</b> Paper ground, ink type, hairline dividers — the same menu, unlit.</li>
+        <li><b>The black footer.</b> <code>--recess</code> with a hairline top edge.</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<section class="blk">
+  <div class="hd">
+    <h2><span class="n">06</span>Full-screen video hero and overlay nav</h2>
+    <p>The pieces already exist — <code>site/assets/video/hero.mp4</code> and <code>.webm</code> ship, and <code>main.js</code> already attaches the video progressively. Three changes turn it into the mirterens-style header.</p>
+  </div>
+  <div class="stack">
+    <div>
+      <div class="eyebrow" style="display:block;margin-bottom:12px">A · The hero fills the viewport</div>
+<pre><span class="c">/* replaces .hero{height:760px;background:var(--black)} */</span>
+.hero{
+  position:relative;
+  height:100svh;              <span class="c">/* svh, not vh — no jump when mobile chrome hides */</span>
+  min-height:560px;
+  overflow:hidden;
+  background:var(--recess);   <span class="c">/* light, so a slow video never flashes black */</span>
+}
+.hero video,.hero &gt; picture img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;
+}
+<span class="c">/* Scrim only where type sits. A full-frame overlay is what made the old
+   hero feel heavy — this darkens the bottom third and leaves the rest clean. */</span>
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to top,
+    rgba(20,18,16,.62) 0%,
+    rgba(20,18,16,.20) 42%,
+    rgba(20,18,16,0)   72%);
+}
+.hero-content{
+  position:relative;z-index:3;height:100%;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:clamp(56px,8vh,104px);
+}</pre>
+      <p class="codecap">Keep the <code>&lt;picture&gt;</code> poster underneath — it is what renders under <code>prefers-reduced-motion</code>, on Save-Data, and before the video decodes. The <code>loadeddata</code> → <code>.is-ready</code> fade in main.js already handles the handoff.</p>
+    </div>
+
+    <div>
+      <div class="eyebrow" style="display:block;margin-bottom:12px">B · The nav overlays, then scrolls away</div>
+<pre>.nav{
+  position:absolute;top:0;left:0;right:0;z-index:60;
+  background:transparent;
+  border-bottom:1px solid rgba(255,255,255,.16);
+  transition:background 320ms ease, border-color 320ms ease,
+             transform 320ms ease;
+}
+<span class="c">/* over the video: white marks, no plate */</span>
+.nav a,.nav .top{color:#fff}
+.burger span,.burger span::before,.burger span::after{background:#fff}
+.nav .logo img{filter:brightness(0) invert(1)}
+
+<span class="c">/* past the hero: becomes a real sticky bar on paper */</span>
+html.is-past-hero .nav{
+  position:fixed;
+  background:var(--paper);
+  border-color:var(--line);
+  box-shadow:0 14px 34px -26px rgba(29,27,24,.28);
+}
+html.is-past-hero .nav a{color:var(--ink)}
+html.is-past-hero .nav .logo img{filter:none}
+
+<span class="c">/* and hides on scroll-down, returns on scroll-up */</span>
+html.is-past-hero.is-scrolling-down .nav{transform:translateY(-100%)}
+
+@media (prefers-reduced-motion:reduce){
+  .nav{transition:none}
+  html.is-past-hero.is-scrolling-down .nav{transform:none}
+}</pre>
+      <p class="codecap">Two flags instead of the current single <code>is-scrolled</code>: <code>is-past-hero</code> from an <code>IntersectionObserver</code> on the hero's last 80px (cheaper and more accurate than a scroll threshold), and <code>is-scrolling-down</code> from the existing scroll handler, keeping its hysteresis band so it cannot flap on a trackpad. Keep publishing <code>--nav-h</code> — the event page metabar and every <code>[id]</code> scroll offset read it.</p>
+    </div>
+
+    <div>
+      <div class="eyebrow" style="display:block;margin-bottom:12px">C · The inner-page heroes</div>
+      <p class="prose" style="color:var(--muted)"><code>.hero--page</code> currently runs a <code>.84</code>-opacity scrim to make long copy legible over bright frames. Under the light direction it should not be a dark hero at all: use a <code>60svh</code> image band with the headline set <em>below</em> it on paper. That removes six scrims across the site in one change and is closer to what mirterens does on everything except its front page.</p>
+    </div>
+
+    <div>
+      <div class="eyebrow" style="display:block;margin-bottom:12px">If this is rebuilt in Tailwind instead</div>
+<pre><span class="c">&lt;!-- hero --&gt;</span>
+&lt;header class="relative h-[100svh] min-h-[560px] overflow-hidden bg-stone-100"&gt;
+  &lt;video autoplay muted loop playsinline poster="…"
+    class="absolute inset-0 h-full w-full object-cover"&gt;&lt;/video&gt;
+  &lt;div class="pointer-events-none absolute inset-0 z-10
+    bg-gradient-to-t from-stone-950/60 via-stone-950/20 to-transparent"&gt;&lt;/div&gt;
+  &lt;div class="relative z-20 flex h-full flex-col justify-end pb-14 md:pb-24"&gt;…&lt;/div&gt;
+&lt;/header&gt;
+
+<span class="c">&lt;!-- nav: group-based, toggled by one class on &lt;html&gt; --&gt;</span>
+&lt;nav class="absolute inset-x-0 top-0 z-50 bg-transparent text-white
+  transition-[background-color,transform] duration-300
+  [html.is-past-hero_&amp;]:fixed
+  [html.is-past-hero_&amp;]:bg-[--paper]
+  [html.is-past-hero_&amp;]:text-stone-900
+  [html.is-past-hero.is-scrolling-down_&amp;]:-translate-y-full
+  motion-reduce:transition-none"&gt;…&lt;/nav&gt;</pre>
+      <p class="codecap">Spacing tokens map to a custom scale rather than Tailwind's default: extend <code>spacing</code> with <code>section: clamp(96px,13vw,176px)</code> and <code>beat: clamp(140px,18vw,240px)</code>, then <code>py-section</code> / <code>py-beat</code> read as the rhythm rather than as arbitrary numbers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="blk">
+  <div class="hd">
+    <h2><span class="n">07</span>Order to do it in</h2>
+    <p>Sequenced so the page looks better after each step and nothing is left half-converted overnight.</p>
+  </div>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Step</th><th>Change</th><th>Blast radius</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Swap the <code>:root</code> colour tokens; point <code>--sand</code> and <code>--black</code> aliases at the new light values</td><td>Every page goes light at once, with no markup edits</td></tr>
+        <tr><td>2</td><td>Add the six spacing tokens; repoint <code>--pad</code> and <code>.sec-head</code></td><td>Global rhythm</td></tr>
+        <tr><td>3</td><td>Delete <code>.section--black</code>, restyle the affected blocks as cards</td><td>index, over, events, samenwerken</td></tr>
+        <tr><td>4</td><td>Retire the utility bar; move its links into the nav overlay and footer</td><td>All page shells + the mobile menu</td></tr>
+        <tr><td>5</td><td>Hero to <code>100svh</code>, nav to overlay, add the <code>is-past-hero</code> observer</td><td>style.css + main.js</td></tr>
+        <tr><td>6</td><td>Convert <code>.hero--page</code> to image-band-plus-paper</td><td>The six inner pages</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="end">
+  Written against <code>site/assets/css/style.css</code> (1,649 lines) and <code>site/assets/js/main.js</code> at commit <code>503930b</code>. Contrast figures are against <code>#FBFAF7</code>. Nothing here removes content — the section count, copy and card counts are identical before and after.
+</footer>
+
+</div>
+
+</body>
+</html>

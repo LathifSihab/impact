@@ -226,6 +226,11 @@ def footer_for(page, html=""):
 
 def inject(path):
     html = path.read_text(encoding="utf8")
+    # A page can opt out of the shared chrome with data-inject="off". The light
+    # direction variant does: it retires the utility bar and moves the language
+    # switch into the nav, so re-injecting the template would silently revert it.
+    if re.search(r'<body[^>]*data-inject="off"', html):
+        return 0
     page = re.search(r'<body[^>]*data-nav="([^"]*)"', html)
     page = page.group(1) if page else ""
     out, n = html, 0
